@@ -1,4 +1,4 @@
-package dao;
+package com.strikethenote.springmarket.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import entidades.Producto;
+import com.strikethenote.springmarket.entidades.Producto;
 
 
 

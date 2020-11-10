@@ -1,4 +1,4 @@
-package dao;
+package com.strikethenote.springmarket.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

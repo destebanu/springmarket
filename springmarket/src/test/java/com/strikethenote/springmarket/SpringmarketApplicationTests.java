@@ -1,4 +1,4 @@
-package com.example.springmarket;
+package com.strikethenote.springmarket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

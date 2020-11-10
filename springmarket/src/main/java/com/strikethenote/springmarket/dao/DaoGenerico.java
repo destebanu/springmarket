@@ -1,4 +1,4 @@
-package dao;
+package com.strikethenote.springmarket.dao;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package entidades;
+package com.strikethenote.springmarket.entidades;
 
 import java.io.Serializable;
 

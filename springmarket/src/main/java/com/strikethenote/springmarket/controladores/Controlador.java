@@ -1,4 +1,4 @@
-package controladores;
+package com.strikethenote.springmarket.controladores;
 
 	import java.util.ArrayList;
 
