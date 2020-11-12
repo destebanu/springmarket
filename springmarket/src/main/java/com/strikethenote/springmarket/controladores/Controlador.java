@@ -1,36 +1,61 @@
 package com.strikethenote.springmarket.controladores;
 
-	import java.util.ArrayList;
+import java.util.ArrayList;
 
-	import java.util.List;
-	import java.util.StringTokenizer;
+import java.util.List;
+import java.util.StringTokenizer;
 
-	import javax.servlet.http.HttpServletRequest;
-	import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.stereotype.Controller;
-	import org.springframework.ui.Model;
-	import org.springframework.web.bind.annotation.GetMapping;
-	import org.springframework.web.bind.annotation.PostMapping;
-	import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-	@Controller
+import com.strikethenote.springmarket.dao.ProductoDao;
+
+@Controller
 	public class Controlador {
 		
-		// Los métodos para acceder al índice de "Strike the Note", la página principal
+		@Autowired
+		private ProductoDao productodao;
+		
+		// Métodos get y post
 		
 		@GetMapping("/index")
 		public String index (Model model, HttpSession session) {
-			
 			return "index";
 		}
 
 		@PostMapping("/index")
-		public String persistMessage0(HttpServletRequest request) {
+		public String persistMessage (HttpServletRequest request) {
 				return "product";
 		}
 		
+		@GetMapping("/productsearch")
+		public String productSearch (Model model, HttpSession session) {
+			return "product";
+		}
+		
+		@PostMapping("/productsearch")
+		public String persistMessageProductSearch (HttpServletRequest request){
+			return "index";
+		}
+		
+		@GetMapping("/productcreate")
+		public String productCreate (Model model, HttpSession session) {
+			return "product";
+		}
+		
+		@PostMapping("/productcreate")
+		public String persistMessageProductCreate (HttpServletRequest request){
+			return "index";
+		}
+		
+		// TODO método para la búsqueda usando contains de String o similar
 		
 //		@PostMapping("/persistMessage")
 //		public String index (@RequestParam("producto") String name, HttpServletRequest request) {
