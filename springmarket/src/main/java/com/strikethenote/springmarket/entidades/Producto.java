@@ -17,13 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "PROFESOR")
+@Table(name = "PRODUCTO")
 /* POJO */
-
-/* cuidado: Maven install no funciona, creo que es porque hay un problema con los paquetes.
- * El error es este: 
- * java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration,
- * you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test	*/
 public class Producto implements Serializable {	
 	
 	private static final long serialVersionUID = -4766316635642895356L;
