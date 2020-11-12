@@ -30,51 +30,27 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 		
 		// Métodos get y post
 		
-		@GetMapping("/results")
-		public String results (Model model, HttpSession session) {
-			return "results";
-		}
-		
 		@GetMapping("/index")
 		public String index (Model model) {
+			// TODO la tabla debe mostrar los últimos 8 productos añadidos
 			return "index";
 		}
 
-		@PostMapping("/index")
-		public String persistMessage (HttpServletRequest request) {
-				return "product";
-		}
+//		@PostMapping("/index")
+//		public String persistMessage (HttpServletRequest request) {
+//				return "product";
+//		}
 		
-		@GetMapping("/productsearch")
-		public String productSearch (Model model, HttpSession session) {
+		@GetMapping("/product")
+		public String product (Model model, HttpSession session) {
 			return "product";
 		}
 		
 		@PostMapping("/productsearch")
-		public String persistMessageProductSearch (HttpServletRequest request){
-			
+		public String buscarProducto (HttpServletRequest request){
+			String nombreProducto = request.getParameter("nombreproducto");
+			request.getSession().setAttribute("nombreproducto", nombreProducto);
 			return "results";
-		}
-		
-		@GetMapping("/results")
-		public ModelAndView devolverResultados () {
-			ModelAndView mav = new ModelAndView();
-
-			List<Producto> productos = productoServicio.listarProductos();
-
-			mav.addObject("productos", productos);
-			mav.setViewName("producto/results");
-			return mav;
-		}
-		
-		@PostMapping("/results")
-		public String persistMessageResults (HttpServletRequest request){
-			return "results";
-		}
-		
-		@GetMapping("/productcreate")
-		public String productCreate (Model model, HttpSession session) {
-			return "product";
 		}
 		
 		@PostMapping("/productcreate")
@@ -84,17 +60,37 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 			Double precioProducto = Double.parseDouble(request.getParameter("precioproducto"));
 			Double descuentoProducto = Double.parseDouble(request.getParameter("descuentoproducto"));
 			
-			Producto producto = new Producto();
-			producto.setNombreProducto(nombreProducto);
-			producto.setDescripcionProducto(descripcionProducto);
-			producto.setPrecioProducto(precioProducto);
-			producto.setDescuentoProducto(descuentoProducto);
+			Producto p = new Producto();
+			p.setNombreProducto(nombreProducto);
+			p.setDescripcionProducto(descripcionProducto);
+			p.setPrecioProducto(precioProducto);
+			p.setDescuentoProducto(descuentoProducto);
+			Producto producto = productoServicio.crearProducto(p);
 			
 			return "redirect:/product";
 		}
 		
+		@GetMapping("/results")
+		public String devolverResultados (Model model, HttpSession session) {
+
+			String aux = (String) session.getAttribute("nombreproducto");
+			productoServicio.buscarPorNombre(aux);
+			return "results";
+			
+			
+//			ModelAndView mav = new ModelAndView();
+//
+//			List<Producto> productos = productoServicio.listarProductos();
+//
+//			mav.addObject("productos", productos);
+//			mav.setViewName("producto/results");
+//			return mav;
+		}
 		
-		
+		@PostMapping("/results")
+		public String persistMessageResults (HttpServletRequest request){
+			return "results";
+		}
 		
 		
 		// TODO método para la búsqueda usando contains de String o similar

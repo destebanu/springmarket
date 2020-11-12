@@ -9,7 +9,11 @@ public interface ProductoServicio {
 	public Producto crearProducto (Producto producto);
 	
 	public void eliminarProducto (long idProducto);
+	
+	public Producto obtenerProducto(long idProducto);
 
 	public List<Producto> listarProductos();
+	
+	public Producto buscarPorNombre (String nombreProducto);
 	
 }
