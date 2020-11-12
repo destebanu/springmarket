@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=es>
+<html lang=es xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Strike the Note</title>	
 	<meta charset="UTF-8">
@@ -7,28 +7,29 @@
 	<meta name="keywords" content="music, instrument, guitar, note"/>
 	<meta name="author" content="Daniel Esteban & Amanda Segura" />
 	<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+		<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
 	<style th:inline="text">
   			body {
   				background-image: url(@{/imagenes/fondo.jpg})
   				}
   		</style>
+  	
 </head>
-
-
 <body>
-	
+	<form>
 	<header>
 <!--Cabecera con logo en imágenes que presentan la página-->
 
 		<figure>
-			<img align="center" th:src="@{/imagenes/logo.png}"/>
+			<img align-content="center" th:src="@{/imagenes/logo.png}"/>
 			<figcaption></figcaption>
 		</figure>
 
 	
 		<nav>
 <!--Enlace al final de la página-->
-			<a name=arriba></a>
+			<a name="arriba"></a>
 			<a href=#abajo>Ir a la parte de abajo</a>
 
 <!--Lista del menú de secciones que conduce a ellas-->
@@ -77,7 +78,23 @@
 
 			<article>
 				<p><i>"Aquí iría la tabla con los productos que al clickar pasen un distinto value y lleven a la página producto con form submit"</i></p>
-				
+				<h2>Nuestros productos</h2>
+				<table class="table table-hover">
+		<tbody>
+			<tr class="table-primary">
+				<td th:text=${}></td>
+				<td th:text=${}></td>
+				<td th:text=${}></td>
+				<td th:text=${}></td>
+			</tr>
+			<tr>
+				<td th:text=${}></td>
+				<td th:text=${}></td>
+				<td th:text=${}></td>
+				<td th:text=${}></td>
+			</tr>
+		</tbody>
+	</table>
 				
 				<table>
 					<tr>
@@ -113,9 +130,7 @@
 				Datos de contacto
 				
 			</article>
-		</section>
-
-			
+		</section>	
 	</section>
 	
 	
@@ -123,8 +138,8 @@
 <!--Pie de página que permite regresar al principio-->
 	<footer>
 		<a href=#arriba>Ir a la parte de arriba</a>
-		<a name=abajo></a>
+		<a name="abajo"></a>
 	</footer>
-
+</form>
 </body>
 </html>
