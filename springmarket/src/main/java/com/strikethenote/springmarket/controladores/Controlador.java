@@ -18,35 +18,40 @@ package com.strikethenote.springmarket.controladores;
 	@Controller
 	public class Controlador {
 		
-		// Los métodos para acceder al índice de "Strike a Note", la página principal
+		// Los métodos para acceder al índice de "Strike the Note", la página principal
 		
 		@GetMapping("/index")
 		public String index (Model model, HttpSession session) {
 			
 			return "index";
 		}
-		
-		
-		@PostMapping("/persistMessage")
-		public String index (@RequestParam("producto") String name, HttpServletRequest request) {
-					
-			request.getSession().setAttribute("r0", name);
-			return "redirect:/product";
-		}
-		
-		// Los métodos para acceder a la página genérica de producto, donde se recibiría el producto seleccionao y/o se buscan
-		
-		@GetMapping("/product")
-		public String product (Model model, HttpSession session) {
-			
-			return "index";
+
+		@PostMapping("/index")
+		public String persistMessage0(HttpServletRequest request) {
+				return "product";
 		}
 		
 		
-		@PostMapping("/generalproduct")
-		public String product (@RequestParam("producto") String name, HttpServletRequest request) {
-							
-			request.getSession().setAttribute("r0", name);
-			return "redirect:/index";
-		}
+//		@PostMapping("/persistMessage")
+//		public String index (@RequestParam("producto") String name, HttpServletRequest request) {
+//					
+//			request.getSession().setAttribute("r0", name);
+//			return "redirect:/product";
+//		}
+//		
+//		// Los métodos para acceder a la página genérica de producto, donde se recibiría el producto seleccionado y/o se buscan
+//		
+//		@GetMapping("/product")
+//		public String product (Model model, HttpSession session) {
+//			
+//			return "index";
+//		}
+//		
+//		
+//		@PostMapping("/generalproduct")
+//		public String product (@RequestParam("producto") String name, HttpServletRequest request) {
+//							
+//			request.getSession().setAttribute("r0", name);
+//			return "redirect:/index";
+//		}
 }

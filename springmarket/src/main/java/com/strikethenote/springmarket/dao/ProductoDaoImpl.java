@@ -15,6 +15,12 @@ import com.strikethenote.springmarket.entidades.Producto;
 @Repository
 @Component("ProductoDao")
 public class ProductoDaoImpl extends DaoGenericoImpl<Producto> implements ProductoDao {
+
+	@Override
+	public List<Producto> listarProductos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

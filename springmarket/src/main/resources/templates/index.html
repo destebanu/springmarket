@@ -1,145 +1,128 @@
 <!DOCTYPE html>
 <html lang=es xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Strike the Note</title>	
-	<meta charset="UTF-8">
-	<meta name="description" content="Tienda de instrumentos musicales">
-	<meta name="keywords" content="music, instrument, guitar, note"/>
-	<meta name="author" content="Daniel Esteban & Amanda Segura" />
-	<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
-		<link rel="stylesheet" type="text/css"
-	th:href="@{/css/bootstrap.min.css}" />
-	<style th:inline="text">
-  			body {
-  				background-image: url(@{/imagenes/fondo.jpg})
-  				}
-  		</style>
-  	
+<title>Strike the Note</title>
+<meta charset="UTF-8">
+<meta name="description" content="Tienda de instrumentos musicales">
+<meta name="keywords" content="music, instrument, guitar, note" />
+<meta name="author" content="Daniel Esteban & Amanda Segura" />
+<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<style th:inline="text">
+body {
+	background-image: url("/imagenes/fondo.jpg");
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+</style>
 </head>
 <body>
-	<form>
-	<header>
-<!--Cabecera con logo en imágenes que presentan la página-->
+	<form th:action="@{/index}" method="post">
+		<header>
+			<!--Cabecera con logo en imágenes que presentan la página-->
+			<figure>
+				<img class="logo" th:src="@{/imagenes/logo.png}" />
+			</figure>
+			<nav>
+				<!--Enlace al final de la página-->
+				<a name="arriba" href=#abajo><button type="button" class="btn btn-warning">Ir abajo</button></a>
 
-		<figure>
-			<img align-content="center" th:src="@{/imagenes/logo.png}"/>
-			<figcaption></figcaption>
-		</figure>
+				<!--Lista del menú de secciones que conduce a ellas-->
+				<ul>
+					<li><a href="index.html#productos">Productos</a></li>
+					<li><a href="index.html#contacto">Contacto</a></li>
+				</ul>
 
-	
-		<nav>
-<!--Enlace al final de la página-->
-			<a name="arriba"></a>
-			<a href=#abajo>Ir a la parte de abajo</a>
+			</nav>
+		</header>
+		<section class="back">
+			<!--Contenedor de secciones y artículos de la página-->
 
-<!--Lista del menú de secciones que conduce a ellas-->
-		<ul>
-			<li><a href="index.html#productos">Productos</a></li>
-			<li><a href="index.html#contacto">Contacto</a></li>	
-        </ul>		
-
-		</nav>
-	</header>
-	
-	<section class="back">
-<!--Contenedor de secciones y artículos de la página-->
-
-		<aside>	
-<!-- Barra lateral que resume y conduce a los productos-->
+			<aside>
+				<!-- Barra lateral que resume y conduce a los productos-->
 
 				<p id="resumen">Acceso a productos:</p>
 				<ul>
-			<li><a href="index.html#p1">Producto 1</a></li>
+					<li><a href="index.html#p1">Producto 1</a></li>
 
-			<li><a href="index.html#p2">Producto 2</a></li>
+					<li><a href="index.html#p2">Producto 2</a></li>
 
-			<li><a href="index.html#p3">Producto 3</a></li>
+					<li><a href="index.html#p3">Producto 3</a></li>
 
-			<li><a href="index.html#p4">Producto 4</a></li>
-			
-			<li><a href="index.html#p5">Producto 5</a></li>
+					<li><a href="index.html#p4">Producto 4</a></li>
 
-			<li><a href="index.html#p6">Producto 6</a></li>
+					<li><a href="index.html#p5">Producto 5</a></li>
 
-			<li><a href="index.html#p7">Producto 7</a></li>
+					<li><a href="index.html#p6">Producto 6</a></li>
 
-			<li><a href="index.html#p8">Producto 8</a></li>
-        </ul>
-		</aside>
+					<li><a href="index.html#p7">Producto 7</a></li>
 
-		
-<!--Sección-->
-		<section>			
-			<hgroup>
-				<h1 id="productos">Productos</h1>
-				<h2>Catálogo actual de productos de la tienda</h2>
-			</hgroup>
-<!--Productos-->			
+					<li><a href="index.html#p8">Producto 8</a></li>
+				</ul>
+			</aside>
 
-			<article>
-				<p><i>"Aquí iría la tabla con los productos que al clickar pasen un distinto value y lleven a la página producto con form submit"</i></p>
-				<h2>Nuestros productos</h2>
-				<table class="table table-hover">
-		<tbody>
-			<tr class="table-primary">
-				<td th:text=${}></td>
-				<td th:text=${}></td>
-				<td th:text=${}></td>
-				<td th:text=${}></td>
-			</tr>
-			<tr>
-				<td th:text=${}></td>
-				<td th:text=${}></td>
-				<td th:text=${}></td>
-				<td th:text=${}></td>
-			</tr>
-		</tbody>
-	</table>
-				
-				<table>
-					<tr>
-						<td id="p1">Producto 1</td>
-						<td id="p2">Producto 2</td>
-						<td id="p3">Producto 3</td>
-						<td id="p4">Producto 4</td>
-					</tr>
-					
-					<tr>
-						<td id="p5">Producto 5</td>
-						<td id="p6">Producto 6</td>
-						<td id="p7">Producto 7</td>
-						<td id="p8">Producto 8</td>
-					</tr>
-				</table>
-				
-			</article>
+
+			<!--Sección-->
+			<section>
+				<hgroup>
+					<h1 id="productos">Productos</h1>
+					<h2>Catálogo actual de productos de la tienda</h2>
+				</hgroup>
+				<!--Productos-->
+
+				<article>
+					<p>
+						<i>"Aquí iría la tabla con los productos que al clickar pasen
+							un distinto value y lleven a la página producto con form submit"</i>
+					</p>
+					<h2>Nuestros productos</h2>
+					<!-- 				<table class="table table-hover"> -->
+					<!-- 					<tbody> -->
+					<!-- 						<tr class="table-primary"> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 						</tr> -->
+					<!-- 						<tr> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 							<td th:text=${}></td> -->
+					<!-- 						</tr> -->
+					<!-- 					</tbody> -->
+					<!-- 				</table> -->
+
+				</article>
+			</section>
+			<button type="submit" class="btn btn-success">Buscar o crear
+				productos</button>
+
 		</section>
 
-			
-	</section>
-	
-	<!--Sección-->	
-		<section>		
+		<!--Sección-->
+		<section>
 			<hgroup>
 				<h1 id="contacto">Contacto</h1>
 				<h2>Formas de contactarnos</h2>
 			</hgroup>
-<!--Datos-->			
+			<!--Datos-->
 
-			<article>
-				Datos de contacto
-				
-			</article>
-		</section>	
-	</section>
-	
-	
-	
-<!--Pie de página que permite regresar al principio-->
-	<footer>
-		<a href=#arriba>Ir a la parte de arriba</a>
-		<a name="abajo"></a>
-	</footer>
-</form>
+			<article>Datos de contacto</article>
+		</section>
+
+
+
+		<!--Pie de página que permite regresar al principio-->
+		<footer>
+			<a name="abajo" href=#arriba><button type="button" class="btn btn-warning">Ir arriba</button></a>
+		</footer>
+	</form>
 </body>
 </html>
