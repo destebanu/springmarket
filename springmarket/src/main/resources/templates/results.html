@@ -33,7 +33,6 @@ border: 2px solid rgb(255, 153, 102);}
 </head>
 <body>
 <div id="fondito">
-
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
 			<figure>
@@ -53,28 +52,16 @@ border: 2px solid rgb(255, 153, 102);}
 		</header>
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
-			<h1>Nuestro cat&aacute;logo</h1>
+			<h1>Resultados de búsqueda</h1>
 			<div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
-				<div class="card-header">&iexcl;Productos con descuento!</div>
+				<div class="card-header">Productos encontrados:</div>
 				<div class="card-body">
-					<h4 class="card-title">Echa un vistazo</h4>
 					<p class="card-text">
 					<table class="table table-hover">
-						<th:block th:each="producto, iterStat: ${productos}"
-							th:if="${iterStat.index >= iterStat.size-8}">
 							<tbody>
-								<tr class="table-primary">
-									<td th:text=${productos[1].nombreproducto}></td>
-									<td th:text=${productos[2].nombreproducto}></td>
-									<td th:text=${productos[3].nombreproducto}></td>
-									<td th:text=${productos[4].nombreproducto}></td>
-								</tr>
-								<tr>
-									<td th:text=${productos[5].nombreproducto}></td>
-									<td th:text=${productos[6].nombreproducto}></td>
-									<td th:text=${productos[7].nombreproducto}></td>
-									<td th:text=${productos[8].nombreproducto}></td>
-								</tr>
+								<tr class="table-primary" th:each="producto ${productos}">
+									<td th:text=${producto.name}></td>									
+								</tr>								
 							</tbody>
 						</th:block>
 					</table>
@@ -88,7 +75,7 @@ border: 2px solid rgb(255, 153, 102);}
 					aria-valuemax="100"></div>
 			</div>
 			<br />
-			<button class="btn btn-success boton"><a target="self" href="localhost:9090/product">Buscar o crear productos</a></button>
+			<button class="btn btn-success boton"><a target="self" href="localhost:9090/productsearch">Buscar o crear productos</a></button>
 		</section>
 		<br />
 		<!--Pie de página que permite regresar al principio-->
@@ -101,6 +88,6 @@ border: 2px solid rgb(255, 153, 102);}
 			<br /> <a name="abajo" href=#arriba class="boton"><button
 					type="button" class="btn btn-warning boton">Ir arriba</button></a>
 		</footer>
-</div>
+</div>		
 </body>
 </html>

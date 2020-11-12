@@ -20,9 +20,13 @@ body {
 	margin-right: auto;
 	width: 30%;
 }
+#fondito{margin:2em; background-color: rgb(255, 238, 230,0.6);
+border: 2px solid rgb(255, 153, 102);}
 </style>
 </head>
 <body>
+<div id="fondito">
+
 	<form th:action="@{/productsearch}" method="post">
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
@@ -98,5 +102,6 @@ body {
 			<button type="submit" value="Crear" class="btn btn-success">Crear</button>
 		</div>
 	</form>
+</div>
 </body>
 </html>

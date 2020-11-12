@@ -30,6 +30,11 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 		
 		// Métodos get y post
 		
+		@GetMapping("/results")
+		public String results (Model model, HttpSession session) {
+			return "results";
+		}
+		
 		@GetMapping("/index")
 		public String index (Model model) {
 			return "index";
