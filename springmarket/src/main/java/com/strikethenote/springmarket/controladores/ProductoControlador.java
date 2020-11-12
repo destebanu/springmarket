@@ -13,12 +13,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.strikethenote.springmarket.dao.ProductoDao;
+import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
 
 @Controller
+@RequestMapping(value = "/product")
 	public class ProductoControlador {
 		
 		@Autowired
@@ -27,7 +31,7 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 		// Métodos get y post
 		
 		@GetMapping("/index")
-		public String index (Model model, HttpSession session) {
+		public String index (Model model) {
 			return "index";
 		}
 
@@ -43,7 +47,24 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 		
 		@PostMapping("/productsearch")
 		public String persistMessageProductSearch (HttpServletRequest request){
-			return "index";
+			
+			return "results";
+		}
+		
+		@GetMapping("/results")
+		public ModelAndView devolverResultados () {
+			ModelAndView mav = new ModelAndView();
+
+			List<Producto> productos = productoServicio.listarProductos();
+
+			mav.addObject("productos", productos);
+			mav.setViewName("producto/results");
+			return mav;
+		}
+		
+		@PostMapping("/results")
+		public String persistMessageResults (HttpServletRequest request){
+			return "results";
 		}
 		
 		@GetMapping("/productcreate")
@@ -52,9 +73,24 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 		}
 		
 		@PostMapping("/productcreate")
-		public String persistMessageProductCreate (HttpServletRequest request){
-			return "index";
+		public String crearProducto (HttpServletRequest request){
+			String nombreProducto = request.getParameter("nombreproducto");
+			String descripcionProducto = request.getParameter("descripcionproducto");
+			Double precioProducto = Double.parseDouble(request.getParameter("precioproducto"));
+			Double descuentoProducto = Double.parseDouble(request.getParameter("descuentoproducto"));
+			
+			Producto producto = new Producto();
+			producto.setNombreProducto(nombreProducto);
+			producto.setDescripcionProducto(descripcionProducto);
+			producto.setPrecioProducto(precioProducto);
+			producto.setDescuentoProducto(descuentoProducto);
+			
+			return "redirect:/product";
 		}
+		
+		
+		
+		
 		
 		// TODO método para la búsqueda usando contains de String o similar
 		
