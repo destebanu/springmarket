@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.strikethenote.springmarket.dao.ProductoDao;
+import com.strikethenote.springmarket.servicios.ProductoServicio;
 
 @Controller
-	public class Controlador {
+	public class ProductoControlador {
 		
 		@Autowired
-		private ProductoDao productodao;
+		private ProductoServicio productoServicio;
 		
 		// Métodos get y post
 		
