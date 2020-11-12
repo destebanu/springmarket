@@ -7,16 +7,21 @@
 	<meta name="keywords" content="music, instrument, guitar, note"/>
 	<meta name="author" content="Daniel Esteban & Amanda Segura" />
 	<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
-	<style th:inline="text">
-  			body {
-  				background-image: url(@{/imagenes/fondo.jpg})
-  				}
+	<style type="text/css">
+  			body {background-image: url("/imagenes/fondo.jpg");}
+  				
+  			div {background-color: rgba(255,153,102,0.3);
+  				margin : 2em;
+  				border : 1px solid #ff9966;}
+  				
+  			img {align : center;}
+  			
   		</style>
 </head>
 
 
 <body>
-	
+<div>
 	<header>
 <!--Cabecera con logo en imágenes que presentan la página-->
 
@@ -125,6 +130,6 @@
 		<a href=#arriba>Ir a la parte de arriba</a>
 		<a name=abajo></a>
 	</footer>
-
+</div>
 </body>
 </html>
