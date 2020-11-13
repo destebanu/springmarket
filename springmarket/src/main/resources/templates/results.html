@@ -53,14 +53,16 @@ border: 2px solid rgb(255, 153, 102);}
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
 			<h1>Resultados de búsqueda</h1>
-			<div class="card text-white bg-warning mb-3" style="max-width: 20rem;">
+			<div class="card text-white bg-warning mb-3" style="width: 70%;">
 				<div class="card-header">Productos encontrados:</div>
 				<div class="card-body">
 					<p class="card-text">
 					<table class="table table-hover">
 							<tbody>
-								<tr class="table-primary">
-									<td th:text=${resultado.nombreProducto}></td>									
+								<tr class="table-primary" th:each="producto: ${productos}">
+									<td th:text="${producto.nombreProducto}"/>
+									<td th:text="${producto.descripcionProducto}"/>
+									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>								
 								</tr>								
 							</tbody>
 						</th:block>
@@ -75,7 +77,10 @@ border: 2px solid rgb(255, 153, 102);}
 					aria-valuemax="100"></div>
 			</div>
 			<br />
-			<button class="btn btn-success boton btn-lg"><a target="self" href="localhost:9090/productsearch">Buscar o crear productos</a></button>
+			<button class="btn btn-success boton btn-lg">
+				<a target="self" th:href="@{/product/product}">Buscar o crear
+					productos</a>
+			</button>
 		</section>
 		<br />
 		<!--Pie de página que permite regresar al principio-->

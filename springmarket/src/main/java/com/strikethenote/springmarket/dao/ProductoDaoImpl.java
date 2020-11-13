@@ -16,12 +16,12 @@ public class ProductoDaoImpl extends DaoGenericoImpl<Producto> implements Produc
 
 	@Override
 	public List<Producto> buscarPorNombre(String nombreProducto) {
-		Query query = this.em.createQuery("select u FROM Producto u where u.nombreProducto LIKE :nombreproducto");
-		query.setParameter("nombreproducto", nombreProducto);
-		List<Producto> producto = query.getResultList();
+		Query query = this.em.createQuery("select u FROM Producto u where u.nombreProducto LIKE CONCAT('%', :nombreProducto, '%')");
+		query.setParameter("nombreProducto", nombreProducto);
+		List<Producto> productos = query.getResultList();
 
-		if (producto != null) {
-			return producto;
+		if (productos != null) {
+			return productos;
 		}
 		return null;
 	}
