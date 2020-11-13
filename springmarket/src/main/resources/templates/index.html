@@ -41,7 +41,6 @@ body {
 </head>
 <body>
 	<div id="fondito">
-
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
 			<figure>
@@ -68,8 +67,7 @@ body {
 					<h4 class="card-title">Echa un vistazo</h4>
 					<p class="card-text">
 					<table class="table table-hover">
-						<th:block th:each="producto, iterStat: ${productos}">
-							<tbody>
+							<tbody th:each="producto, iterStat: ${productos}">
 								<tr th:if="${productos.empty}">
 									<td>No hay productos en oferta todavía</td>
 								</tr>
@@ -94,7 +92,6 @@ body {
 									<td th:if="${iterStat.index == 7}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
 								</tr>
 							</tbody>
-						</th:block>
 					</table>
 					</p>
 				</div>
