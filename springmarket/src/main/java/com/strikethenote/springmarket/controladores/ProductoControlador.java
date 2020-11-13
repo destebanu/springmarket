@@ -54,9 +54,11 @@ public class ProductoControlador {
 
 	@PostMapping("/productsearch")
 	public String buscarProducto(HttpServletRequest request) {
+		
+		//Se recoge el nombre del input y se pasa a la session
 		String nombreProducto = request.getParameter("nombreproducto");
 		request.getSession().setAttribute("nombreproducto", nombreProducto);
-		return "productid";
+		return "redirect:/product/results";
 	}
 
 	@PostMapping("/productcreate")
@@ -83,13 +85,12 @@ public class ProductoControlador {
 		// buscar en la tabla
 		String aux = (String) session.getAttribute("nombreproducto");
 
-		// Nuestro método solo recibe un producto en lugar de una lista, por lo que
-		// recogemos el valor en un producto.
-		List<Producto> resultado = productoServicio.buscarPorNombre(aux);
+		// Recogemos el valor en una lista de productos.
+		
+		List<Producto> productos = productoServicio.buscarPorNombre(aux);
 
-		// Añadimos el producto al objeto para mostrar su nombre en la página de
-		// resultados de búsqueda
-		model.addAttribute("resultado", resultado);
+		// Añadimos la lista al modelo
+		model.addAttribute("productos", productos);
 
 		return "results";
 	}
