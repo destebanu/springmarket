@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang=es xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Strike the Note</title>
+<meta charset="UTF-8">
+<meta name="description" content="Tienda de instrumentos musicales">
+<meta name="keywords" content="music, instrument, guitar, note" />
+<meta name="author" content="Daniel Esteban & Amanda Segura" />
+<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<style th:inline="text">
+body {
+	background-image: url("/imagenes/fondo.jpg");
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+#fondito {
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
+</style>
+</head>
+<body>
+	<div id="fondito">
+		<header>
+			<!--Cabecera con logo en imágenes que presentan la página-->
+			<figure>
+				<img class="logo" th:src="@{/imagenes/logo.png}" />
+			</figure>
+		</header>
+		<section>
+			<div>
+				<h1 class="text-center">Historial</h1>
+				<table class="table table-bordered">
+					<tr>
+						<td>ID:</td>
+						<td th:text="${producto.idProducto}" />
+					</tr>
+					<tr>
+						<td>Nombre:</td>
+						<td th:text="${producto.nombreProducto}" />
+					</tr>
+					<tr>
+						<td>Descripción:</td>
+						<td th:text="${producto.descripcionProducto}" />
+					</tr>
+					<tr>
+						<td>Precio:</td>
+						<td th:text="${producto.precioProducto}" />
+					</tr>
+					<tr>
+						<td>Descuento:</td>
+						<td th:text="${producto.descuentoProducto}" />
+					</tr>
+				</table>
+			</div>
+			<form th:action="@{/product/borrar/{id}(id=${producto.idProducto})}" method="post">
+				<button type="submit" class="btn btn-success">Borrar
+					producto</button>
+			</form>
+		</section>
+	</div>
+</body>
+</html>
