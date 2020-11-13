@@ -33,6 +33,10 @@ body {
 	background-color: rgb(255, 238, 230, 0.6);
 	border: 2px solid rgb(255, 153, 102);
 }
+
+.celdas {
+	width: 10%
+}
 </style>
 </head>
 <body>
@@ -46,7 +50,7 @@ body {
 			<nav>
 				<!--Enlace al final de la página-->
 				<a name="arriba" href=#abajo class="boton"><button type="button"
-						class="btn btn-warning boton">Ir abajo</button></a> <br />
+						class="btn btn-warning boton btn-lg">Ir abajo</button></a> <br />
 				<div class="progress">
 					<div class="progress-bar bg-info" role="progressbar"
 						style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
@@ -58,7 +62,7 @@ body {
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
 			<h1>Nuestro cat&aacute;logo</h1>
-			<div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
+			<div class="card text-white bg-danger mb-3" style="width: 80%;">
 				<div class="card-header">&iexcl;Productos con descuento!</div>
 				<div class="card-body">
 					<h4 class="card-title">Echa un vistazo</h4>
@@ -69,14 +73,25 @@ body {
 								<tr th:if="${productos.empty}">
 									<td>No hay productos en oferta todavía</td>
 								</tr>
-								<tr th:if="${iterStat.index < 4}" class="table-primary">
-									<td><span th:text="${producto.nombreProducto}"></span></td>
-									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+								<tr class="table-primary">
+									<td th:if="${iterStat.index == 0}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 0}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									<td th:if="${iterStat.index == 1}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 1}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									<td th:if="${iterStat.index == 2}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 2}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									<td th:if="${iterStat.index == 3}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 3}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
 								</tr>
-								<tr th:if="${iterStat.index >= 4}">
-									<td><span th:text="${producto.nombreProducto}"></span></td>
-									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
-								
+								<tr class="table-primary">
+									<td th:if="${iterStat.index == 4}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 4}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									<td th:if="${iterStat.index == 5}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 5}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									<td th:if="${iterStat.index == 6}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 6}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									<td th:if="${iterStat.index == 7}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
+									<td th:if="${iterStat.index == 7}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
 								</tr>
 							</tbody>
 						</th:block>
@@ -91,8 +106,8 @@ body {
 					aria-valuemax="100"></div>
 			</div>
 			<br />
-			<button class="btn btn-success boton">
-				<a target="self" th:href="@{/product/product}">Buscar o crear
+			<button class="btn btn-success boton btn-lg">
+				<a target="self" th:href="@{/product/product}" style="text-decoration:none;">Buscar o crear
 					productos</a>
 			</button>
 		</section>
@@ -105,7 +120,7 @@ body {
 					aria-valuemax="100"></div>
 			</div>
 			<br /> <a name="abajo" href=#arriba class="boton"><button
-					type="button" class="btn btn-warning boton">Ir arriba</button></a>
+					type="button" class="btn btn-warning boton btn-lg">Ir arriba</button></a>
 		</footer>
 	</div>
 </body>

@@ -26,6 +26,10 @@ body {
 	background-color: rgb(255, 238, 230, 0.6);
 	border: 2px solid rgb(255, 153, 102);
 }
+
+.coloreado {
+	background-color: #99ffff;
+}
 </style>
 </head>
 <body>
@@ -39,35 +43,35 @@ body {
 		<section>
 			<div>
 				<h1 class="text-center">Historial</h1>
-				<table class="table table-bordered">
+				<table class="table table-bordered" style="width:70%">
 					<tr>
-						<td>ID:</td>
+						<td class="coloreado">ID:</td>
 						<td th:text="${producto.idProducto}" />
 					</tr>
 					<tr>
-						<td>Nombre:</td>
+						<td class="coloreado">Nombre:</td>
 						<td th:text="${producto.nombreProducto}" />
 					</tr>
 					<tr>
-						<td>Descripción:</td>
+						<td class="coloreado">Descripción:</td>
 						<td th:text="${producto.descripcionProducto}" />
 					</tr>
 					<tr>
-						<td>Precio:</td>
+						<td class="coloreado">Precio:</td>
 						<td th:text="${producto.precioProducto}" />
 					</tr>
 					<tr>
-						<td>Descuento:</td>
+						<td class="coloreado">Descuento:</td>
 						<td th:text="${producto.descuentoProducto}" />
 					</tr>
 				</table>
 			</div>
 			<form th:action="@{/product/volver}" method="post">
-				<button type="submit" class="btn btn-success">Volver al inicio</button>
+				<button type="submit" class="btn btn-success btn-lg">Volver al inicio</button>
 			</form>
 			<br />
 			<form th:action="@{/product/borrar/{id}(id=${producto.idProducto})}" method="post">
-				<button type="submit" class="btn btn-success">Borrar
+				<button type="submit" class="btn btn-success btn-lg">Borrar
 					producto</button>
 			</form>
 		</section>
