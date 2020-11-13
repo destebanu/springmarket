@@ -62,6 +62,10 @@ body {
 					</tr>
 				</table>
 			</div>
+			<form th:action="@{/product/volver}" method="post">
+				<button type="submit" class="btn btn-success">Volver al inicio</button>
+			</form>
+			<br />
 			<form th:action="@{/product/borrar/{id}(id=${producto.idProducto})}" method="post">
 				<button type="submit" class="btn btn-success">Borrar
 					producto</button>

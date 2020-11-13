@@ -14,6 +14,6 @@ public interface ProductoServicio {
 
 	public List<Producto> listarProductos();
 	
-	public Producto buscarPorNombre (String nombreProducto);
+	public List<Producto> buscarPorNombre (String nombreProducto);
 	
 }

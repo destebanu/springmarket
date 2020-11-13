@@ -31,7 +31,13 @@ public class ProductoControlador {
 		List<Producto> productos = productoServicio.listarProductos();
 
 		// Añadimos la lista al modelo para mostrarla en index
-		model.addAttribute("productos", productos);
+		
+		int tamano = 7;
+		if (tamano > productos.size()) {
+			tamano = productos.size();
+		}
+		
+		model.addAttribute("productos", productos.subList(0, tamano));
 
 		return "index";
 	}
@@ -70,22 +76,23 @@ public class ProductoControlador {
 		return "redirect:/product/productid/"+producto.getIdProducto();
 	}
 
-//	@GetMapping("/results")
-//	public String devolverResultados(Model model, HttpSession session) {
-//		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
-//		// buscar en la tabla
-//		String aux = (String) session.getAttribute("nombreproducto");
-//
-//		// Nuestro método solo recibe un producto en lugar de una lista, por lo que
-//		// recogemos el valor en un producto.
-//		Producto resultado = productoServicio.buscarPorNombre(aux);
-//
-//		// Añadimos el producto al objeto para mostrar su nombre en la página de
-//		// resultados de búsqueda
-//		model.addAttribute("resultado", resultado);
-//
-//		return "results";
+	// ACTUALIZAR RESULTS PARA PILLAR Y MOSTRAR LISTA
+	@GetMapping("/results")
+	public String devolverResultados(Model model, HttpSession session) {
+		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
+		// buscar en la tabla
+		String aux = (String) session.getAttribute("nombreproducto");
 
+		// Nuestro método solo recibe un producto en lugar de una lista, por lo que
+		// recogemos el valor en un producto.
+		List<Producto> resultado = productoServicio.buscarPorNombre(aux);
+
+		// Añadimos el producto al objeto para mostrar su nombre en la página de
+		// resultados de búsqueda
+		model.addAttribute("resultado", resultado);
+
+		return "results";
+	}
 	/*
 	 * ModelAndView mav = new ModelAndView();
 	 * 
@@ -107,7 +114,6 @@ public class ProductoControlador {
 	public String productid(Model model, HttpSession session,@PathVariable("idProducto") long idProducto) {
 		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
 		// buscar en la tabla
-//		String aux = (String) session.getAttribute("nombreproducto");
 		// Nuestro método solo recibe un producto en lugar de una lista, por lo que
 		// recogemos el valor en un producto.
 		Producto resultado = productoServicio.obtenerProducto(idProducto);
@@ -118,10 +124,14 @@ public class ProductoControlador {
 	}
 
 	@PostMapping("/borrar/{idProducto}")
-	public String borrarproducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
+	public String borrarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 		// Se pasa por session el producto y se borra de la bbdd a partir de su id
 		 productoServicio.eliminarProducto(idProducto);
-
+		return "redirect:/product/index";
+	}
+	
+	@PostMapping("/volver")
+	public String volverAlInicio(HttpServletRequest request) {
 		return "redirect:/product/index";
 	}
 

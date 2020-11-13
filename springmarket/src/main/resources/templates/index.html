@@ -27,12 +27,16 @@ body {
 	margin-right: auto;
 	text-decoration: none;
 }
-#fondito{margin:2em; background-color: rgb(255, 238, 230,0.6);
-border: 2px solid rgb(255, 153, 102);}
+
+#fondito {
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
 </style>
 </head>
 <body>
-<div id="fondito">
+	<div id="fondito">
 
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
@@ -60,20 +64,19 @@ border: 2px solid rgb(255, 153, 102);}
 					<h4 class="card-title">Echa un vistazo</h4>
 					<p class="card-text">
 					<table class="table table-hover">
-						<th:block th:each="producto, iterStat: ${productos}"
-							th:if="${iterStat.index >= iterStat.size-8}">
+						<th:block th:each="producto, iterStat: ${productos}">
 							<tbody>
-								<tr class="table-primary">
-									<td th:text=${productos[1].nombreProducto}></td>
-									<td th:text=${productos[2].nombreProducto}></td>
-									<td th:text=${productos[3].nombreProducto}></td>
-									<td th:text=${productos[4].nombreProducto}></td>
+								<tr th:if="${productos.empty}">
+									<td>No hay productos en oferta todavía</td>
 								</tr>
-								<tr>
-									<td th:text=${productos[5].nombreProducto}></td>
-									<td th:text=${productos[6].nombreProducto}></td>
-									<td th:text=${productos[7].nombreProducto}></td>
-									<td th:text=${productos[8].nombreProducto}></td>
+								<tr th:if="${iterStat.index < 4}" class="table-primary">
+									<td><span th:text="${producto.nombreProducto}"></span></td>
+									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+								</tr>
+								<tr th:if="${iterStat.index >= 4}">
+									<td><span th:text="${producto.nombreProducto}"></span></td>
+									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+								
 								</tr>
 							</tbody>
 						</th:block>
@@ -89,7 +92,8 @@ border: 2px solid rgb(255, 153, 102);}
 			</div>
 			<br />
 			<button class="btn btn-success boton">
-			<a target="self" th:href="@{/product/product}">Buscar o crear productos</a>
+				<a target="self" th:href="@{/product/product}">Buscar o crear
+					productos</a>
 			</button>
 		</section>
 		<br />
@@ -103,6 +107,6 @@ border: 2px solid rgb(255, 153, 102);}
 			<br /> <a name="abajo" href=#arriba class="boton"><button
 					type="button" class="btn btn-warning boton">Ir arriba</button></a>
 		</footer>
-</div>
+	</div>
 </body>
 </html>

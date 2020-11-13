@@ -15,10 +15,10 @@ import com.strikethenote.springmarket.entidades.Producto;
 public class ProductoDaoImpl extends DaoGenericoImpl<Producto> implements ProductoDao {
 
 	@Override
-	public Producto buscarPorNombre(String nombreProducto) {
+	public List<Producto> buscarPorNombre(String nombreProducto) {
 		Query query = this.em.createQuery("select u FROM Producto u where u.nombreProducto LIKE :nombreproducto");
 		query.setParameter("nombreproducto", nombreProducto);
-		Producto producto = (Producto) query.getResultList();
+		List<Producto> producto = query.getResultList();
 
 		if (producto != null) {
 			return producto;
