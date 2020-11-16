@@ -29,6 +29,7 @@ body {
 </style>
 </head>
 <body>
+<nav th:replace="navbar"></nav>
 	<div class="fondito">
 		<form th:action="@{/product/productsearch}" method="post">
 			<header>
@@ -110,10 +111,10 @@ body {
 	
 	<div class="form-group"
 		style="position: relative; float: right; width: 50%;">
-		<form th:action="@{/product/volver}" method="post">
+		<!--<form th:action="@{/product/volver}" method="post">
 			<button type="submit" class="btn btn-info btn-lg">Volver al
-				inicio</button>
-		</form>
+				inicio</button> 
+		</form>-->
 	</div>
 	</div>
 </body>
