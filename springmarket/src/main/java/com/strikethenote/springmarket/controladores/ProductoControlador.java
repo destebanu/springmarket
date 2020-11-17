@@ -31,12 +31,12 @@ public class ProductoControlador {
 		List<Producto> productos = productoServicio.listarProductos();
 
 		// Añadimos la lista al modelo para mostrarla en index
-		
+
 		int tamano = 8;
 		if (tamano > productos.size()) {
 			tamano = productos.size();
 		}
-		
+
 		model.addAttribute("productos", productos.subList(0, tamano));
 
 		return "index";
@@ -46,7 +46,7 @@ public class ProductoControlador {
 	 * @PostMapping("/index") public String persistMessage (HttpServletRequest
 	 * request) { return "product"; }
 	 */
-	
+
 	@GetMapping("/product")
 	public String product(Model model, HttpSession session) {
 		return "product";
@@ -54,10 +54,10 @@ public class ProductoControlador {
 
 	@PostMapping("/productsearch")
 	public String buscarProducto(HttpServletRequest request) {
-		
-		//Se recoge el nombre del input y se pasa a la session
+
+		// Se recoge el nombre del input y se pasa a la session
 		String nombreProducto = request.getParameter("nombreproducto");
-		
+
 		request.getSession().setAttribute("nombreproducto", nombreProducto);
 		return "redirect:/product/results";
 	}
@@ -68,8 +68,8 @@ public class ProductoControlador {
 		String descripcionProducto = request.getParameter("descripcionproducto");
 		Double precioProducto = Double.parseDouble(request.getParameter("precioproducto"));
 		Double descuentoProducto = Double.parseDouble(request.getParameter("descuentoproducto"));
-		
-		//Pone la primera letra en mayúscula
+
+		// Pone la primera letra en mayúscula
 		nombreProducto = nombreProducto.substring(0, 1).toUpperCase() + nombreProducto.substring(1);
 
 		Producto p = new Producto();
@@ -79,7 +79,7 @@ public class ProductoControlador {
 		p.setDescuentoProducto(descuentoProducto);
 		Producto producto = productoServicio.crearProducto(p);
 
-		return "redirect:/product/productid/"+producto.getIdProducto();
+		return "redirect:/product/productid/" + producto.getIdProducto();
 	}
 
 	// ACTUALIZAR RESULTS PARA PILLAR Y MOSTRAR LISTA
@@ -90,7 +90,7 @@ public class ProductoControlador {
 		String aux = (String) session.getAttribute("nombreproducto");
 
 		// Recogemos el valor en una lista de productos.
-		
+
 		List<Producto> productos = productoServicio.buscarPorNombre(aux);
 
 		// Añadimos la lista al modelo
@@ -116,7 +116,7 @@ public class ProductoControlador {
 	// Métodos para mostrar producto con sus carácterísticas y borrarlo
 
 	@GetMapping("/productid/{idProducto}")
-	public String productid(Model model, HttpSession session,@PathVariable("idProducto") long idProducto) {
+	public String productid(Model model, HttpSession session, @PathVariable("idProducto") long idProducto) {
 		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
 		// buscar en la tabla
 		// Nuestro método solo recibe un producto en lugar de una lista, por lo que
@@ -131,10 +131,10 @@ public class ProductoControlador {
 	@PostMapping("/borrar/{idProducto}")
 	public String borrarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 		// Se pasa por session el producto y se borra de la bbdd a partir de su id
-		 productoServicio.eliminarProducto(idProducto);
+		productoServicio.eliminarProducto(idProducto);
 		return "redirect:/product/index";
 	}
-	
+
 	@PostMapping("/volver")
 	public String volverAlInicio(HttpServletRequest request) {
 		return "redirect:/product/index";
@@ -144,11 +144,27 @@ public class ProductoControlador {
 	public String signup(Model model, HttpSession session) {
 		return "signup";
 	}
-	
+
+	@PostMapping("/signup")
+	public String darseDeAlta(HttpServletRequest request) {
+		return "redirect:/product/signup";
+	}
+
 	@GetMapping("/login")
 	public String login(Model model, HttpSession session) {
 		return "login";
 	}
+
+	@PostMapping("/login")
+	public String iniciarSesion(HttpServletRequest request) {
+		return "redirect:/product/login";
+	}
+
+	@PostMapping("/logout")
+	public void cerrarSesion(HttpServletRequest request) {
+		request.getSession().invalidate();
+	}
+
 	// TODO método para la búsqueda usando contains de String o similar
 
 	/*

@@ -14,6 +14,10 @@ body {
 	background-image: url("/imagenes/fondo.jpg");
 }
 
+span, label {
+	font-size: 24pt;
+}
+
 .logo {
 	display: block;
 	margin-left: auto;
@@ -46,9 +50,14 @@ body {
 			<br />
 		</header>
 		<h1>¡Forma parte de la familia Strike the Note!</h1>
+		<div class="progress">
+			<div class="progress-bar bg-info" role="progressbar"
+				style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
+				aria-valuemax="100"></div>
+		</div>
 		<form>
 			<fieldset>
-				<legend>Háblanos de ti</legend>
+				<legend style="text-shadow: 4px 3px 2px rgba(99, 255, 145, 1);"> Háblanos de ti</legend>
 				<div class="input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Nombre y apellidos</span>
@@ -66,14 +75,14 @@ body {
 					<label>Email</label> <input type="email" class="form-control"
 						placeholder="Escribe aquí tu email (será tu usuario)"
 						name="emailusuario"> <small id="emailHelp"
-						class="form-text text-muted">¡Nunca compartiremos tu email
-						con nadie!</small>
+						class="form-text text-success">¡Nunca compartiremos tu
+						email con nadie!</small>
 				</div>
 				<div class="form-group">
 					<label>Contraseña</label> <input type="password"
 						class="form-control" placeholder="Escribe aquí tu contraseña"
 						name="passwordusuario"> <small
-						class="form-text text-muted">¡Nunca compartas tus
+						class="form-text text-danger">¡Nunca compartas tus
 						contraseñas con nadie!</small>
 				</div>
 				<div class="input-group-prepend">
@@ -104,13 +113,19 @@ body {
 							th:value="${i}" th:text="${i}"></option>
 					</select>
 				</div>
+				<br />
+				<div class="progress">
+					<div class="progress-bar bg-info" role="progressbar"
+						style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
+						aria-valuemax="100"></div>
+				</div>
 				<fieldset>
-					<legend>Información para tus pedidos</legend>
+					<legend style="text-shadow: 4px 3px 2px rgba(99, 255, 145, 1);">Información para tus pedidos</legend>
 					<div class="form-group">
 						<label>Número de tarjeta de crédito/débito</label> <input
 							type="text" class="form-control" name="numerotarjetausuario"
 							placeholder="Introduce el número de tu tarjeta sin espacios ni guiones">
-						<small class="form-text text-muted">¡Nunca compartas tus
+						<small class="form-text text-danger">¡Nunca compartas tus
 							datos de pago con nadie!</small>
 					</div>
 					<div class="form-group">
@@ -121,7 +136,9 @@ body {
 						<label>Código de seguridad de la tarjeta</label> <input
 							name="codigoseguridadtarjetausuario" type="text"
 							class="form-control"
-							placeholder="CVV (mira detrás de tu tarjeta)">
+							placeholder="CVV (mira detrás de tu tarjeta)"> <small
+							class="form-text text-danger">¡Nunca compartas tus datos
+							de pago con nadie!</small>
 					</div>
 					<div class="form-group">
 						<label>Dirección de facturación</label>
