@@ -32,7 +32,7 @@ public class ProductoControlador {
 
 		// Añadimos la lista al modelo para mostrarla en index
 		
-		int tamano = 7;
+		int tamano = 8;
 		if (tamano > productos.size()) {
 			tamano = productos.size();
 		}
@@ -57,6 +57,7 @@ public class ProductoControlador {
 		
 		//Se recoge el nombre del input y se pasa a la session
 		String nombreProducto = request.getParameter("nombreproducto");
+		
 		request.getSession().setAttribute("nombreproducto", nombreProducto);
 		return "redirect:/product/results";
 	}
@@ -67,6 +68,9 @@ public class ProductoControlador {
 		String descripcionProducto = request.getParameter("descripcionproducto");
 		Double precioProducto = Double.parseDouble(request.getParameter("precioproducto"));
 		Double descuentoProducto = Double.parseDouble(request.getParameter("descuentoproducto"));
+		
+		//Pone la primera letra en mayúscula
+		nombreProducto = nombreProducto.substring(0, 1).toUpperCase() + nombreProducto.substring(1);
 
 		Producto p = new Producto();
 		p.setNombreProducto(nombreProducto);

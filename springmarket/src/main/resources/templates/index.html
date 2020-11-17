@@ -50,7 +50,7 @@ body {
 			<nav>
 				<!--Enlace al final de la página-->
 				<a name="arriba" href=#abajo class="boton"><button type="button"
-						class="btn btn-warning boton btn-lg">Ir abajo</button></a> <br />
+						class="btn btn-warning boton btn-sm">Ir abajo</button></a> <br />
 				<div class="progress">
 					<div class="progress-bar bg-info" role="progressbar"
 						style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
@@ -81,8 +81,7 @@ body {
 									<td th:if="${iterStat.index == 2}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
 									<td th:if="${iterStat.index == 3}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
 									<td th:if="${iterStat.index == 3}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
-								</tr>
-								<tr class="table-primary">
+								
 									<td th:if="${iterStat.index == 4}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
 									<td th:if="${iterStat.index == 4}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
 									<td th:if="${iterStat.index == 5}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
@@ -91,6 +90,7 @@ body {
 									<td th:if="${iterStat.index == 6}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
 									<td th:if="${iterStat.index == 7}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
 									<td th:if="${iterStat.index == 7}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>
+									
 								</tr>
 							</tbody>
 					</table>
@@ -118,7 +118,7 @@ body {
 					aria-valuemax="100"></div>
 			</div>
 			<br /> <a name="abajo" href=#arriba class="boton"><button
-					type="button" class="btn btn-warning boton btn-lg">Ir arriba</button></a>
+					type="button" class="btn btn-warning boton btn-sm">Ir arriba</button></a>
 		</footer>
 	</div>
 </body>
