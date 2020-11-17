@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang=es xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Strike the Note</title>
+<meta charset="UTF-8">
+<meta name="description" content="Tienda de instrumentos musicales">
+<meta name="keywords" content="music, instrument, guitar, note" />
+<meta name="author" content="Daniel Esteban & Amanda Segura" />
+<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<style th:inline="text">
+body {
+	background-image: url("/imagenes/fondo.jpg");
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+.boton {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-decoration: none;
+}
+
+#fondito {
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
+</style>
+</head>
+<body>
+	<nav th:replace="navbar"></nav>
+	<div id="fondito">
+		<header>
+			<!--Cabecera con logo en imágenes que presentan la página-->
+			<figure>
+				<img class="logo" th:src="@{/imagenes/logo.png}" />
+			</figure>
+			<br />
+		</header>
+		<h1>¡Forma parte de la familia Strike the Note!</h1>
+		<form>
+			<fieldset>
+				<legend>Háblanos de ti</legend>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Nombre y apellidos</span>
+					</div>
+					<input name="nombreusuario" type="text" aria-label="Nombre"
+						class="form-control" placeholder="Nombre"> <input
+						name="primerapellidousuario" type="text"
+						aria-label="Primer apellido" class="form-control"
+						placeholder="Primer apellido"> <input
+						name="segundoapellidousuario" type="text"
+						aria-label="Segundo apellido" class="form-control"
+						placeholder="Segundo apellido">
+				</div>
+				<div class="form-group">
+					<label>Email</label> <input type="email" class="form-control"
+						placeholder="Escribe aquí tu email (será tu usuario)"
+						name="emailusuario"> <small id="emailHelp"
+						class="form-text text-muted">¡Nunca compartiremos tu email
+						con nadie!</small>
+				</div>
+				<div class="form-group">
+					<label>Contraseña</label> <input type="password"
+						class="form-control" placeholder="Escribe aquí tu contraseña"
+						name="passwordusuario"> <small
+						class="form-text text-muted">¡Nunca compartas tus
+						contraseñas con nadie!</small>
+				</div>
+				<div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">Fecha
+						de nacimiento</label> <select name="dianacimientousuario"
+						class="custom-select" id="inputGroupSelect01">
+						<option selected disabled="disabled">d&iacute;a</option>
+						<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
+							th:text="${i}"></option>
+					</select> <select name="mesnacimientousuario" class="custom-select"
+						id="inputGroupSelect01">
+						<option selected disabled="disabled">mes</option>
+						<option value="enero">enero</option>
+						<option value="febrero">febrero</option>
+						<option value="marzo">marzo</option>
+						<option value="abril">abril</option>
+						<option value="mayo">mayo</option>
+						<option value="junio">junio</option>
+						<option value="julio">julio</option>
+						<option value="agosto">agosto</option>
+						<option value="septiembre">septiembre</option>
+						<option value="octubre">octubre</option>
+						<option value="noviembre">noviembre</option>
+						<option value="diciembre">diciembre</option>
+					</select> <select name="anio" class="custom-select" id="inputGroupSelect01">
+						<option selected disabled="disabled">a&ntilde;o</option>
+						<option th:each="i : ${#numbers.sequence(1920, 2020)}"
+							th:value="${i}" th:text="${i}"></option>
+					</select>
+				</div>
+				<fieldset>
+					<legend>Información para tus pedidos</legend>
+					<div class="form-group">
+						<label>Número de tarjeta de crédito/débito</label> <input
+							type="text" class="form-control" name="numerotarjetausuario"
+							placeholder="Introduce el número de tu tarjeta sin espacios ni guiones">
+						<small class="form-text text-muted">¡Nunca compartas tus
+							datos de pago con nadie!</small>
+					</div>
+					<div class="form-group">
+						<label>Titular de la tarjeta</label> <input
+							name="titulartarjetausuario" type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Código de seguridad de la tarjeta</label> <input
+							name="codigoseguridadtarjetausuario" type="text"
+							class="form-control"
+							placeholder="CVV (mira detrás de tu tarjeta)">
+					</div>
+					<div class="form-group">
+						<label>Dirección de facturación</label>
+						<textarea class="form-control" name="direccionfacturacionusuario"
+							rows="3" placeholder="Escribe aquí tu dirección"></textarea>
+					</div>
+				</fieldset>
+				<button type="submit" class="btn btn-success">¡Dame de
+					alta!</button>
+			</fieldset>
+		</form>
+	</div>
+</body>
+</html>

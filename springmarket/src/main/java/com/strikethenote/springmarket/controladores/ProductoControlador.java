@@ -136,6 +136,15 @@ public class ProductoControlador {
 		return "redirect:/product/index";
 	}
 
+	@GetMapping("/signup")
+	public String signup(Model model, HttpSession session) {
+		return "signup";
+	}
+	
+	@GetMapping("/login")
+	public String login(Model model, HttpSession session) {
+		return "login";
+	}
 	// TODO método para la búsqueda usando contains de String o similar
 
 	/*
