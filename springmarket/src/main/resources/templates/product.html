@@ -60,21 +60,23 @@ body {
 		<form th:action="@{/product/productcreate}" method="post">
 			<h1>Creación de productos</h1>
 			<div class="form-group"
-				style="position: relative; float: left; width: 70%;">
-				<div class="form-group">
-					<label class="input-group-text">Nombre del producto</label> <input
+				style="position: relative;  width: 70%;">
+				<div class="form-group" style="position: relative;  width: 70%;">
+				<br/>
+					<label class="input-group-text">Nombre del producto</label> 
+					<input
 						type="text" class="form-control" id="nombreproducto"
-						placeholder="Nombre del producto" name="nombreproducto">
+						placeholder="Guitarra, ukelele..." name="nombreproducto" required/>
 				</div>
 				<div class="form-group"
-					style="position: relative; float: left; width: 70%;">
+					style="position: relative;  width: 70%;">
 					<label class="input-group-text">Descripci&oacute;n del
 						producto</label>
 					<textarea class="form-control" id="descripcionproducto" rows="3"
-						name="descripcionproducto"></textarea>
+						name="descripcionproducto" placeholder="Instrumento de viento metal..." required></textarea>
 				</div>
 				<div class="form-group"
-					style="position: relative; float: left; width: 70%;">
+					style="position: relative;  width: 70%;">
 					<label class="input-group-text">Precio</label>
 					<div class="form-group">
 						<div class="input-group mb-3">
@@ -87,7 +89,7 @@ body {
 					</div>
 				</div>
 				<div class="form-group"
-					style="position: relative; float: left; width: 70%;">
+					style="position: relative;  width: 70%;">
 					<label class="input-group-text">Porcentaje de descuento</label>
 					<div class="form-group">
 						<div class="input-group mb-3">
@@ -101,7 +103,7 @@ body {
 					</div>
 				</div>
 				<div class="form-group"
-					style="position: relative; float: left; width: 50%;">
+					style="position: relative;  width: 50%;">
 					<p style="font-size: 16pt;">&iquest;Est&aacute;s seguro de que
 						los datos son correctos?</p>
 					<button type="submit" value="Crear" class="btn btn-success btn-lg">Crear</button>

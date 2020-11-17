@@ -59,11 +59,11 @@ body {
 					</tr>
 					<tr>
 						<td class="coloreado">Precio:</td>
-						<td th:text="${producto.precioProducto}" />
+						<td th:text="${producto.precioProducto}+' €'" />
 					</tr>
 					<tr>
 						<td class="coloreado">Descuento:</td>
-						<td th:text="${producto.descuentoProducto}" />
+						<td th:text="${producto.descuentoProducto}+' %'"/>
 					</tr>
 				</table>
 			</div>
