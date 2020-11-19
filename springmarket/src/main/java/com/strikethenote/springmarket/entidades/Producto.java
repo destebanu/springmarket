@@ -114,4 +114,14 @@ public class Producto implements Serializable {
 		this.descuentoProducto = descuentoProducto;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Producto [idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", descripcionProducto="
+				+ descripcionProducto + ", precioProducto=" + precioProducto + ", descuentoProducto="
+				+ descuentoProducto + "]";
+	}
+	
+	
+
 }

@@ -63,25 +63,25 @@ span, label {
 						<span class="input-group-text">Nombre y apellidos</span>
 					</div>
 					<input name="nombreusuario" type="text" aria-label="Nombre"
-						class="form-control" placeholder="Nombre"> <input
-						name="primerapellidousuario" type="text"
-						aria-label="Primer apellido" class="form-control"
-						placeholder="Primer apellido"> <input
-						name="segundoapellidousuario" type="text"
-						aria-label="Segundo apellido" class="form-control"
-						placeholder="Segundo apellido">
+						class="form-control" placeholder="Nombre" required> 
+					<input
+						name="apellidosusuario" type="text"
+						aria-label="Apellidos" class="form-control"
+						placeholder="Tus apellidos" required> 
+					
 				</div>
 				<div class="form-group">
-					<label>Email</label> <input type="email" class="form-control"
+					<label>Email</label> 
+					<input type="email" class="form-control"
 						placeholder="Escribe aquí tu email (será tu usuario)"
-						name="emailusuario"> <small id="emailHelp"
+						name="emailusuario" required> <small id="emailHelp"
 						class="form-text text-success">¡Nunca compartiremos tu
 						email con nadie!</small>
 				</div>
 				<div class="form-group">
 					<label>Contraseña</label> <input type="password"
 						class="form-control" placeholder="Escribe aquí tu contraseña"
-						name="passwordusuario"> <small
+						name="passwordusuario" required> <small
 						class="form-text text-danger">¡Nunca compartas tus
 						contraseñas con nadie!</small>
 				</div>
@@ -92,7 +92,8 @@ span, label {
 						<option selected disabled="disabled">d&iacute;a</option>
 						<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
 							th:text="${i}"></option>
-					</select> <select name="mesnacimientousuario" class="custom-select"
+					</select> 
+					<select name="mesnacimientousuario" class="custom-select"
 						id="inputGroupSelect01">
 						<option selected disabled="disabled">mes</option>
 						<option value="enero">enero</option>
@@ -107,10 +108,11 @@ span, label {
 						<option value="octubre">octubre</option>
 						<option value="noviembre">noviembre</option>
 						<option value="diciembre">diciembre</option>
-					</select> <select name="anio" class="custom-select" id="inputGroupSelect01">
+					</select> 
+					<select name="anio" class="custom-select" id="inputGroupSelect01">
 						<option selected disabled="disabled">a&ntilde;o</option>
 						<option th:each="i : ${#numbers.sequence(1920, 2020)}"
-							th:value="${i}" th:text="${i}"></option>
+							th:value="${i}" th:text="${i}" ></option>
 					</select>
 				</div>
 				<br />
@@ -124,26 +126,26 @@ span, label {
 					<div class="form-group">
 						<label>Número de tarjeta de crédito/débito</label> <input
 							type="text" class="form-control" name="numerotarjetausuario"
-							placeholder="Introduce el número de tu tarjeta sin espacios ni guiones">
+							placeholder="Introduce el número de tu tarjeta sin espacios ni guiones" required>
 						<small class="form-text text-danger">¡Nunca compartas tus
 							datos de pago con nadie!</small>
 					</div>
 					<div class="form-group">
 						<label>Titular de la tarjeta</label> <input
-							name="titulartarjetausuario" type="text" class="form-control">
+							name="titulartarjetausuario" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Código de seguridad de la tarjeta</label> <input
 							name="codigoseguridadtarjetausuario" type="text"
 							class="form-control"
-							placeholder="CVV (mira detrás de tu tarjeta)"> <small
+							placeholder="CVV (mira detrás de tu tarjeta)" required> <small
 							class="form-text text-danger">¡Nunca compartas tus datos
 							de pago con nadie!</small>
 					</div>
 					<div class="form-group">
 						<label>Dirección de facturación</label>
 						<textarea class="form-control" name="direccionfacturacionusuario"
-							rows="3" placeholder="Escribe aquí tu dirección"></textarea>
+							rows="3" placeholder="Escribe aquí tu dirección" required></textarea>
 					</div>
 				</fieldset>
 				<button type="submit" class="btn btn-success">¡Dame de
