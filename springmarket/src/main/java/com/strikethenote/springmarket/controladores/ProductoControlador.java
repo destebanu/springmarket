@@ -133,9 +133,5 @@ public class ProductoControlador {
 		return "redirect:/product/index";
 	}
 
-	@PostMapping("/volver")
-	public String volverAlInicio(HttpServletRequest request) {
-		return "redirect:/index";
-	}
 
 }

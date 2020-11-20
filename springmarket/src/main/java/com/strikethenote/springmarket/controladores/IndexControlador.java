@@ -2,10 +2,13 @@ package com.strikethenote.springmarket.controladores;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
@@ -32,6 +35,11 @@ public class IndexControlador {
 
 		return "index";
 
+	}
+	
+	@PostMapping("/volver")
+	public String volverAlInicio(HttpServletRequest request) {
+		return "redirect:/index";
 	}
 
 }

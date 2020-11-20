@@ -7,28 +7,106 @@
 <meta name="keywords" content="music, instrument, guitar, note" />
 <meta name="author" content="Daniel Esteban & Amanda Segura" />
 <meta name="copyright" content="Daniel Esteban & Amanda Segura" />
-<link rel="stylesheet" type="text/css"
+<script th:href="@{/js/bootstrap.min.js}"></script>
+
+<script th:href="@{/js/jquery-3.5.1.min.js}"></script>
+
+<link rel="
+	stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+
+	
+<script type="text/javascript" th:href="@{/js/myfunctions.js}"></script>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Menú</a>
 		<div class="collapse navbar-collapse" id="navbarColor03">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><form
-						th:action="@{/product/volver}" method="post">
-						<button type="submit" style="float: right; margin:10px;" class="btn btn-info btn-lg nav-link">Volver
-							al inicio</button>
-					</form></li>
-				<li class="nav-item" style="float: right; margin:10px;"><form th:action="@{/product/signup}" method="post">
-						<button type="submit" class="btn btn-outline-secondary btn-lg nav-link">Date
+
+				<!-- Botón para ir a inicio -->
+
+				<li class="nav-item active">
+					<form th:action="@{/volver}" method="post">
+						<button type="submit" style="float: right; margin: 10px;"
+							class="btn btn-info btn-lg nav-link">Volver al inicio</button>
+					</form>
+				</li>
+
+
+				<!-- Botón para darse de alta -->
+
+
+				<li class="nav-item" style="float: right; margin: 10px;"><form
+						th:action="@{/usuario/signup}" method="post">
+						<button type="submit"
+							class="btn btn-outline-secondary btn-lg nav-link">Date
 							de alta</button>
 					</form></li>
-					<li class="nav-item" style="float: right; margin:10px;"><form th:action="@{/product/login}" method="post">
-						<button type="submit" class="btn btn-outline-success btn-lg nav-link">Inicia sesión</button>
-					</form></li>
-					<li class="nav-item" style="float: right; margin:10px;"><form th:action="@{/product/volver}" method="post">
-						<button type="submit" class="btn btn-outline-danger btn-lg nav-link">Cierra sesión</button>
-					</form></li>
+
+				<!-- Botón para iniciar sesión -->
+
+
+				<li class="nav-item" style="float: right; margin: 10px;">
+					<!-- Dispara el modal con un botón -->
+					<button type="button" id="loginbtn"
+						class="btn btn-outline-success btn-lg nav-link"
+						data-toggle="modal" data-target="#myModal">Iniciar Sesión</button>
+
+					<!-- Modal -->
+					<div class="modal-dialog" style="display: none;" id="myModal"
+						role="dialog">
+
+						<div class="modal-dialog">
+
+							<!-- Contenido del modal login -->
+
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Inicio de sesión</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form th:action="@{/usuario/login}" method="post">
+										<div class="form-group">
+											<label>Usuario</label> <input type="email"
+												class="form-control" placeholder="Tu email es tu usuario"
+												name="emailusuario" required>
+										</div>
+										<div class="form-group">
+											<label>Contraseña</label> <input type="password"
+												class="form-control"
+												placeholder="Escribe aquí tu contraseña"
+												name="passwordusuario" required>
+										</div>
+									</form>
+								</div>
+
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">Inicia
+										sesión</button>
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Cerrar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</li>
+
+
+				<!-- Botón para cerrar sesión -->
+
+
+				<li class="nav-item" style="float: right; margin: 10px;">
+					<form th:action="@{/usuario/logout}" method="post">
+						<button type="submit"
+							class="btn btn-outline-danger btn-lg nav-link">Cierra
+							sesión</button>
+					</form>
+				</li>
 			</ul>
 		</div>
 	</nav>

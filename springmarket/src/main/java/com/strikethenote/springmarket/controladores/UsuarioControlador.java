@@ -49,8 +49,9 @@ public class UsuarioControlador {
 	}
 	
 	@PostMapping("/logout")
-	public void cerrarSesion(HttpServletRequest request) {
+	public String cerrarSesion(HttpServletRequest request) {
 		request.getSession().invalidate();
+		return "redirect:/index";
 	}
 	
 	@GetMapping("/userid/{idUsuario}")
