@@ -117,10 +117,8 @@ public class ProductoControlador {
 
 	@GetMapping("/productid/{idProducto}")
 	public String productid(Model model, HttpSession session, @PathVariable("idProducto") long idProducto) {
-		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
+		// Se recoge el input de la búsqueda de la session y se usa el servicio para
 		// buscar en la tabla
-		// Nuestro método solo recibe un producto en lugar de una lista, por lo que
-		// recogemos el valor en un producto.
 		Producto resultado = productoServicio.obtenerProducto(idProducto);
 		// Añadimos el producto al objeto para mostrar su nombre en la página de
 		// resultados de búsqueda
@@ -140,52 +138,4 @@ public class ProductoControlador {
 		return "redirect:/product/index";
 	}
 
-	@GetMapping("/signup")
-	public String signup(Model model, HttpSession session) {
-		return "signup";
-	}
-
-	@PostMapping("/signup")
-	public String darseDeAlta(HttpServletRequest request) {
-		return "redirect:/product/signup";
-	}
-
-	@GetMapping("/login")
-	public String login(Model model, HttpSession session) {
-		return "login";
-	}
-
-	@PostMapping("/login")
-	public String iniciarSesion(HttpServletRequest request) {
-		return "redirect:/product/login";
-	}
-
-	@PostMapping("/logout")
-	public void cerrarSesion(HttpServletRequest request) {
-		request.getSession().invalidate();
-	}
-
-	// TODO método para la búsqueda usando contains de String o similar
-
-	/*
-	 * @PostMapping("/persistMessage") public String index
-	 * (@RequestParam("producto") String name, HttpServletRequest request) {
-	 * 
-	 * request.getSession().setAttribute("r0", name); return "redirect:/product"; }
-	 * 
-	 * // Los métodos para acceder a la página genérica de producto, donde se
-	 * recibiría el producto seleccionado y/o se buscan
-	 * 
-	 * @GetMapping("/product") public String product (Model model, HttpSession
-	 * session) {
-	 * 
-	 * return "index"; }
-	 * 
-	 * 
-	 * @PostMapping("/generalproduct") public String product
-	 * (@RequestParam("producto") String name, HttpServletRequest request) {
-	 * 
-	 * request.getSession().setAttribute("r0", name); return "redirect:/index"; }
-	 * 
-	 */
 }
