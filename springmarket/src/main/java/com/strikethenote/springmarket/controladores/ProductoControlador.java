@@ -24,7 +24,7 @@ public class ProductoControlador {
 	private ProductoServicio productoServicio;
 
 	// Métodos get y post
-
+/*
 	@GetMapping("/index")
 	public String index(Model model) {
 		// Se añaden a una lista los productos de la bbdd a una lista
@@ -41,7 +41,7 @@ public class ProductoControlador {
 
 		return "index";
 	}
-
+*/
 	/*
 	 * @PostMapping("/index") public String persistMessage (HttpServletRequest
 	 * request) { return "product"; }
@@ -137,7 +137,7 @@ public class ProductoControlador {
 
 	@PostMapping("/volver")
 	public String volverAlInicio(HttpServletRequest request) {
-		return "redirect:/product/index";
+		return "redirect:/index";
 	}
 
 	@GetMapping("/signup")
