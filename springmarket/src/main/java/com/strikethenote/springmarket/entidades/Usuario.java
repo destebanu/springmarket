@@ -37,8 +37,8 @@ public class Usuario implements Serializable {
 	@Column(name = "APELLIDOS_USUARIO")
 	private String apellidosUsuario;
 	
-	@Column(name = "CONTRASEÑA_USUARIO")
-	private String contraseñaUsuario;
+	@Column(name = "PASSWORD_USUARIO")
+	private String passwordUsuario;
 	
 	@Column(name = "EMAIL_USUARIO")
 	private String emailUsuario;
@@ -64,14 +64,14 @@ public class Usuario implements Serializable {
 		
 	}
 	
-	public Usuario(Long idUsuario, String nombreUsuario, String apellidosUsuario, String contraseñaUsuario,
+	public Usuario(Long idUsuario, String nombreUsuario, String apellidosUsuario, String passwordUsuario,
 			String emailUsuario, String fechanacUsuario, String numtarjetaUsuario, String titularUsuario,
 			String codsegUsuario, String direcfactUsuario) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
 		this.apellidosUsuario = apellidosUsuario;
-		this.contraseñaUsuario = contraseñaUsuario;
+		this.passwordUsuario = passwordUsuario;
 		this.emailUsuario = emailUsuario;
 		this.fechanacUsuario = fechanacUsuario;
 		this.numtarjetaUsuario = numtarjetaUsuario;
@@ -80,13 +80,13 @@ public class Usuario implements Serializable {
 		this.direcfactUsuario = direcfactUsuario;
 	}
 
-	public Usuario(String nombreUsuario, String apellidosUsuario, String contraseñaUsuario, String emailUsuario,
+	public Usuario(String nombreUsuario, String apellidosUsuario, String passwordUsuario, String emailUsuario,
 			String fechanacUsuario, String numtarjetaUsuario, String titularUsuario, String codsegUsuario,
 			String direcfactUsuario) {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.apellidosUsuario = apellidosUsuario;
-		this.contraseñaUsuario = contraseñaUsuario;
+		this.passwordUsuario = passwordUsuario;
 		this.emailUsuario = emailUsuario;
 		this.fechanacUsuario = fechanacUsuario;
 		this.numtarjetaUsuario = numtarjetaUsuario;
@@ -119,12 +119,12 @@ public class Usuario implements Serializable {
 		this.apellidosUsuario = apellidosUsuario;
 	}
 
-	public String getContraseñaUsuario() {
-		return contraseñaUsuario;
+	public String getPasswordUsuario() {
+		return passwordUsuario;
 	}
 
-	public void setContraseñaUsuario(String contraseñaUsuario) {
-		this.contraseñaUsuario = contraseñaUsuario;
+	public void setPasswordUsuario(String passwordUsuario) {
+		this.passwordUsuario = passwordUsuario;
 	}
 
 	public String getEmailUsuario() {
@@ -182,7 +182,7 @@ public class Usuario implements Serializable {
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", apellidosUsuario="
-				+ apellidosUsuario + ", contraseñaUsuario=" + contraseñaUsuario + ", emailUsuario=" + emailUsuario
+				+ apellidosUsuario + ", passwordUsuario=" + passwordUsuario + ", emailUsuario=" + emailUsuario
 				+ ", fechanacUsuario=" + fechanacUsuario + ", numtarjetaUsuario=" + numtarjetaUsuario
 				+ ", titularUsuario=" + titularUsuario + ", codsegUsuario=" + codsegUsuario + ", direcfactUsuario="
 				+ direcfactUsuario + "]";

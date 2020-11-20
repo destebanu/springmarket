@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang=es xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Strike the Note</title>
+<meta charset="UTF-8">
+<meta name="description" content="Tienda de instrumentos musicales">
+<meta name="keywords" content="music, instrument, guitar, note" />
+<meta name="author" content="Daniel Esteban & Amanda Segura" />
+<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<style th:inline="text">
+body {
+	background-image: url("/imagenes/fondo.jpg");
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+#fondito {
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
+
+.coloreado1 {
+	background-color: #99ffff;
+}
+
+.coloreado2 {
+	background-color: #bb99ff;
+}
+
+.tablas {
+	width:50%;
+	padding:5px;
+	float:left;
+}
+
+</style>
+</head>
+<body>
+	<nav th:replace="navbar"></nav>
+	<div id="fondito">
+		<header>
+			<!--Cabecera con logo en imágenes que presentan la página-->
+			<figure>
+				<img class="logo" th:src="@{/imagenes/logo.png}" />
+			</figure>
+		</header>
+		<section>
+			<h1 class="text-center">Perfil del usuario</h1>
+			<div class="tablas">
+				<fieldset>
+					<legend style="text-shadow: 4px 3px 2px rgba(99, 255, 145, 1);">Datos
+						personales</legend>
+					<table class="table table-bordered" style="width: 70%">
+						<tr>
+							<td class="coloreado1">ID:</td>
+							<td th:text="${usuario.idUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado1">Nombre:</td>
+							<td th:text="${usuario.nombreUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado1">Apellidos:</td>
+							<td th:text="${usuario.apellidosUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado1">Contraseña:</td>
+							<td th:text="${usuario.passwordUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado1">Email:</td>
+							<td th:text="${usuario.emailUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado1">Fecha de nacimiento:</td>
+							<td th:text="${usuario.fechanacUsuario}" />
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+			<div class="tablas">
+				<fieldset>
+					<legend style="text-shadow: 4px 3px 2px rgba(99, 255, 145, 1);">Datos
+						de pago y facturación</legend>
+					<table class="table table-bordered" style="width: 70%">
+						<tr>
+							<td class="coloreado2">Número de tarjeta de crédito/débito:</td>
+							<td th:text="${usuario.numtarjetaUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado2">Titular de la tarjeta de
+								crédito/débito:</td>
+							<td th:text="${usuario.titularUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado2">Código de seguridad de la tarjeta de
+								crédito/débito:</td>
+							<td th:text="${usuario.codsegUsuario}" />
+						</tr>
+						<tr>
+							<td class="coloreado2">Dirección de facturación:</td>
+							<td th:text="${usuario.direcfactUsuario}" />
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+		</section>
+	</div>
+</body>
+</html>

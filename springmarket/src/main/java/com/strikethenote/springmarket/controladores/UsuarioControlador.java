@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,12 +23,12 @@ import com.strikethenote.springmarket.servicios.UsuarioServicio;
 @Controller
 @RequestMapping(value = "/usuario")
 public class UsuarioControlador {
-	
+
 	@Autowired
 	private UsuarioServicio usuarioServicio;
-	
+
 	// Métodos get y post
-	
+
 	@GetMapping("/signup")
 	public String signup(Model model, HttpSession session) {
 		return "signup";
@@ -35,7 +36,35 @@ public class UsuarioControlador {
 
 	@PostMapping("/signup")
 	public String darseDeAlta(HttpServletRequest request) {
-		return "redirect:/usuario/signup";
+		String nombreUsuario = request.getParameter("nombreusuario");
+		String apellidosUsuario = request.getParameter("apellidosusuario");
+		String passwordUsuario = request.getParameter("passwordusuario");
+		String emailUsuario = request.getParameter("emailusuario");
+		
+		//Concatenamos la fecha en un solo String
+		String diaNacimiento = request.getParameter("dianacimientousuario");
+		String mesNacimiento = request.getParameter("mesnacimientousuario");
+		String anioNacimiento = request.getParameter("anionacimientousuario");
+		String concatenarFechaNac = diaNacimiento + "/" + mesNacimiento + "/" + anioNacimiento;
+		
+		String numtarjetaUsuario = request.getParameter("numerotarjetausuario");
+		String titularUsuario = request.getParameter("titulartarjetausuario");
+		String codsegUsuario = request.getParameter("codigoseguridadtarjetausuario");
+		String direcfactUsuario = request.getParameter("direccionfacturacionusuario");
+		
+		Usuario u = new Usuario();
+		u.setNombreUsuario(nombreUsuario);
+		u.setApellidosUsuario(apellidosUsuario);
+		u.setPasswordUsuario(passwordUsuario);
+		u.setEmailUsuario(emailUsuario);
+		u.setFechanacUsuario(concatenarFechaNac);
+		u.setNumtarjetaUsuario(numtarjetaUsuario);
+		u.setTitularUsuario(titularUsuario);
+		u.setCodsegUsuario(codsegUsuario);
+		u.setDirecfactUsuario(direcfactUsuario);
+		Usuario usuario = usuarioServicio.crearUsuario(u);
+
+		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 	}
 
 	@GetMapping("/login")
@@ -47,13 +76,13 @@ public class UsuarioControlador {
 	public String iniciarSesion(HttpServletRequest request) {
 		return "redirect:/usuario/login";
 	}
-	
+
 	@PostMapping("/logout")
 	public String cerrarSesion(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/index";
 	}
-	
+
 	@GetMapping("/userid/{idUsuario}")
 	public String usuarioid(Model model, HttpSession session, @PathVariable("idUsuario") long idUsuario) {
 		// Se recoge el input de la búsqueda de la session y se usa el servicio para

@@ -7,16 +7,18 @@
 <meta name="keywords" content="music, instrument, guitar, note" />
 <meta name="author" content="Daniel Esteban & Amanda Segura" />
 <meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:href="@{/js/bootstrap.min.js}"></script>
-
-<script th:href="@{/js/jquery-3.5.1.min.js}"></script>
-
-<link rel="
-	stylesheet" type="text/css"
+<link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.minSKETCHY.css}" />
 
-	
-<script type="text/javascript" th:href="@{/js/myfunctions.js}"></script>
+
+<!-- <script type="text/javascript" th:href="@{/js/myfunctions.js}"></script> -->
+
+
+
+</head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#">Menú</a>
@@ -37,7 +39,7 @@
 
 
 				<li class="nav-item" style="float: right; margin: 10px;"><form
-						th:action="@{/usuario/signup}" method="post">
+						th:action="@{/usuario/signup}" method="get">
 						<button type="submit"
 							class="btn btn-outline-secondary btn-lg nav-link">Date
 							de alta</button>
@@ -47,54 +49,50 @@
 
 
 				<li class="nav-item" style="float: right; margin: 10px;">
-					<!-- Dispara el modal con un botón -->
-					<button type="button" id="loginbtn"
-						class="btn btn-outline-success btn-lg nav-link"
-						data-toggle="modal" data-target="#myModal">Iniciar Sesión</button>
+					<!-- Dispara el modal con un botón --> <!-- 					<button type="button" id="myBtn" -->
+					<!-- 						class="btn btn-outline-success btn-lg nav-link" --> <!-- 						data-toggle="modal" ata-target="#myModal">Inicia sesión</button> -->
 
-					<!-- Modal -->
-					<div class="modal-dialog" style="display: none;" id="myModal"
-						role="dialog">
+					<a href="#myModal" role="button"
+					class="btn btn-outline-success btn-lg nav-link" data-toggle="modal">Inicia
+						sesión</a>
 
-						<div class="modal-dialog">
+				</li>
+				<!-- Modal -->
 
-							<!-- Contenido del modal login -->
-
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title">Inicio de sesión</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
+				<div class="modal fade" id="myModal" tabindex="-1">
+					<div class="modal-dialog modal-dialog-centered">
+						<!-- Contenido del modal login -->
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Inicio de sesión</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<form th:action="@{/usuario/login}" method="post">
 								<div class="modal-body">
-									<form th:action="@{/usuario/login}" method="post">
-										<div class="form-group">
-											<label>Usuario</label> <input type="email"
-												class="form-control" placeholder="Tu email es tu usuario"
-												name="emailusuario" required>
-										</div>
-										<div class="form-group">
-											<label>Contraseña</label> <input type="password"
-												class="form-control"
-												placeholder="Escribe aquí tu contraseña"
-												name="passwordusuario" required>
-										</div>
-									</form>
+									<div class="form-group">
+										<label>Usuario</label> <input type="email"
+											class="form-control" placeholder="Tu email es tu usuario"
+											name="emailusuario" required>
+									</div>
+									<div class="form-group">
+										<label>Contraseña</label> <input type="password"
+											class="form-control" placeholder="Ahora tu contraseña"
+											name="passwordusuario" required>
+									</div>
 								</div>
-
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary">Inicia
 										sesión</button>
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">Cerrar</button>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
-
-				</li>
+				</div>
 
 
 				<!-- Botón para cerrar sesión -->

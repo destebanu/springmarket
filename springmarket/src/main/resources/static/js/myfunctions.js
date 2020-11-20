@@ -1,14 +1,8 @@
 $(document).ready(function() {
-
-	document.getElementById("loginbtn").addEventListener("click", myFunction);
-
+	//document.getElementById("loginbtn").addEventListener("click", myFunction);
+	$("#myModal").modal('show');
 });
 
-function myFunction() {
-	
-	alert("Holaa");
-	
-	$("#myModal").dialog({
-		modal: true
-	});
-}
+//function myFunction() {
+//	$("#myModal").modal('show');
+//}
