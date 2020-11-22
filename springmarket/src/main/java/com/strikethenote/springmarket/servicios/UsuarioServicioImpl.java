@@ -13,10 +13,10 @@ import com.strikethenote.springmarket.entidades.Usuario;
 @Transactional
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
-	
+
 	@Autowired
 	private UsuarioDao usuarioDao;
-	
+
 	@Override
 	public Usuario crearUsuario(Usuario usuario) {
 		return usuarioDao.crear(usuario);
@@ -25,7 +25,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	@Override
 	public void eliminarUsuario(long idUsuario) {
 		usuarioDao.borrar(idUsuario);
-		
+
 	}
 
 	@Override
@@ -42,5 +42,15 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public List<Usuario> buscarPorNombre(String nombreUsuario) {
 		return usuarioDao.buscarPorNombre(nombreUsuario);
 	}
+
+	@Override
+	public List<Usuario> buscarPorPassword(String passwordUsuario) {
+		return usuarioDao.buscarPorPassword(passwordUsuario);
+	}
 	
+	@Override
+	public List<Usuario> buscarPorEmail(String emailUsuario) {
+		return usuarioDao.buscarPorEmail(emailUsuario);
+	}
+
 }

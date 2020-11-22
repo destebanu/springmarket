@@ -40,18 +40,18 @@ public class UsuarioControlador {
 		String apellidosUsuario = request.getParameter("apellidosusuario");
 		String passwordUsuario = request.getParameter("passwordusuario");
 		String emailUsuario = request.getParameter("emailusuario");
-		
-		//Concatenamos la fecha en un solo String
+
+		// Concatenamos la fecha en un solo String
 		String diaNacimiento = request.getParameter("dianacimientousuario");
 		String mesNacimiento = request.getParameter("mesnacimientousuario");
 		String anioNacimiento = request.getParameter("anionacimientousuario");
 		String concatenarFechaNac = diaNacimiento + "/" + mesNacimiento + "/" + anioNacimiento;
-		
+
 		String numtarjetaUsuario = request.getParameter("numerotarjetausuario");
 		String titularUsuario = request.getParameter("titulartarjetausuario");
 		String codsegUsuario = request.getParameter("codigoseguridadtarjetausuario");
 		String direcfactUsuario = request.getParameter("direccionfacturacionusuario");
-		
+
 		Usuario u = new Usuario();
 		u.setNombreUsuario(nombreUsuario);
 		u.setApellidosUsuario(apellidosUsuario);
@@ -74,7 +74,24 @@ public class UsuarioControlador {
 
 	@PostMapping("/login")
 	public String iniciarSesion(HttpServletRequest request) {
+
+		// Recogemos los valores del formulario
+		String emailUsuario = request.getParameter("emailusuario");
+		String passwordUsuario = request.getParameter("passwordusuario");
+
+		// Comprobamos si el email y el password son correctos buscando el usuario
+		if (!usuarioServicio.buscarPorEmail(emailUsuario).equals(null)) {
+			//ESTO NO FUNCIONA Y SE CUELA AUNQUE SEA NULL!!??
+
+			Usuario buscado = usuarioServicio.buscarPorEmail(emailUsuario).get(0);
+
+			if (buscado.getPasswordUsuario().equals(passwordUsuario))
+				return "redirect:/index";
+		}
 		return "redirect:/usuario/login";
+
+		// Se debería dar feedback si el password es erróneo o si el email no existe
+		// Si es correcto lleva a inicio, y si no a login
 	}
 
 	@PostMapping("/logout")

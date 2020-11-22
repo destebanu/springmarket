@@ -48,52 +48,14 @@
 				<!-- Botón para iniciar sesión -->
 
 
-				<li class="nav-item" style="float: right; margin: 10px;">
-					<!-- Dispara el modal con un botón --> <!-- 					<button type="button" id="myBtn" -->
-					<!-- 						class="btn btn-outline-success btn-lg nav-link" --> <!-- 						data-toggle="modal" ata-target="#myModal">Inicia sesión</button> -->
-
-					<a href="#myModal" role="button"
-					class="btn btn-outline-success btn-lg nav-link" data-toggle="modal">Inicia
-						sesión</a>
-
+				<li class="nav-item" style="float: right; margin: 10px;"><form
+						th:action="@{/usuario/login}" method="get">
+						<button type="submit"
+							class="btn btn-outline-success btn-lg nav-link">Inicia sesión</button>
+					</form></li>
+					
 				</li>
-				<!-- Modal -->
-
-				<div class="modal fade" id="myModal" tabindex="-1">
-					<div class="modal-dialog modal-dialog-centered">
-						<!-- Contenido del modal login -->
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">Inicio de sesión</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<form th:action="@{/usuario/login}" method="post">
-								<div class="modal-body">
-									<div class="form-group">
-										<label>Usuario</label> <input type="email"
-											class="form-control" placeholder="Tu email es tu usuario"
-											name="emailusuario" required>
-									</div>
-									<div class="form-group">
-										<label>Contraseña</label> <input type="password"
-											class="form-control" placeholder="Ahora tu contraseña"
-											name="passwordusuario" required>
-									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary">Inicia
-										sesión</button>
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Cerrar</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-
+				
 
 				<!-- Botón para cerrar sesión -->
 
