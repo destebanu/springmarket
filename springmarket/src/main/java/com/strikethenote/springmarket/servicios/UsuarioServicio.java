@@ -17,9 +17,7 @@ public interface UsuarioServicio {
 	
 	public List<Usuario> buscarPorNombre (String nombreUsuario);
 	
-	public List<Usuario> buscarPorPassword (String passwordUsuario);
-	
-	public List<Usuario> buscarPorEmail (String emailUsuario);
+	public Usuario buscarPorEmail (String emailUsuario);
 
 	
 }

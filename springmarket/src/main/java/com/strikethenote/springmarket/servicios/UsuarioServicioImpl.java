@@ -43,13 +43,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		return usuarioDao.buscarPorNombre(nombreUsuario);
 	}
 
+		
 	@Override
-	public List<Usuario> buscarPorPassword(String passwordUsuario) {
-		return usuarioDao.buscarPorPassword(passwordUsuario);
-	}
-	
-	@Override
-	public List<Usuario> buscarPorEmail(String emailUsuario) {
+	public Usuario buscarPorEmail(String emailUsuario) {
 		return usuarioDao.buscarPorEmail(emailUsuario);
 	}
 

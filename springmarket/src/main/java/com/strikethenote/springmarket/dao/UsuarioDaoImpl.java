@@ -12,10 +12,11 @@ import com.strikethenote.springmarket.entidades.Usuario;
 @Repository
 @Component("UsuarioDao")
 public class UsuarioDaoImpl extends DaoGenericoImpl<Usuario> implements UsuarioDao {
-	
+
 	@Override
 	public List<Usuario> buscarPorNombre(String nombreUsuario) {
-		Query query = this.em.createQuery("select u FROM Usuario u where u.nombreUsuario LIKE CONCAT('%', :nombreUsuario, '%')");
+		Query query = this.em
+				.createQuery("select u FROM Usuario u where u.nombreUsuario LIKE CONCAT('%', :nombreUsuario, '%')");
 		query.setParameter("nombreUsuario", nombreUsuario);
 		List<Usuario> usuarios = query.getResultList();
 
@@ -24,31 +25,23 @@ public class UsuarioDaoImpl extends DaoGenericoImpl<Usuario> implements UsuarioD
 		}
 		return null;
 	}
-	
-	@Override
-	public List<Usuario> buscarPorPassword (String passwordUsuario) {
-		
-		Query query = this.em.createQuery("select u FROM Usuario u where u.passwordUsuario LIKE CONCAT('%', :passwordUsuario, '%')");
-		query.setParameter("passwordUsuario", passwordUsuario);
-		List<Usuario> usuarios = query.getResultList();
 
-		if (usuarios != null) {
-			return usuarios;
-		}
-		return null;
-	}
-	
 	@Override
-	public List<Usuario> buscarPorEmail (String emailUsuario) {
+	public Usuario buscarPorEmail (String emailUsuario) {
 		
-		Query query = this.em.createQuery("select u FROM Usuario u where u.emailUsuario LIKE CONCAT('%', :emailUsuario, '%')");
+		Query query = this.em.createQuery("select u FROM Usuario u where u.emailUsuario =  :emailUsuario");
 		query.setParameter("emailUsuario", emailUsuario);
-		List<Usuario> usuarios = query.getResultList();
+		
+		try {
 
-		if (usuarios != null) {
-			return usuarios;
+		Usuario usuario = (Usuario) query.getSingleResult();
+
+			return usuario;
+
 		}
-		return null;
+		catch(javax.persistence.NoResultException e){
+			return null;
+		}
 	}
 
 	@Override
@@ -61,6 +54,5 @@ public class UsuarioDaoImpl extends DaoGenericoImpl<Usuario> implements UsuarioD
 		}
 		return null;
 	}
-
 
 }

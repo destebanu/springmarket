@@ -69,26 +69,37 @@ public class UsuarioControlador {
 
 	@GetMapping("/login")
 	public String login(Model model, HttpSession session) {
+		Boolean error = false;
+		
+		model.addAttribute("error",error);
+		
 		return "login";
 	}
 
 	@PostMapping("/login")
-	public String iniciarSesion(HttpServletRequest request) {
+	public String iniciarSesion(Model model, HttpServletRequest request) {
+		
+		
 
 		// Recogemos los valores del formulario
 		String emailUsuario = request.getParameter("emailusuario");
 		String passwordUsuario = request.getParameter("passwordusuario");
 
-		// Comprobamos si el email y el password son correctos buscando el usuario
-		if (!usuarioServicio.buscarPorEmail(emailUsuario).equals(null)) {
-			//ESTO NO FUNCIONA Y SE CUELA AUNQUE SEA NULL!!??
+		Usuario buscado = usuarioServicio.buscarPorEmail(emailUsuario);
 
-			Usuario buscado = usuarioServicio.buscarPorEmail(emailUsuario).get(0);
+		// Comprobamos si el email y el password son correctos buscando el usuario
+		if ((buscado != null)) {
+			// ESTO NO FUNCIONA Y SE CUELA AUNQUE SEA NULL!!??
 
 			if (buscado.getPasswordUsuario().equals(passwordUsuario))
 				return "redirect:/index";
 		}
-		return "redirect:/usuario/login";
+		
+		Boolean error = true;
+		
+		model.addAttribute("error",error);	
+		
+		return "login";
 
 		// Se debería dar feedback si el password es erróneo o si el email no existe
 		// Si es correcto lleva a inicio, y si no a login
