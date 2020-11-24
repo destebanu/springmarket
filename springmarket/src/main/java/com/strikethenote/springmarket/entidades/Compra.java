@@ -37,6 +37,7 @@ public class Compra implements Serializable {
 	private Usuario usuario;
 
 	// Relación ManyToMany Producto
+	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "LINEAS_DE_COMPRA", 
 	joinColumns = @JoinColumn(name = "ID_COMPRA"), 
@@ -60,7 +61,7 @@ public class Compra implements Serializable {
 		this.usuario = usuario;
 	}
 	
-	//Métodos Producto Entidad Poseída
+	//Métodos Producto (Entidad poseída)
 
 	public Set<Producto> getProductos() {
 		return productos;

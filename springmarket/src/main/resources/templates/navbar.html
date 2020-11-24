@@ -53,8 +53,6 @@
 						<button type="submit"
 							class="btn btn-outline-success btn-lg nav-link">Inicia sesión</button>
 					</form></li>
-					
-				</li>
 				
 
 				<!-- Botón para cerrar sesión -->
@@ -67,6 +65,14 @@
 							sesión</button>
 					</form>
 				</li>
+				
+				<!-- Botón para acceder al carrito -->
+				
+				<li class="nav-item" style="float: right; margin: 10px;"><form
+						th:action="@{/compra}" method="get">
+						<button type="submit"
+							class="btn btn-outline-secondary btn-lg nav-link"><img th:src="@{/imagenes/carrito-de-compras.png}" width="auto" height="30" alt="Ver carrito"/></button>
+					</form></li>
 			</ul>
 		</div>
 	</nav>
