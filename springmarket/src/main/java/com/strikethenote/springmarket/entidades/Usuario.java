@@ -1,6 +1,8 @@
 package com.strikethenote.springmarket.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,50 +22,55 @@ import javax.persistence.*;
 @Table(name = "USUARIO")
 /* POJO */
 public class Usuario implements Serializable {
-	
-	
+
 	private static final long serialVersionUID = -8548755844378572455L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_USUARIO")
 	private Long idUsuario;
-	
-	//Datos personales
-	
+
+	// Datos personales
+
 	@Column(name = "NOMBRE_USUARIO")
 	private String nombreUsuario;
-	
+
 	@Column(name = "APELLIDOS_USUARIO")
 	private String apellidosUsuario;
-	
+
 	@Column(name = "PASSWORD_USUARIO")
 	private String passwordUsuario;
-	
+
 	@Column(name = "EMAIL_USUARIO")
 	private String emailUsuario;
-	
+
 	@Column(name = "FECHANAC_USUARIO")
 	private String fechanacUsuario;
-	
-	//Datos de pago
-	
+
+	// Datos de pago
+
 	@Column(name = "NUMTARJETA_USUARIO")
 	private String numtarjetaUsuario;
-	
+
 	@Column(name = "TITULAR_USUARIO")
 	private String titularUsuario;
-	
+
 	@Column(name = "CODSEG_USUARIO")
 	private String codsegUsuario;
-	
+
 	@Column(name = "DIRECFACT_USUARIO")
 	private String direcfactUsuario;
 	
+	// Relación OneToMany Compra
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	private Set<Compra> compras = new HashSet<>();
+
 	public Usuario() {
-		
+
 	}
-	
+
 	public Usuario(Long idUsuario, String nombreUsuario, String apellidosUsuario, String passwordUsuario,
 			String emailUsuario, String fechanacUsuario, String numtarjetaUsuario, String titularUsuario,
 			String codsegUsuario, String direcfactUsuario) {
@@ -178,6 +185,25 @@ public class Usuario implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	// Métodos entidad poseída
+
+	public Set<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(Set<Compra> compras) {
+		this.compras = compras;
+	}
+
+	public boolean anadirCompras(Compra compra) {
+		compra.setUsuario(this);
+		return getCompras().add(compra);
+	}
+
+	public void eliminarCompras(Compra compra) {
+		getCompras().remove(compra);
+	}
 
 	@Override
 	public String toString() {
@@ -187,10 +213,5 @@ public class Usuario implements Serializable {
 				+ ", titularUsuario=" + titularUsuario + ", codsegUsuario=" + codsegUsuario + ", direcfactUsuario="
 				+ direcfactUsuario + "]";
 	}
-	
-	
-	
-	
-	
-}
 
+}

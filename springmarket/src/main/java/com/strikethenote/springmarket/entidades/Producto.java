@@ -1,6 +1,8 @@
 package com.strikethenote.springmarket.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,6 +41,10 @@ public class Producto implements Serializable {
 	
 	@Column(name = "DESCUENTO_PRODUCTO")
 	private Double descuentoProducto;	// porcentaje
+	
+	//Relación ManyToMany Compra
+	@ManyToMany(mappedBy = "productos")
+	private Set<Compra> compras = new HashSet<>();
 	
 		
 	public Producto() {
@@ -113,7 +119,27 @@ public class Producto implements Serializable {
 	public void setDescuentoProducto(Double descuentoProducto) {
 		this.descuentoProducto = descuentoProducto;
 	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	//Métodos Compra
+	
+	public Set<Compra> getCompras() {
+		return compras;
+	}
 
+
+	public void setCompras(Set<Compra> compras) {
+		this.compras = compras;
+	}
+
+	
+	public void anadirCompra(Compra c) {
+		this.compras.add(c);
+		
+	}
 
 	@Override
 	public String toString() {
@@ -121,6 +147,12 @@ public class Producto implements Serializable {
 				+ descripcionProducto + ", precioProducto=" + precioProducto + ", descuentoProducto="
 				+ descuentoProducto + "]";
 	}
+
+
+	
+
+
+	
 	
 	
 
