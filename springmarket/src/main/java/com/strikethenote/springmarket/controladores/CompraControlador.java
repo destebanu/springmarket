@@ -35,7 +35,7 @@ public class CompraControlador {
 
 		// Añadimos la lista al modelo
 		model.addAttribute("listacarritos", listacarritos);
-		return "carrito";
+		return "carrocompra";
 	}
 	
 	@PostMapping("/add/{idProducto}")
