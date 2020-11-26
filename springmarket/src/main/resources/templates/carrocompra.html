@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang=es xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Strike the Note</title>
+<meta charset="UTF-8">
+<meta name="description" content="Tienda de instrumentos musicales">
+<meta name="keywords" content="music, instrument, guitar, note" />
+<meta name="author" content="Daniel Esteban & Amanda Segura" />
+<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<style th:inline="text">
+body {
+	background-image: url("/imagenes/fondo.jpg");
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+.boton {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-decoration: none;
+}
+
+#fondito {
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
+</style>
+</head>
+<body>
+	<nav th:replace="navbar"></nav>
+	<div id="fondito">
+		<header>
+			<!--Cabecera con logo en imágenes que presentan la página-->
+			<figure>
+				<img class="logo" th:src="@{/imagenes/logo.png}" />
+			</figure>
+			<nav>
+				<!--Enlace al final de la página-->
+				<a name="arriba" href=#abajo class="boton"><button type="button"
+						class="btn btn-warning boton btn-lg">Ir abajo</button></a> <br />
+				<div class="progress">
+					<div class="progress-bar bg-info" role="progressbar"
+						style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
+						aria-valuemax="100"></div>
+				</div>
+				<br />
+			</nav>
+		</header>
+		<section class="back">
+			<!--Contenedor de secciones y artículos de la página-->
+			<h1>Productos en el carrito</h1>
+			<div class="card text-white bg-warning mb-3" style="width: 70%;">
+				<div class="card-header">Listado de productos:</div>
+				<div class="card-body">
+					<p class="card-text">
+					<table class="table table-hover">
+						<tbody>
+							<tr>
+							<td class="coloreado">Nombre:</td>
+							<td class="coloreado">Cantidad:</td>
+							<td class="coloreado">Precio por unidad:</td>
+							</tr>
+							<tr class="table-primary" th:each="carrito: ${listacarritos}">
+								<td th:text="${carrito.nombreProductoCarrito}" />
+								<td th:text="${carrito.cantidadProductoCarrito}" />
+								<td th:text="${carrito.precioProductoCarrito}" />
+							</tr>
+						</tbody>
+						</th:block>
+					</table>
+					</p>
+				</div>
+			</div>
+			<br />
+			<div class="progress">
+				<div class="progress-bar bg-info" role="progressbar"
+					style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
+					aria-valuemax="100"></div>
+			</div>
+			<br />
+			<button class="btn btn-success boton btn-lg">
+				<a target="self" th:href="@{/product/product}">Buscar o crear
+					productos</a>
+			</button>
+		</section>
+		<br />
+		<!--Pie de página que permite regresar al principio-->
+		<footer>
+			<div class="progress">
+				<div class="progress-bar bg-info" role="progressbar"
+					style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
+					aria-valuemax="100"></div>
+			</div>
+			<br /> <a name="abajo" href=#arriba class="boton"><button
+					type="button" class="btn btn-warning boton btn-lg">Ir
+					arriba</button></a>
+		</footer>
+	</div>
+</body>
+</html>

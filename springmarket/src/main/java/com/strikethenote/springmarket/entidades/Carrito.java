@@ -30,7 +30,7 @@ public class Carrito {
 		setCantidadProductoCarrito(cantidadProductoCarrito);
 	}
 	
-	public Carrito(Producto producto) {
+	public Carrito(Producto producto, Integer cantidadProductoCarrito) {
 		setIdProductoCarrito(producto.getIdProducto());
 		setNombreProductoCarrito(producto.getNombreProducto());
 		setPrecioProductoCarrito(producto.getPrecioProducto());

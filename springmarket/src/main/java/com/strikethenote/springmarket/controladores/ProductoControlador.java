@@ -122,7 +122,11 @@ public class ProductoControlador {
 		Producto resultado = productoServicio.obtenerProducto(idProducto);
 		// Añadimos el producto al objeto para mostrar su nombre en la página de
 		// resultados de búsqueda
+		
 		model.addAttribute("producto", resultado);
+		
+		session.setAttribute("producto", resultado);
+		
 		return "productid";
 	}
 
