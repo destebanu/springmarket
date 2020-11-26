@@ -2,6 +2,7 @@ package com.strikethenote.springmarket.controladores;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.strikethenote.springmarket.entidades.Carrito;
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Usuario;
 import com.strikethenote.springmarket.servicios.UsuarioServicio;
@@ -77,7 +79,7 @@ public class UsuarioControlador {
 	}
 
 	@PostMapping("/login")
-	public String iniciarSesion(Model model, HttpServletRequest request) {
+	public String iniciarSesion(Model model, HttpServletRequest request, HttpSession session) {
 		
 		
 
@@ -91,8 +93,11 @@ public class UsuarioControlador {
 		if ((buscado != null)) {
 			// ESTO NO FUNCIONA Y SE CUELA AUNQUE SEA NULL!!??
 
-			if (buscado.getPasswordUsuario().equals(passwordUsuario))
+			if (buscado.getPasswordUsuario().equals(passwordUsuario)) {
+				List<Carrito> listacarritos = new ArrayList<Carrito>();
+				session.setAttribute("listacarritos", listacarritos);
 				return "redirect:/index";
+			}
 		}
 		
 		Boolean error = true;

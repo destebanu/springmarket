@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.strikethenote.springmarket.entidades.Carrito;
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
 
@@ -24,22 +25,34 @@ import com.strikethenote.springmarket.servicios.ProductoServicio;
 public class CompraControlador {
 	@Autowired
 	private ProductoServicio productoServicio;
-/*
+
 	@GetMapping("/carrocompra")
 	public String product(Model model, HttpSession session) {
 
-		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
-		// buscar en la tabla
-		Carrito carrito = new Carrito()
-		String aux = (String) session.getAttribute("nombreproducto");
-
-		// Recogemos el valor en una lista de productos.
-
-		List<Carrito> listacarritos = productoServicio.buscarPorNombre(aux);
+		// Se recoge la lista de carritos de la session	
+		List<Carrito> listacarritos = (List<Carrito>) session.getAttribute("listacarritos");
+		
 
 		// Añadimos la lista al modelo
 		model.addAttribute("listacarritos", listacarritos);
 		return "carrito";
 	}
-*/
+	
+	@PostMapping("/add/{idProducto}")
+	public String buscarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
+
+		// Se recoge la cantidad del producto
+		Integer cantidadproducto = Integer.parseInt(request.getParameter("cantidadproducto"));
+		
+		// Crea carrito con el producto
+		Carrito carrito = new Carrito(productoServicio.obtenerProducto(idProducto), cantidadproducto);
+		
+		//Meter el carrito en lista
+		List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
+		listacarritos.add(carrito);
+		request.getSession().setAttribute("listacarritos", listacarritos);
+		
+		return "redirect:/index";
+	}
+
 }
