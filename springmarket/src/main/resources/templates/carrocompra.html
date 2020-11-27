@@ -65,14 +65,20 @@ body {
 					<table class="table table-hover">
 						<tbody>
 							<tr>
-							<td class="coloreado">Nombre:</td>
-							<td class="coloreado">Cantidad:</td>
-							<td class="coloreado">Precio por unidad:</td>
+								<td class="coloreado">Nombre:</td>
+								<td class="coloreado">Cantidad:</td>
+								<td class="coloreado">Precio por unidad:</td>
 							</tr>
 							<tr class="table-primary" th:each="carrito: ${listacarritos}">
 								<td th:text="${carrito.nombreProductoCarrito}" />
 								<td th:text="${carrito.cantidadProductoCarrito}" />
-								<td th:text="${carrito.precioProductoCarrito}" />
+								<td th:text="${carrito.precioProductoCarrito}+' €'" />
+								<td><form
+										th:action="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}"
+										method="post">
+										<button style="float: left; margin-right: 40%;" type="submit"
+											class="btn btn-danger">Eliminar del carrito</button>
+									</form></td>
 							</tr>
 						</tbody>
 						</th:block>
@@ -88,8 +94,8 @@ body {
 			</div>
 			<br />
 			<button class="btn btn-success boton btn-lg">
-				<a target="self" th:href="@{/product/product}">Buscar o crear
-					productos</a>
+				<a target="self" th:href="@{/product/product}"
+					style="text-decoration: none;">Buscar o crear productos</a>
 			</button>
 		</section>
 		<br />
