@@ -73,12 +73,19 @@ body {
 								<td th:text="${carrito.nombreProductoCarrito}" />
 								<td th:text="${carrito.cantidadProductoCarrito}" />
 								<td th:text="${carrito.precioProductoCarrito}+' €'" />
-								<td><form
-										th:action="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}"
-										method="post">
-										<button style="float: left; margin-right: 40%;" type="submit"
-											class="btn btn-danger">Eliminar del carrito</button>
-									</form></td>
+								<td><a th:href="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}"> 
+								<button style="float: left; margin-right: 40%;" type="button" 
+ 											class="btn btn-danger">Eliminar del carrito</button></a>
+								
+								
+<!-- 								<form -->
+<!-- 										th:action="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}" -->
+<!-- 										method="post"> -->
+<!-- 										<button style="float: left; margin-right: 40%;" type="submit" -->
+<!-- 											class="btn btn-danger">Eliminar del carrito</button> -->
+<!-- 									</form> -->
+									
+									</td>
 							</tr>
 						</tbody>
 						</th:block>

@@ -23,7 +23,7 @@ import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
 
 @Controller
-@RequestMapping(value = "/compra")
+@RequestMapping(value = "compra")
 public class CompraControlador {
 	@Autowired
 	private ProductoServicio productoServicio;
@@ -56,8 +56,8 @@ public class CompraControlador {
 		return "redirect:/index";
 	}
 
-	@PostMapping("/eliminar/{idProductoCarrito}")
-	public String eliminarProducto(HttpServletRequest request, @PathVariable("idProductoCarrito") long idProductoCarrito) {
+	@GetMapping("/eliminar/{idProductoCarrito}")
+	public String eliminarProducto(Model model,HttpServletRequest request, @PathVariable("idProductoCarrito") long idProductoCarrito) {
 		// Se pasa por session el producto y se elimina del carrito a partir de su id
 		List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
 		//request.getSession().getAttribute("idProductoCarrito");
@@ -68,11 +68,11 @@ public class CompraControlador {
 				}
 					
 			}
-			request.getSession().setAttribute("listacarritos", listacarritos);
-			return "redirect:/compra/carrocompra";
+			model.addAttribute("listacarritos", listacarritos);
+			return "carrocompra";
 		} catch (ConcurrentModificationException e) {
 			System.out.println("Fallo enorme");
-			return null;
+			return "redirect:/index";
 		} catch (TemplateInputException e) {
 			System.out.println("Fallo enorme");
 			return null;
