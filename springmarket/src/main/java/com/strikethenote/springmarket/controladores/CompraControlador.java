@@ -36,6 +36,17 @@ public class CompraControlador {
 
 		// Añadimos la lista al modelo
 		model.addAttribute("listacarritos", listacarritos);
+
+		//
+		Double totalConDescuento = 0.0;
+		Double precioSegunCantidad = 0.0;
+
+		for (Carrito aux : listacarritos) {
+			precioSegunCantidad = (aux.getPrecioProductoCarrito() * aux.getCantidadProductoCarrito());
+			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProductoCarrito() / 100);
+		}
+		
+		model.addAttribute("totalConDescuento", totalConDescuento);
 		return "carrocompra";
 	}
 

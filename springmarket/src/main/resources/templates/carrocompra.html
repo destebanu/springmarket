@@ -68,22 +68,31 @@ body {
 								<td class="coloreado">Nombre:</td>
 								<td class="coloreado">Cantidad:</td>
 								<td class="coloreado">Precio por unidad:</td>
+								<td class="coloreado">Descuento:</td>
 								<td class="coloreado">Precio total con descuento:</td>
-								<td class="coloreado">Precio Carrito total:</td>
+								<td class="coloreado">Borrar productos:</td>
 
 							</tr>
 							<tr class="table-primary" th:each="carrito: ${listacarritos}">
 								<td th:text="${carrito.nombreProductoCarrito}" />
 								<td th:text="${carrito.cantidadProductoCarrito}" />
 								<td th:text="${carrito.precioProductoCarrito}+' €'" />
-								<td th:text="${(carrito.precioProductoCarrito * carrito.cantidadProductoCarrito)-((carrito.precioProductoCarrito * carrito.cantidadProductoCarrito))*(carrito.descuentoProductoCarrito /100)}+' €'" />
-								<td th:text="${}"/>
+								<td th:text="${carrito.descuentoProductoCarrito}+' %'" />
+								<td
+									th:with="totalCarrito=${(carrito.precioProductoCarrito * carrito.cantidadProductoCarrito)-
+								((carrito.precioProductoCarrito * carrito.cantidadProductoCarrito))*(carrito.descuentoProductoCarrito /100)}+' €'"
+									th:text="${totalCarrito}" />
+
 								<td><form
 										th:action="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}"
 										method="post">
 										<button style="float: left; margin-right: 40%;" type="submit"
 											class="btn btn-danger">Eliminar del carrito</button>
 									</form></td>
+							</tr>
+							<tr class="coloreado">
+								<td class="coloreado">Total:</td>
+								<td class="coloreado" colspan="5" th:text="${totalConDescuento}+' €'"/>
 							</tr>
 						</tbody>
 						</th:block>
