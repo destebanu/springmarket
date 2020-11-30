@@ -45,26 +45,31 @@ public class CompraControlador {
 			precioSegunCantidad = (aux.getPrecioProductoCarrito() * aux.getCantidadProductoCarrito());
 			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProductoCarrito() / 100);
 		}
-		
+
 		model.addAttribute("totalConDescuento", totalConDescuento);
 		return "carrocompra";
 	}
 
 	@PostMapping("/add/{idProducto}")
 	public String buscarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
+		
+		if (request.getSession().getAttribute("listacarritos")!=null) {
 
-		// Se recoge la cantidad del producto
-		Integer cantidadproducto = Integer.parseInt(request.getParameter("cantidadproducto"));
+			// Se recoge la cantidad del producto
+			Integer cantidadproducto = Integer.parseInt(request.getParameter("cantidadproducto"));
 
-		// Crea carrito con el producto
-		Carrito carrito = new Carrito(productoServicio.obtenerProducto(idProducto), cantidadproducto);
+			// Crea carrito con el producto
+			Carrito carrito = new Carrito(productoServicio.obtenerProducto(idProducto), cantidadproducto);
 
-		// Meter el carrito en lista
-		List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
-		listacarritos.add(carrito);
-		request.getSession().setAttribute("listacarritos", listacarritos);
+			// Meter el carrito en lista
+			List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
+			listacarritos.add(carrito);
+			request.getSession().setAttribute("listacarritos", listacarritos);
 
 		return "redirect:/index";
+		} else
+			return "redirect:/usuario/login";
+			
 	}
 
 	@PostMapping("/eliminar/{idProductoCarrito}")
