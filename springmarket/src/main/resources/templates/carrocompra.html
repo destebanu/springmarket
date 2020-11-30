@@ -68,11 +68,16 @@ body {
 								<td class="coloreado">Nombre:</td>
 								<td class="coloreado">Cantidad:</td>
 								<td class="coloreado">Precio por unidad:</td>
+								<td class="coloreado">Precio total con descuento:</td>
+								<td class="coloreado">Precio Carrito total:</td>
+
 							</tr>
 							<tr class="table-primary" th:each="carrito: ${listacarritos}">
 								<td th:text="${carrito.nombreProductoCarrito}" />
 								<td th:text="${carrito.cantidadProductoCarrito}" />
 								<td th:text="${carrito.precioProductoCarrito}+' €'" />
+								<td th:text="${(carrito.precioProductoCarrito * carrito.cantidadProductoCarrito)-((carrito.precioProductoCarrito * carrito.cantidadProductoCarrito))*(carrito.descuentoProductoCarrito /100)}+' €'" />
+								<td th:text="${}"/>
 								<td><form
 										th:action="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}"
 										method="post">

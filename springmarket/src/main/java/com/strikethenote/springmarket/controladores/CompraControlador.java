@@ -57,27 +57,25 @@ public class CompraControlador {
 	}
 
 	@PostMapping("/eliminar/{idProductoCarrito}")
-	public String eliminarProducto(HttpServletRequest request, @PathVariable("idProductoCarrito") long idProductoCarrito) {
+	public String eliminarProducto(HttpServletRequest request,
+			@PathVariable("idProductoCarrito") long idProductoCarrito) {
 		// Se pasa por session el producto y se elimina del carrito a partir de su id
 		List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
-		//request.getSession().getAttribute("idProductoCarrito");
+		// request.getSession().getAttribute("idProductoCarrito");
 		try {
 			for (Carrito carrito : listacarritos) {
 				if (carrito.getIdProductoCarrito() == idProductoCarrito) {
 					listacarritos.remove(carrito);
 				}
-					
+
 			}
 			request.getSession().setAttribute("listacarritos", listacarritos);
 			return "redirect:/compra/carrocompra";
 		} catch (ConcurrentModificationException e) {
 			System.out.println("Fallo enorme");
 			return null;
-		} catch (TemplateInputException e) {
-			System.out.println("Fallo enorme");
-			return null;
 		}
-		
+
 	}
 
 }
