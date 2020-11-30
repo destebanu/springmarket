@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.strikethenote.springmarket.entidades.Carrito;
+import com.strikethenote.springmarket.entidades.ItemCarrito;
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Usuario;
 import com.strikethenote.springmarket.servicios.UsuarioServicio;
@@ -68,6 +68,7 @@ public class UsuarioControlador {
 
 		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 	}
+	
 
 	@GetMapping("/login")
 	public String login(Model model, HttpSession session) {
@@ -94,8 +95,8 @@ public class UsuarioControlador {
 			// ESTO NO FUNCIONA Y SE CUELA AUNQUE SEA NULL!!??
 
 			if (buscado.getPasswordUsuario().equals(passwordUsuario)) {
-				List<Carrito> listacarritos = new ArrayList<Carrito>();
-				session.setAttribute("listacarritos", listacarritos);
+				List<ItemCarrito> carrito = new ArrayList<ItemCarrito>();
+				session.setAttribute("carrito", carrito);
 				return "redirect:/index";
 			}
 		}

@@ -73,18 +73,18 @@ body {
 								<td class="coloreado">Borrar productos:</td>
 
 							</tr>
-							<tr class="table-primary" th:each="carrito: ${listacarritos}">
-								<td th:text="${carrito.nombreProductoCarrito}" />
-								<td th:text="${carrito.cantidadProductoCarrito}" />
-								<td th:text="${carrito.precioProductoCarrito}+' €'" />
-								<td th:text="${carrito.descuentoProductoCarrito}+' %'" />
+							<tr class="table-primary" th:each="item: ${carrito}">
+								<td th:text="${item.nombreItemCarrito}" />
+								<td th:text="${item.cantidadItemCarrito}" />
+								<td th:text="${item.precioItemCarrito}+' €'" />
+								<td th:text="${item.descuentoItemCarrito}+' %'" />
 								<td
-									th:with="totalCarrito=${(carrito.precioProductoCarrito * carrito.cantidadProductoCarrito)-
-								((carrito.precioProductoCarrito * carrito.cantidadProductoCarrito))*(carrito.descuentoProductoCarrito /100)}+' €'"
+									th:with="totalCarrito=${(item.precioItemCarrito * item.cantidadItemCarrito)-
+								((item.precioItemCarrito * item.cantidadItemCarrito))*(item.descuentoItemCarrito /100)}+' €'"
 									th:text="${totalCarrito}" />
 
 								<td><form
-										th:action="@{/compra/eliminar/{id}(id=${carrito.idProductoCarrito})}"
+										th:action="@{/compra/eliminar/{id}(id=${item.idItemCarrito})}"
 										method="post">
 										<button style="float: left; margin-right: 40%;" type="submit"
 											class="btn btn-danger">Eliminar del carrito</button>
@@ -92,7 +92,8 @@ body {
 							</tr>
 							<tr class="coloreado">
 								<td class="coloreado">Total:</td>
-								<td class="coloreado" colspan="5" th:text="${totalConDescuento}+' €'"/>
+								<td class="coloreado" colspan="5"
+									th:text="${totalConDescuento}+' €'" />
 							</tr>
 						</tbody>
 						</th:block>
@@ -111,6 +112,11 @@ body {
 				<a target="self" th:href="@{/product/product}"
 					style="text-decoration: none;">Buscar o crear productos</a>
 			</button>
+			<form th:action="@{/compra/finalizar}" method="post">
+				<button class="btn btn-secondary boton btn-lg" type="submit">
+					Haz tu pedido</button>
+			</form>
+
 		</section>
 		<br />
 		<!--Pie de página que permite regresar al principio-->

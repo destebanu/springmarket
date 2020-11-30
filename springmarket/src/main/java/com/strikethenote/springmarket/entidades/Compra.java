@@ -2,6 +2,7 @@ package com.strikethenote.springmarket.entidades;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,6 +30,12 @@ public class Compra implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_COMPRA")
 	private Long idCompra;
+	
+	@Column(name = "PRECIO_COMPRA")
+	private Double precioCompra;
+	
+	@Column(name = "CARRITO")
+	private List<ItemCarrito> carrito;
 
 	// Relación OneToMany Usuario
 
@@ -42,8 +49,55 @@ public class Compra implements Serializable {
 	@JoinTable(name = "LINEAS_DE_COMPRA", 
 	joinColumns = @JoinColumn(name = "ID_COMPRA"), 
 	inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
-
 	private Set<Producto> productos = new HashSet<>();
+	
+	public Compra() {
+		super();
+	}
+	
+
+	public Compra(Long idCompra, Double precioCompra, List<ItemCarrito> carrito, Usuario usuario) {
+		super();
+		this.idCompra = idCompra;
+		this.precioCompra = precioCompra;
+		this.carrito = carrito;
+		this.usuario = usuario;
+	}
+
+	public Compra(Double precioCompra, List<ItemCarrito> carrito, Usuario usuario, Set<Producto> productos) {
+		this.precioCompra = precioCompra;
+		this.carrito = carrito;
+		this.usuario = usuario;
+		this.productos = productos;
+	}
+
+	public Compra(Long idCompra, Double precioCompra, List<ItemCarrito> carrito, Usuario usuario,
+			Set<Producto> productos) {
+		this.idCompra = idCompra;
+		this.precioCompra = precioCompra;
+		this.carrito = carrito;
+		this.usuario = usuario;
+		this.productos = productos;
+	}
+	
+	public Double getPrecioCompra() {
+		return precioCompra;
+	}
+
+
+	public void setPrecioCompra(Double precioCompra) {
+		this.precioCompra = precioCompra;
+	}
+
+
+	public List<ItemCarrito> getCarrito() {
+		return carrito;
+	}
+
+
+	public void setCarrito(List<ItemCarrito> carrito) {
+		this.carrito = carrito;
+	}
 
 	public Long getIdCompra() {
 		return idCompra;

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.exceptions.TemplateInputException;
 
-import com.strikethenote.springmarket.entidades.Carrito;
+import com.strikethenote.springmarket.entidades.ItemCarrito;
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
 
@@ -32,39 +32,40 @@ public class CompraControlador {
 	public String product(Model model, HttpSession session) {
 
 		// Se recoge la lista de carritos de la session
-		List<Carrito> listacarritos = (List<Carrito>) session.getAttribute("listacarritos");
+		List<ItemCarrito> carrito = (List<ItemCarrito>) session.getAttribute("carrito");
 
 		// Añadimos la lista al modelo
-		model.addAttribute("listacarritos", listacarritos);
+		model.addAttribute("carrito", carrito);
 
 		//
 		Double totalConDescuento = 0.0;
 		Double precioSegunCantidad = 0.0;
 
-		for (Carrito aux : listacarritos) {
-			precioSegunCantidad = (aux.getPrecioProductoCarrito() * aux.getCantidadProductoCarrito());
-			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProductoCarrito() / 100);
+		for (ItemCarrito aux : carrito) {
+			precioSegunCantidad = (aux.getPrecioItemCarrito() * aux.getCantidadItemCarrito());
+			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoItemCarrito() / 100);
 		}
 
 		model.addAttribute("totalConDescuento", totalConDescuento);
+		session.setAttribute("totalcondescuento",totalConDescuento);
 		return "carrocompra";
 	}
 
 	@PostMapping("/add/{idProducto}")
 	public String buscarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 		
-		if (request.getSession().getAttribute("listacarritos")!=null) {
+		if (request.getSession().getAttribute("carrito")!=null) {
 
 			// Se recoge la cantidad del producto
 			Integer cantidadproducto = Integer.parseInt(request.getParameter("cantidadproducto"));
 
 			// Crea carrito con el producto
-			Carrito carrito = new Carrito(productoServicio.obtenerProducto(idProducto), cantidadproducto);
+			ItemCarrito item = new ItemCarrito(productoServicio.obtenerProducto(idProducto), cantidadproducto);
 
 			// Meter el carrito en lista
-			List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
-			listacarritos.add(carrito);
-			request.getSession().setAttribute("listacarritos", listacarritos);
+			List<ItemCarrito> carrito = (List<ItemCarrito>) request.getSession().getAttribute("carrito");
+			carrito.add(item);
+			request.getSession().setAttribute("carrito", carrito);
 
 		return "redirect:/index";
 		} else
@@ -72,20 +73,19 @@ public class CompraControlador {
 			
 	}
 
-	@PostMapping("/eliminar/{idProductoCarrito}")
+	@PostMapping("/eliminar/{idItemCarrito}")
 	public String eliminarProducto(HttpServletRequest request,
-			@PathVariable("idProductoCarrito") long idProductoCarrito) {
+			@PathVariable("idItemCarrito") long idItemCarrito) {
 		// Se pasa por session el producto y se elimina del carrito a partir de su id
-		List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
-		// request.getSession().getAttribute("idProductoCarrito");
+		List<ItemCarrito> carrito = (List<ItemCarrito>) request.getSession().getAttribute("carrito");
 		try {
-			for (Carrito carrito : listacarritos) {
-				if (carrito.getIdProductoCarrito() == idProductoCarrito) {
-					listacarritos.remove(carrito);
+			for (ItemCarrito aux : carrito) {
+				if (aux.getIdItemCarrito() == idItemCarrito) {
+					carrito.remove(aux);
 				}
 
 			}
-			request.getSession().setAttribute("listacarritos", listacarritos);
+			request.getSession().setAttribute("carrito", carrito);
 			return "redirect:/compra/carrocompra";
 		} catch (ConcurrentModificationException e) {
 			System.out.println("Fallo enorme");
@@ -93,5 +93,14 @@ public class CompraControlador {
 		}
 
 	}
+	
+//	@PostMapping("/finalizar")
+//	public String finalizarCompra(HttpServletRequest request) {
+//		List<ItemCarrito> carrito = (List<ItemCarrito>) request.getSession().getAttribute("carrito");
+//		
+//		
+//
+//	}
+	
 
 }
