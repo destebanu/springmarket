@@ -73,18 +73,18 @@ body {
 								<td class="coloreado">Borrar productos:</td>
 
 							</tr>
-							<tr class="table-primary" th:each="item: ${carrito}">
-								<td th:text="${item.nombreItemCarrito}" />
-								<td th:text="${item.cantidadItemCarrito}" />
-								<td th:text="${item.precioItemCarrito}+' €'" />
-								<td th:text="${item.descuentoItemCarrito}+' %'" />
+							<tr class="table-primary" th:each="producto: ${carrito}">
+								<td th:text="${producto.nombreProducto}" />
+								<td th:text="${cantidad}" />
+								<td th:text="${producto.precioProducto}+' €'" />
+								<td th:text="${producto.descuentoProducto}+' %'" />
 								<td
-									th:with="totalCarrito=${(item.precioItemCarrito * item.cantidadItemCarrito)-
-								((item.precioItemCarrito * item.cantidadItemCarrito))*(item.descuentoItemCarrito /100)}+' €'"
+									th:with="totalCarrito=${(producto.precioProducto * cantidad)-
+								((producto.precioProducto * cantidad))*(producto.descuentoProducto /100)}+' €'"
 									th:text="${totalCarrito}" />
 
 								<td><form
-										th:action="@{/compra/eliminar/{id}(id=${item.idItemCarrito})}"
+										th:action="@{/compra/eliminar/{id}(id=${producto.idProducto})}"
 										method="post">
 										<button style="float: left; margin-right: 40%;" type="submit"
 											class="btn btn-danger">Eliminar del carrito</button>

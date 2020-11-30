@@ -3,7 +3,9 @@ package com.strikethenote.springmarket.controladores;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
@@ -68,21 +70,18 @@ public class UsuarioControlador {
 
 		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 	}
-	
 
 	@GetMapping("/login")
 	public String login(Model model, HttpSession session) {
 		Boolean error = false;
-		
-		model.addAttribute("error",error);
-		
+
+		model.addAttribute("error", error);
+
 		return "login";
 	}
 
 	@PostMapping("/login")
 	public String iniciarSesion(Model model, HttpServletRequest request, HttpSession session) {
-		
-		
 
 		// Recogemos los valores del formulario
 		String emailUsuario = request.getParameter("emailusuario");
@@ -92,19 +91,20 @@ public class UsuarioControlador {
 
 		// Comprobamos si el email y el password son correctos buscando el usuario
 		if ((buscado != null)) {
-			// ESTO NO FUNCIONA Y SE CUELA AUNQUE SEA NULL!!??
 
 			if (buscado.getPasswordUsuario().equals(passwordUsuario)) {
-				List<ItemCarrito> carrito = new ArrayList<ItemCarrito>();
+				Set<Producto> carrito = new HashSet<Producto>();
 				session.setAttribute("carrito", carrito);
+				session.setAttribute("usuario",buscado);
 				return "redirect:/index";
+				
 			}
 		}
-		
+
 		Boolean error = true;
-		
-		model.addAttribute("error",error);	
-		
+
+		model.addAttribute("error", error);
+
 		return "login";
 
 		// Se debería dar feedback si el password es erróneo o si el email no existe
@@ -123,6 +123,7 @@ public class UsuarioControlador {
 		// buscar en la tabla
 		Usuario resultado = usuarioServicio.obtenerUsuario(idUsuario);
 		model.addAttribute("usuario", resultado);
+		
 		return "userid";
 	}
 

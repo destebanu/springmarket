@@ -25,17 +25,20 @@ import javax.persistence.*;
 
 public class Compra implements Serializable {
 	// Mapeo Hibernate
+	
+
+	private static final long serialVersionUID = 3588475469746690416L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_COMPRA")
 	private Long idCompra;
-	
+
 	@Column(name = "PRECIO_COMPRA")
 	private Double precioCompra;
-	
-	@Column(name = "CARRITO")
-	private List<ItemCarrito> carrito;
+
+//	@Column(name = "CARRITO")
+//	private List<ItemCarrito> carrito;
 
 	// Relación OneToMany Usuario
 
@@ -44,61 +47,46 @@ public class Compra implements Serializable {
 	private Usuario usuario;
 
 	// Relación ManyToMany Producto
-	
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "LINEAS_DE_COMPRA", 
-	joinColumns = @JoinColumn(name = "ID_COMPRA"), 
-	inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
+	@JoinTable(name = "LINEAS_DE_COMPRA", joinColumns = @JoinColumn(name = "ID_COMPRA"), inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
 	private Set<Producto> productos = new HashSet<>();
-	
+
 	public Compra() {
-		super();
-	}
-	
-
-	public Compra(Long idCompra, Double precioCompra, List<ItemCarrito> carrito, Usuario usuario) {
-		super();
-		this.idCompra = idCompra;
-		this.precioCompra = precioCompra;
-		this.carrito = carrito;
-		this.usuario = usuario;
 	}
 
-	public Compra(Double precioCompra, List<ItemCarrito> carrito, Usuario usuario, Set<Producto> productos) {
+	public Compra(Double precioCompra, Usuario usuario, Set<Producto> productos) {
+		super();
 		this.precioCompra = precioCompra;
-		this.carrito = carrito;
 		this.usuario = usuario;
 		this.productos = productos;
 	}
 
-	public Compra(Long idCompra, Double precioCompra, List<ItemCarrito> carrito, Usuario usuario,
-			Set<Producto> productos) {
+	public Compra(Long idCompra, Double precioCompra, Usuario usuario, Set<Producto> productos) {
+		super();
 		this.idCompra = idCompra;
 		this.precioCompra = precioCompra;
-		this.carrito = carrito;
 		this.usuario = usuario;
 		this.productos = productos;
 	}
-	
+
 	public Double getPrecioCompra() {
 		return precioCompra;
 	}
-
 
 	public void setPrecioCompra(Double precioCompra) {
 		this.precioCompra = precioCompra;
 	}
 
-
-	public List<ItemCarrito> getCarrito() {
-		return carrito;
-	}
-
-
-	public void setCarrito(List<ItemCarrito> carrito) {
-		this.carrito = carrito;
-	}
-
+//	public List<ItemCarrito> getCarrito() {
+//		return carrito;
+//	}
+//
+//
+//	public void setCarrito(List<ItemCarrito> carrito) {
+//		this.carrito = carrito;
+//	}
+//
 	public Long getIdCompra() {
 		return idCompra;
 	}
@@ -114,8 +102,8 @@ public class Compra implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	//Métodos Producto (Entidad poseída)
+
+	// Métodos Producto (Entidad poseída)
 
 	public Set<Producto> getProductos() {
 		return productos;
@@ -124,12 +112,12 @@ public class Compra implements Serializable {
 	public void setProductos(Set<Producto> productos) {
 		this.productos = productos;
 	}
-	
+
 	public boolean anadirProducto(Producto producto) {
 		producto.anadirCompra(this);
 		return getProductos().add(producto);
 	}
-	
+
 	public void eliminarProducto(Producto producto) {
 		this.productos.remove(producto);
 		producto.getCompras().remove(this);
