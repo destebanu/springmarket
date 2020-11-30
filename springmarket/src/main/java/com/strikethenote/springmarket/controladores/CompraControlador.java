@@ -23,7 +23,7 @@ import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
 
 @Controller
-@RequestMapping(value = "compra")
+@RequestMapping(value = "/compra")
 public class CompraControlador {
 	@Autowired
 	private ProductoServicio productoServicio;
@@ -36,6 +36,17 @@ public class CompraControlador {
 
 		// Añadimos la lista al modelo
 		model.addAttribute("listacarritos", listacarritos);
+
+		//
+		Double totalConDescuento = 0.0;
+		Double precioSegunCantidad = 0.0;
+
+		for (Carrito aux : listacarritos) {
+			precioSegunCantidad = (aux.getPrecioProductoCarrito() * aux.getCantidadProductoCarrito());
+			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProductoCarrito() / 100);
+		}
+		
+		model.addAttribute("totalConDescuento", totalConDescuento);
 		return "carrocompra";
 	}
 
@@ -56,28 +67,26 @@ public class CompraControlador {
 		return "redirect:/index";
 	}
 
-	@GetMapping("/eliminar/{idProductoCarrito}")
-	public String eliminarProducto(Model model,HttpServletRequest request, @PathVariable("idProductoCarrito") long idProductoCarrito) {
+	@PostMapping("/eliminar/{idProductoCarrito}")
+	public String eliminarProducto(HttpServletRequest request,
+			@PathVariable("idProductoCarrito") long idProductoCarrito) {
 		// Se pasa por session el producto y se elimina del carrito a partir de su id
 		List<Carrito> listacarritos = (List<Carrito>) request.getSession().getAttribute("listacarritos");
-		//request.getSession().getAttribute("idProductoCarrito");
+		// request.getSession().getAttribute("idProductoCarrito");
 		try {
 			for (Carrito carrito : listacarritos) {
 				if (carrito.getIdProductoCarrito() == idProductoCarrito) {
 					listacarritos.remove(carrito);
 				}
-					
+
 			}
-			model.addAttribute("listacarritos", listacarritos);
-			return "carrocompra";
+			request.getSession().setAttribute("listacarritos", listacarritos);
+			return "redirect:/compra/carrocompra";
 		} catch (ConcurrentModificationException e) {
-			System.out.println("Fallo enorme");
-			return "redirect:/index";
-		} catch (TemplateInputException e) {
 			System.out.println("Fallo enorme");
 			return null;
 		}
-		
+
 	}
 
 }

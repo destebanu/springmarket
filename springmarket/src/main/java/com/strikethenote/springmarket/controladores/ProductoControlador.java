@@ -130,7 +130,7 @@ public class ProductoControlador {
 	public String borrarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 		// Se pasa por session el producto y se borra de la bbdd a partir de su id
 		productoServicio.eliminarProducto(idProducto);
-		return "redirect:/product/index";
+		return "redirect:/index";
 	}
 
 
