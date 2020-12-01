@@ -63,13 +63,10 @@ body {
 			<div class="card text-white bg-danger mb-3" style="width: 80%;">
 				<div class="card-header">&iexcl;Productos con descuento!</div>
 				<div class="card-body">
-					<h4 class="card-title">Echa un vistazo</h4>
+					<h4 th:if="${productos.empty}" class="card-title">No hay productos todavía</h4>
 					<p class="card-text">
 					<table class="table table-hover">
 							<tbody th:each="producto, iterStat: ${productos}">
-								<tr th:if="${productos.empty}">
-									<td>No hay productos en oferta todavía</td>
-								</tr>
 								<tr class="table-primary">
 									<td th:if="${iterStat.index == 0}" class="celdas"><span th:text="${producto.nombreProducto}"></span></td>
 									<td th:if="${iterStat.index == 0}" class="celdas"><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>

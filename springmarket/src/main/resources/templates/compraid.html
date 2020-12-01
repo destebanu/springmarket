@@ -28,7 +28,11 @@ body {
 }
 
 .coloreado {
-	background-color: #99ffff;
+	background-color: #ff80bf;
+}
+
+.coloreado2 {
+	background-color: #99ff99;
 }
 </style>
 </head>
@@ -41,7 +45,6 @@ body {
 				<img class="logo" th:src="@{/imagenes/logo.png}" />
 			</figure>
 		</header>
-		<section>
 			<div>
 				<h1 class="text-center">Pedido en detalle</h1>
 				<table class="table table-bordered" style="width: 70%">
@@ -57,15 +60,21 @@ body {
 					<!-- 						<td class="coloreado">Descuento total:</td> -->
 					<!-- 						<td th:text="${compra.descuentoCompra}+' %'" /> -->
 					<!-- 					</tr> -->
+					<tr>
+						<td class="coloreado" colspan="2">Productos:</td>
+					</tr>
+					<tr th:each="producto: ${compra.productos}">
+						<td class="coloreado2" th:text="'Item: '+${producto.nombreProducto}"/>
+						<td th:text="'Precio: '+${producto.precioProducto}+' €'"/>
+					</tr>
 				</table>
 			</div>
 			<br />
 			<form th:action="@{/compra/devolver/{id}(id=${compra.idCompra})}"
 				method="post">
-				<button style="float: left; margin-right: 40%;" type="submit"
-					class="btn btn-danger">Devolver pedido</button>
+				<button style="margin-right: 40%;" type="submit"
+					class="btn btn-danger btn-lg">Devolver pedido</button>
 			</form>
-		</section>
 	</div>
 </body>
 </html>

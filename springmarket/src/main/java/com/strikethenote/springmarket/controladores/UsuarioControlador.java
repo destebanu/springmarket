@@ -99,9 +99,9 @@ public class UsuarioControlador {
 			if (buscado.getPasswordUsuario().equals(passwordUsuario)) {
 				Set<Producto> carrito = new HashSet<Producto>();
 				session.setAttribute("carrito", carrito);
-				session.setAttribute("usuario",buscado);
+				session.setAttribute("usuario", buscado);
 				return "redirect:/index";
-				
+
 			}
 		}
 
@@ -125,15 +125,15 @@ public class UsuarioControlador {
 	public String usuarioid(Model model, HttpSession session, @PathVariable("idUsuario") long idUsuario) {
 		// Se recoge el input de la búsqueda de la session y se usa el servicio para
 		// buscar en la tabla
-		Usuario resultado = usuarioServicio.obtenerUsuario(idUsuario);
-		model.addAttribute("usuario", resultado);
-		
-		//Recogemos las compras del usuario
-		List<Compra> compras = compraServicio.buscarUsuario(resultado);
-		session.setAttribute("compras", compras);
-		model.addAttribute("compras", compras);
-		
-		return "userid";
+			Usuario resultado = usuarioServicio.obtenerUsuario(idUsuario);
+			model.addAttribute("usuario", resultado);
+
+			// Recogemos las compras del usuario
+			List<Compra> compras = compraServicio.buscarUsuario(resultado);
+			session.setAttribute("compras", compras);
+			model.addAttribute("compras", compras);
+
+			return "userid";
 	}
 
 }
