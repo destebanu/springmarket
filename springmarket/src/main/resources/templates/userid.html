@@ -112,19 +112,18 @@ body {
 				</fieldset>
 			</div>
 			<div style="clear: both;"></div>
-			<div class="card text-white bg-danger mb-3" style="width: 80%;">
+			<div class="card text-white bg-success mb-3" style="width: 80%;">
 				<div class="card-header">&iexcl;Aquí están tus compras!</div>
 				<div class="card-body">
-					<h4 class="card-title">Echa un vistazo</h4>
+					<h4 th:if="${compras.empty}" class="card-title">Todavía no hay pedidos realizados</h4>
 					<p class="card-text">
 					<table class="table table-hover">
 						<tbody th:each="compra: ${compras}">
-							<tr th:if="${compras.empty}">
-								<td>No hay pedidos realizados todavía</td>
-							</tr>
 							<tr class="table-primary">
 								<td class="celdas"><span
-									th:text="'Compra '+${compra.idCompra}"></span></td>
+									th:text="'Compra '+${compra.idCompra}"></span></td>	
+									<td class="celdas"><span style="background-color:#ffff33;"
+									th:text="'Precio: '+${compra.precioCompra}"></span></td>
 								<td class="celdas"><a
 									th:href="@{/compra/compraid/{id}(id=${compra.idCompra})}"
 									class="btn btn-info">Ver la compra</a></td>

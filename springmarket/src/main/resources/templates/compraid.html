@@ -28,7 +28,11 @@ body {
 }
 
 .coloreado {
-	background-color: #99ffff;
+	background-color: #ff80bf;
+}
+
+.coloreado2 {
+	background-color: #99ff99;
 }
 </style>
 </head>
@@ -41,31 +45,40 @@ body {
 				<img class="logo" th:src="@{/imagenes/logo.png}" />
 			</figure>
 		</header>
-		<section>
-			<div>
-				<h1 class="text-center">Pedido en detalle</h1>
-				<table class="table table-bordered" style="width: 70%">
-					<tr>
-						<td class="coloreado">ID:</td>
-						<td th:text="${compra.idCompra}" />
-					</tr>
-					<tr>
-						<td class="coloreado">Precio total:</td>
-						<td th:text="${compra.precioCompra}+' €'" />
-					</tr>
-					<!-- 					<tr> -->
-					<!-- 						<td class="coloreado">Descuento total:</td> -->
-					<!-- 						<td th:text="${compra.descuentoCompra}+' %'" /> -->
-					<!-- 					</tr> -->
-				</table>
-			</div>
-			<br />
-			<form th:action="@{/compra/devolver/{id}(id=${compra.idCompra})}"
-				method="post">
-				<button style="float: left; margin-right: 40%;" type="submit"
-					class="btn btn-danger">Devolver pedido</button>
-			</form>
-		</section>
+		<div>
+			<h1 class="text-center">Pedido en detalle</h1>
+			<table class="table table-bordered" style="width: 70%">
+				<tr>
+					<td class="coloreado">ID:</td>
+					<td  colspan="3" th:text="${compra.idCompra}" />
+				</tr>
+				<tr>
+					<td class="coloreado">Precio total:</td>
+					<td  colspan="3" th:text="${compra.precioCompra}+' €'" />
+				</tr>
+				<tr>
+					<td class="coloreado">Descuento total:</td>
+					<td  colspan="3" th:text="${compra.descuentoCompra}+' %'" />
+				</tr>
+				<tr>
+					<td class="coloreado" colspan="4">Productos:</td>
+				</tr>
+				<tr th:each="producto: ${compra.productos}">
+					<td class="coloreado2"
+						th:text="'Item: '+${producto.nombreProducto}" />
+					<td th:text="'Precio: '+${producto.precioProducto}+' €'" />
+					<td th:text="'Descuento: '+${producto.descuentoProducto}+' %'" />
+					<td th:text="'Cantidad: '+${producto.precioProducto - producto.precioProducto*(producto.descuentoProducto / 100)}" />
+					
+				</tr>
+			</table>
+		</div>
+		<br />
+		<form th:action="@{/compra/devolver/{id}(id=${compra.idCompra})}"
+			method="post">
+			<button style="margin-right: 40%;" type="submit"
+				class="btn btn-danger btn-lg">Devolver pedido</button>
+		</form>
 	</div>
 </body>
 </html>

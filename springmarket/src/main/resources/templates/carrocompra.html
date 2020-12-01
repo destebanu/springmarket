@@ -61,8 +61,9 @@ body {
 			<div class="card text-white bg-warning mb-3" style="width: 70%;">
 				<div class="card-header">Listado de productos:</div>
 				<div class="card-body">
+				<h4 th:if="${carrito.empty}" class="card-title">Todavía no tienes nada en el carrito</h4>
 					<p class="card-text">
-					<table class="table table-hover">
+					<table th:if="${not carrito.empty}" class="table table-hover">
 						<tbody>
 							<tr>
 								<td class="coloreado">Nombre:</td>

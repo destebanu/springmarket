@@ -37,39 +37,44 @@ public class CompraControlador {
 	private CompraServicio compraServicio;
 	@Autowired
 	private UsuarioServicio usuarioServicio;
-	
-	
 
 	@GetMapping("/carrocompra")
 	public String product(Model model, HttpSession session) {
+		if (session.getAttribute("carrito") != null) {
+			// Se recoge la lista de carritos de la session
+			Set<Producto> carrito = (Set<Producto>) session.getAttribute("carrito");
+			Integer cantidad = (Integer) session.getAttribute("cantidadproducto");
 
-		// Se recoge la lista de carritos de la session
-		Set<Producto> carrito = (Set<Producto>) session.getAttribute("carrito");
-		Integer cantidad = (Integer) session.getAttribute("cantidadproducto");
+			// Añadimos la lista al modelo
+			model.addAttribute("carrito", carrito);
+			model.addAttribute("cantidad", cantidad);
 
-		// Añadimos la lista al modelo
-		model.addAttribute("carrito", carrito);
-		model.addAttribute("cantidad", cantidad);
+			//
+			Double totalConDescuento = 0.0;
+			Double precioSegunCantidad = 0.0;
+			Double total = 0.0;
 
-		//
-		Double totalConDescuento = 0.0;
-		Double precioSegunCantidad = 0.0;
-		Double total = 0.0;
+			for (Producto aux : carrito) {
+				precioSegunCantidad = (aux.getPrecioProducto() * cantidad);
+				total += precioSegunCantidad;
+				totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProducto() / 100);
+			}
 
-		for (Producto aux : carrito) {
-			precioSegunCantidad = (aux.getPrecioProducto() * cantidad);
-			total += precioSegunCantidad;
-			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProducto() / 100);
-		}
-		 
-		 Double descuentoObtenido = ((total-totalConDescuento)*100)/total;
+			// Redondeamos a 2 decimales el descuento en %
+			Double descuentoObtenido = Math.round(((total - totalConDescuento) * 100) / total * 100.0) / 100.0;
 
-		model.addAttribute("cantidad", cantidad);
-		model.addAttribute("totalConDescuento", totalConDescuento);
-		session.setAttribute("totalcondescuento", totalConDescuento);
-		session.setAttribute("carrito", carrito);
-		session.setAttribute("descuentoObtenido", descuentoObtenido);
-		return "carrocompra";
+			// Redondeamos a 2 decimales el precio final
+			totalConDescuento = Math.round(totalConDescuento * 100.0) / 100.0;
+
+			model.addAttribute("cantidad", cantidad);
+			model.addAttribute("totalConDescuento", totalConDescuento);
+			session.setAttribute("totalcondescuento", totalConDescuento);
+			session.setAttribute("carrito", carrito);
+			session.setAttribute("descuentoObtenido", descuentoObtenido);
+			return "carrocompra";
+		} else
+			return "redirect:/usuario/login";
+
 	}
 
 	@PostMapping("/add/{idProducto}")
@@ -107,8 +112,13 @@ public class CompraControlador {
 				}
 
 			}
-			request.getSession().setAttribute("carrito", carrito);
+
+			Set<Producto> carritoresultante = new HashSet<Producto>();
+			for (Producto p : carrito)
+				carritoresultante.add(productoServicio.obtenerProducto(p.getIdProducto()));
+			request.getSession().setAttribute("carrito", carritoresultante);
 			return "redirect:/compra/carrocompra";
+
 		} catch (ConcurrentModificationException e) {
 			System.out.println("Fallo enorme");
 			return null;
@@ -124,26 +134,27 @@ public class CompraControlador {
 		Double descuentoObtenido = (Double) request.getSession().getAttribute("descuentoObtenido");
 
 		Set<Producto> carritofinal = new HashSet<Producto>();
-		for (Producto p: carrito)
+		for (Producto p : carrito)
 			carritofinal.add(productoServicio.obtenerProducto(p.getIdProducto()));
-		
+
 		Compra c = new Compra();
 		c.setPrecioCompra(totaldescuento);
 		c.setProductos(carritofinal);
 		c.setUsuario(usuarioServicio.obtenerUsuario(usuario.getIdUsuario()));
 		c.setDescuentoCompra(descuentoObtenido);
 
+		Set<Producto> carritonuevo = new HashSet<Producto>();
+		request.getSession().setAttribute("carrito", carritonuevo);
 		Compra compra = compraServicio.crearCompra(c);
-				
-		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 
+		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 	}
-	 //TODO
-	//POSTMAPPING & GETMAPPING para mostrar la lista de compras 
+
 	@GetMapping("/compraid/{idCompra}")
-	public String compraid(Model model, HttpSession session) {
-		//session.getAttribute("compras", compras);
-		//model.addAttribute("compras", compras);
+	public String compraid(Model model, HttpSession session, @PathVariable("idCompra") long idCompra) {
+		Compra resultado = compraServicio.obtenerCompra(idCompra);
+		// Añadimos la compra al objeto para mostrarla en detalle en su página
+		model.addAttribute("compra", resultado);
 		return "compraid";
 	}
 
@@ -154,9 +165,8 @@ public class CompraControlador {
 		try {
 			for (Compra aux : compras) {
 				if (aux.getIdCompra() == idCompra) {
-					compras.remove(aux);
+					compraServicio.eliminarCompra(idCompra);
 				}
-
 			}
 			request.getSession().setAttribute("compras", compras);
 
@@ -164,7 +174,7 @@ public class CompraControlador {
 
 			return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 		} catch (ConcurrentModificationException e) {
-			System.out.println("Fallo enorme");
+			System.out.println("Fallo catastrófico");
 			return null;
 		}
 

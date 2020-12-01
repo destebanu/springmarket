@@ -24,28 +24,6 @@ public class ProductoControlador {
 	private ProductoServicio productoServicio;
 
 	// Métodos get y post
-/*
-	@GetMapping("/index")
-	public String index(Model model) {
-		// Se añaden a una lista los productos de la bbdd a una lista
-		List<Producto> productos = productoServicio.listarProductos();
-
-		// Añadimos la lista al modelo para mostrarla en index
-
-		int tamano = 8;
-		if (tamano > productos.size()) {
-			tamano = productos.size();
-		}
-
-		model.addAttribute("productos", productos.subList(0, tamano));
-
-		return "index";
-	}
-*/
-	/*
-	 * @PostMapping("/index") public String persistMessage (HttpServletRequest
-	 * request) { return "product"; }
-	 */
 
 	@GetMapping("/product")
 	public String product(Model model, HttpSession session) {
@@ -82,7 +60,6 @@ public class ProductoControlador {
 		return "redirect:/product/productid/" + producto.getIdProducto();
 	}
 
-	// ACTUALIZAR RESULTS PARA PILLAR Y MOSTRAR LISTA
 	@GetMapping("/results")
 	public String devolverResultados(Model model, HttpSession session) {
 		// Se recoge el input de la búsqueda de la seesion y se usa el servicio para
@@ -98,21 +75,7 @@ public class ProductoControlador {
 
 		return "results";
 	}
-	/*
-	 * ModelAndView mav = new ModelAndView();
-	 * 
-	 * List<Producto> productos = productoServicio.listarProductos();
-	 * 
-	 * mav.addObject("productos", productos); mav.setViewName("producto/results");
-	 * return mav;
-	 */
-//	}
-
-//	@PostMapping("/results")
-//	public String persistMessageResults(HttpServletRequest request) {
-//		return "results";
-//	}
-
+	
 	// Métodos para mostrar producto con sus carácterísticas y borrarlo
 
 	@GetMapping("/productid/{idProducto}")
