@@ -3,6 +3,7 @@ package com.strikethenote.springmarket.controladores;
 import org.springframework.stereotype.Controller;
 
 import java.util.ConcurrentModificationException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Usuario;
 import com.strikethenote.springmarket.servicios.CompraServicio;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
+import com.strikethenote.springmarket.servicios.UsuarioServicio;
 
 @Controller
 @RequestMapping(value = "/compra")
@@ -33,6 +35,10 @@ public class CompraControlador {
 	private ProductoServicio productoServicio;
 	@Autowired
 	private CompraServicio compraServicio;
+	@Autowired
+	private UsuarioServicio usuarioServicio;
+	
+	
 
 	@GetMapping("/carrocompra")
 	public String product(Model model, HttpSession session) {
@@ -48,19 +54,19 @@ public class CompraControlador {
 		//
 		Double totalConDescuento = 0.0;
 		Double precioSegunCantidad = 0.0;
-		
-		
 
 		for (Producto aux : carrito) {
 			precioSegunCantidad = (aux.getPrecioProducto() * cantidad);
 			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProducto() / 100);
 		}
 		// TODO
-		//Double descuentoObtenido = ((precioSegunCantidad-totalConDescuento)*100)/precioSegunCantidad;
-		
+		// Double descuentoObtenido =
+		// ((precioSegunCantidad-totalConDescuento)*100)/precioSegunCantidad;
+
 		model.addAttribute("cantidad", cantidad);
 		model.addAttribute("totalConDescuento", totalConDescuento);
 		session.setAttribute("totalcondescuento", totalConDescuento);
+		session.setAttribute("carrito", carrito);
 		return "carrocompra";
 	}
 
@@ -113,18 +119,50 @@ public class CompraControlador {
 		Set<Producto> carrito = (Set<Producto>) request.getSession().getAttribute("carrito");
 		Double totaldescuento = (Double) request.getSession().getAttribute("totalcondescuento");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-		
+
+		Set<Producto> carritofinal = new HashSet<Producto>();
+		for (Producto p: carrito)
+			carritofinal.add(productoServicio.obtenerProducto(p.getIdProducto()));
 		
 		Compra c = new Compra();
 		c.setPrecioCompra(totaldescuento);
-		c.setProductos(carrito);
-		c.setUsuario(usuario);
-		
+		c.setProductos(carritofinal);
+		c.setUsuario(usuarioServicio.obtenerUsuario(usuario.getIdUsuario()));
+
 		Compra compra = compraServicio.crearCompra(c);
-		
-		return "redirect:/usuario/userid/" + usuario.getIdUsuario(); 
-		//+ producto.getIdProducto();
+				
+		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 
 	}
+	 //TODO
+	//POSTMAPPING & GETMAPPING para mostrar la lista de compras 
+	@GetMapping("/compraid/{idCompra}")
+	public String compraid(Model model, HttpSession session) {
+		//session.getAttribute("compras", compras);
+		//model.addAttribute("compras", compras);
+		return "compraid";
+	}
 
+	@PostMapping("/devolver/{idCompra}")
+	public String devolverCompra(HttpServletRequest request, @PathVariable("idCompra") long idCompra) {
+		// Se pasa por session la compra y se elimina del carrito a partir de su id
+		List<Compra> compras = (List<Compra>) request.getSession().getAttribute("compras");
+		try {
+			for (Compra aux : compras) {
+				if (aux.getIdCompra() == idCompra) {
+					compras.remove(aux);
+				}
+
+			}
+			request.getSession().setAttribute("compras", compras);
+
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+			return "redirect:/usuario/userid/" + usuario.getIdUsuario();
+		} catch (ConcurrentModificationException e) {
+			System.out.println("Fallo enorme");
+			return null;
+		}
+
+	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.strikethenote.springmarket.dao.CompraDao;
 import com.strikethenote.springmarket.entidades.Compra;
+import com.strikethenote.springmarket.entidades.Usuario;
 
 @Transactional
 @Service
@@ -36,6 +37,11 @@ public class CompraServicioImpl implements CompraServicio {
 	@Override
 	public List<Compra> listarCompras() {
 		return compraDao.listarCompras();
+	}
+
+	@Override
+	public List<Compra> buscarUsuario(Usuario usuario) {
+		return compraDao.buscarPorUsuario(usuario);
 	}
 
 }

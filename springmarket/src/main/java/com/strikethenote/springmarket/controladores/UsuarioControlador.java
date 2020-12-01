@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.strikethenote.springmarket.entidades.Compra;
 import com.strikethenote.springmarket.entidades.ItemCarrito;
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Usuario;
+import com.strikethenote.springmarket.servicios.CompraServicio;
 import com.strikethenote.springmarket.servicios.UsuarioServicio;
 
 @Controller
@@ -30,6 +32,8 @@ public class UsuarioControlador {
 
 	@Autowired
 	private UsuarioServicio usuarioServicio;
+	@Autowired
+	private CompraServicio compraServicio;
 
 	// Métodos get y post
 
@@ -123,6 +127,11 @@ public class UsuarioControlador {
 		// buscar en la tabla
 		Usuario resultado = usuarioServicio.obtenerUsuario(idUsuario);
 		model.addAttribute("usuario", resultado);
+		
+		//Recogemos las compras del usuario
+		List<Compra> compras = compraServicio.buscarUsuario(resultado);
+		session.setAttribute("compras", compras);
+		model.addAttribute("compras", compras);
 		
 		return "userid";
 	}
