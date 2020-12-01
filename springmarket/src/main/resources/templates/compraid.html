@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang=es xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Strike the Note</title>
+<meta charset="UTF-8">
+<meta name="description" content="Tienda de instrumentos musicales">
+<meta name="keywords" content="music, instrument, guitar, note" />
+<meta name="author" content="Daniel Esteban & Amanda Segura" />
+<meta name="copyright" content="Daniel Esteban & Amanda Segura" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<style th:inline="text">
+body {
+	background-image: url("/imagenes/fondo.jpg");
+}
+
+.logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+}
+
+#fondito {
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
+
+.coloreado {
+	background-color: #99ffff;
+}
+</style>
+</head>
+<body>
+	<nav th:replace="navbar"></nav>
+	<div id="fondito">
+		<header>
+			<!--Cabecera con logo en imágenes que presentan la página-->
+			<figure>
+				<img class="logo" th:src="@{/imagenes/logo.png}" />
+			</figure>
+		</header>
+		<section>
+			<div>
+				<h1 class="text-center">Pedido en detalle</h1>
+				<table class="table table-bordered" style="width: 70%">
+					<tr>
+						<td class="coloreado">ID:</td>
+						<td th:text="${compra.idCompra}" />
+					</tr>
+					<tr>
+						<td class="coloreado">Precio total:</td>
+						<td th:text="${compra.precioCompra}+' €'" />
+					</tr>
+					<!-- 					<tr> -->
+					<!-- 						<td class="coloreado">Descuento total:</td> -->
+					<!-- 						<td th:text="${compra.descuentoCompra}+' %'" /> -->
+					<!-- 					</tr> -->
+				</table>
+			</div>
+			<br />
+			<form th:action="@{/compra/devolver/{id}(id=${compra.idCompra})}"
+				method="post">
+				<button style="float: left; margin-right: 40%;" type="submit"
+					class="btn btn-danger">Devolver pedido</button>
+			</form>
+		</section>
+	</div>
+</body>
+</html>
