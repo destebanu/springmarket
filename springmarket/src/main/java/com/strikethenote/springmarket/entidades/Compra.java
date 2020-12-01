@@ -36,11 +36,22 @@ public class Compra implements Serializable {
 
 	@Column(name = "PRECIO_COMPRA")
 	private Double precioCompra;
+	
+	@Column(name = "DESCUENTO_COMPRA")
+	private Double descuentoCompra;
 
 //	@Column(name = "CARRITO")
 //	private List<ItemCarrito> carrito;
 
 	// Relación OneToMany Usuario
+
+	public Double getDescuentoCompra() {
+		return descuentoCompra;
+	}
+
+	public void setDescuentoCompra(Double descuentoCompra) {
+		this.descuentoCompra = descuentoCompra;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO")
@@ -55,19 +66,21 @@ public class Compra implements Serializable {
 	public Compra() {
 	}
 
-	public Compra(Double precioCompra, Usuario usuario, Set<Producto> productos) {
+	public Compra(Double precioCompra, Usuario usuario, Set<Producto> productos, Double descuentoCompra) {
 		super();
 		this.precioCompra = precioCompra;
 		this.usuario = usuario;
 		this.productos = productos;
+		this.descuentoCompra = descuentoCompra;
 	}
 
-	public Compra(Long idCompra, Double precioCompra, Usuario usuario, Set<Producto> productos) {
+	public Compra(Long idCompra, Double precioCompra, Usuario usuario, Set<Producto> productos, Double descuentoCompra) {
 		super();
 		this.idCompra = idCompra;
 		this.precioCompra = precioCompra;
 		this.usuario = usuario;
 		this.productos = productos;
+		this.descuentoCompra = descuentoCompra;
 	}
 
 	public Double getPrecioCompra() {

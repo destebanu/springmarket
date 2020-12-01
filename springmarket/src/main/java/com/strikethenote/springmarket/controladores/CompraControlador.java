@@ -54,19 +54,21 @@ public class CompraControlador {
 		//
 		Double totalConDescuento = 0.0;
 		Double precioSegunCantidad = 0.0;
+		Double total = 0.0;
 
 		for (Producto aux : carrito) {
 			precioSegunCantidad = (aux.getPrecioProducto() * cantidad);
+			total += precioSegunCantidad;
 			totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProducto() / 100);
 		}
-		// TODO
-		// Double descuentoObtenido =
-		// ((precioSegunCantidad-totalConDescuento)*100)/precioSegunCantidad;
+		 
+		 Double descuentoObtenido = ((total-totalConDescuento)*100)/total;
 
 		model.addAttribute("cantidad", cantidad);
 		model.addAttribute("totalConDescuento", totalConDescuento);
 		session.setAttribute("totalcondescuento", totalConDescuento);
 		session.setAttribute("carrito", carrito);
+		session.setAttribute("descuentoObtenido", descuentoObtenido);
 		return "carrocompra";
 	}
 
@@ -119,6 +121,7 @@ public class CompraControlador {
 		Set<Producto> carrito = (Set<Producto>) request.getSession().getAttribute("carrito");
 		Double totaldescuento = (Double) request.getSession().getAttribute("totalcondescuento");
 		Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+		Double descuentoObtenido = (Double) request.getSession().getAttribute("descuentoObtenido");
 
 		Set<Producto> carritofinal = new HashSet<Producto>();
 		for (Producto p: carrito)
@@ -128,6 +131,7 @@ public class CompraControlador {
 		c.setPrecioCompra(totaldescuento);
 		c.setProductos(carritofinal);
 		c.setUsuario(usuarioServicio.obtenerUsuario(usuario.getIdUsuario()));
+		c.setDescuentoCompra(descuentoObtenido);
 
 		Compra compra = compraServicio.crearCompra(c);
 				
