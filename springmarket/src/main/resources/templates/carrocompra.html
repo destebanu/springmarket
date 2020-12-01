@@ -76,12 +76,12 @@ body {
 							</tr>
 							<tr class="table-primary" th:each="producto: ${carrito}">
 								<td th:text="${producto.nombreProducto}" />
-								<td th:text="${cantidad}" />
+								<td th:text="${producto.cantidadProducto}" />
 								<td th:text="${producto.precioProducto}+' €'" />
 								<td th:text="${producto.descuentoProducto}+' %'" />
 								<td
-									th:with="totalCarrito=${(producto.precioProducto * cantidad)-
-								((producto.precioProducto * cantidad))*(producto.descuentoProducto /100)}+' €'"
+									th:with="totalCarrito=${(producto.precioProducto * producto.cantidadProducto)-
+								((producto.precioProducto * producto.cantidadProducto))*(producto.descuentoProducto /100)}+' €'"
 									th:text="${totalCarrito}" />
 
 								<td><form

@@ -68,7 +68,7 @@ body {
 						th:text="'Item: '+${producto.nombreProducto}" />
 					<td th:text="'Precio: '+${producto.precioProducto}+' €'" />
 					<td th:text="'Descuento: '+${producto.descuentoProducto}+' %'" />
-					<td th:text="'Cantidad: '+${producto.precioProducto - producto.precioProducto*(producto.descuentoProducto / 100)}" />
+					<td th:text="'Cantidad: '+${producto.cantidadProducto}" />
 					
 				</tr>
 			</table>

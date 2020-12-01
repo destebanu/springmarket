@@ -43,11 +43,9 @@ public class CompraControlador {
 		if (session.getAttribute("carrito") != null) {
 			// Se recoge la lista de carritos de la session
 			Set<Producto> carrito = (Set<Producto>) session.getAttribute("carrito");
-			Integer cantidad = (Integer) session.getAttribute("cantidadproducto");
 
 			// Añadimos la lista al modelo
 			model.addAttribute("carrito", carrito);
-			model.addAttribute("cantidad", cantidad);
 
 			//
 			Double totalConDescuento = 0.0;
@@ -55,7 +53,7 @@ public class CompraControlador {
 			Double total = 0.0;
 
 			for (Producto aux : carrito) {
-				precioSegunCantidad = (aux.getPrecioProducto() * cantidad);
+				precioSegunCantidad = (aux.getPrecioProducto() * aux.getCantidadProducto());
 				total += precioSegunCantidad;
 				totalConDescuento += precioSegunCantidad - precioSegunCantidad * (aux.getDescuentoProducto() / 100);
 			}
@@ -66,7 +64,6 @@ public class CompraControlador {
 			// Redondeamos a 2 decimales el precio final
 			totalConDescuento = Math.round(totalConDescuento * 100.0) / 100.0;
 
-			model.addAttribute("cantidad", cantidad);
 			model.addAttribute("totalConDescuento", totalConDescuento);
 			session.setAttribute("totalcondescuento", totalConDescuento);
 			session.setAttribute("carrito", carrito);
@@ -84,7 +81,6 @@ public class CompraControlador {
 
 			// Se recoge la cantidad del producto
 			Integer cantidadproducto = Integer.parseInt(request.getParameter("cantidadproducto"));
-			request.getSession().setAttribute("cantidadproducto", cantidadproducto);
 
 			// Crea carrito con el producto
 			// ItemCarrito item = new
@@ -92,7 +88,11 @@ public class CompraControlador {
 
 			// Meter el carrito en lista
 			Set<Producto> carrito = (Set<Producto>) request.getSession().getAttribute("carrito");
-			carrito.add(productoServicio.obtenerProducto(idProducto));
+
+			// Se obtiene el producto, se le agrega la cantidad y al carrito
+			Producto productoNuevo = productoServicio.obtenerProducto(idProducto);
+			productoNuevo.setCantidadProducto(cantidadproducto);
+			carrito.add(productoNuevo);
 			request.getSession().setAttribute("carrito", carrito);
 
 			return "redirect:/index";
@@ -134,8 +134,13 @@ public class CompraControlador {
 		Double descuentoObtenido = (Double) request.getSession().getAttribute("descuentoObtenido");
 
 		Set<Producto> carritofinal = new HashSet<Producto>();
-		for (Producto p : carrito)
-			carritofinal.add(productoServicio.obtenerProducto(p.getIdProducto()));
+		for (Producto p : carrito) {
+			Producto aux = productoServicio.obtenerProducto(p.getIdProducto());
+			// Recuperamos las cantidades de cada producto
+			aux.setCantidadProducto(p.getCantidadProducto());
+			carritofinal.add(aux);
+		}
+		
 
 		Compra c = new Compra();
 		c.setPrecioCompra(totaldescuento);
