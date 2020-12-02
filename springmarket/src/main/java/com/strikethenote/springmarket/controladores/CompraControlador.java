@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -82,10 +83,6 @@ public class CompraControlador {
 			// Se recoge la cantidad del producto
 			Integer cantidadproducto = Integer.parseInt(request.getParameter("cantidadproducto"));
 
-			// Crea carrito con el producto
-			// ItemCarrito item = new
-			// ItemCarrito(productoServicio.obtenerProducto(idProducto), cantidadproducto);
-
 			// Meter el carrito en lista
 			Set<Producto> carrito = (Set<Producto>) request.getSession().getAttribute("carrito");
 
@@ -105,24 +102,47 @@ public class CompraControlador {
 	public String eliminarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 		// Se pasa por session el producto y se elimina del carrito a partir de su id
 		Set<Producto> carrito = (Set<Producto>) request.getSession().getAttribute("carrito");
-		try {
-			for (Producto aux : carrito) {
-				if (aux.getIdProducto() == idProducto) {
-					carrito.remove(aux);
-				}
+		// try {
 
-			}
-
-			Set<Producto> carritoresultante = new HashSet<Producto>();
-			for (Producto p : carrito)
-				carritoresultante.add(productoServicio.obtenerProducto(p.getIdProducto()));
-			request.getSession().setAttribute("carrito", carritoresultante);
-			return "redirect:/compra/carrocompra";
-
-		} catch (ConcurrentModificationException e) {
-			System.out.println("Fallo enorme");
-			return null;
+		Set<Producto> carritoresultante = new HashSet<Producto>();
+		for (Producto p : carrito) {
+			// Recuperamos las cantidades de cada producto
+			Producto aux = productoServicio.obtenerProducto(p.getIdProducto());
+			aux.setCantidadProducto(p.getCantidadProducto());
+			carritoresultante.add(aux);
 		}
+
+		// Se recorre el nuevo carrito para eliminar en él los productos y se sube a
+		// session como carrito
+
+		Iterator<Producto> it = carritoresultante.iterator();
+
+		// Borramos los productos en el it
+		while (it.hasNext()) {
+			Producto aux = it.next();
+			if (aux.getIdProducto() == idProducto)
+				it.remove();
+		}
+
+		// Volvemos a pasar los productos actualizados de it al set
+
+		while (it.hasNext()) {
+			Producto aux = it.next();
+			carritoresultante.add(aux);
+		}
+
+		/*
+		 * for (int i = 0; i < carritoresultante.size(); ++i) { Producto aux = new
+		 * Producto(); if (aux.getIdProducto() == idProducto)
+		 * carritoresultante.remove(aux); }
+		 */
+		request.getSession().setAttribute("carrito", carritoresultante);
+		return "redirect:/compra/carrocompra";
+
+		// } catch (ConcurrentModificationException e) {
+		// System.out.println("Fallo enorme");
+		// return null;
+		// }
 
 	}
 
@@ -140,7 +160,6 @@ public class CompraControlador {
 			aux.setCantidadProducto(p.getCantidadProducto());
 			carritofinal.add(aux);
 		}
-		
 
 		Compra c = new Compra();
 		c.setPrecioCompra(totaldescuento);
