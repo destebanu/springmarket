@@ -23,8 +23,16 @@ body {
 
 .boton {
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
+	left: 50%;
+	right: auto;
+	text-decoration: none;
+}
+
+.botonperfil {
+	display: block;
+	left: 50%;
+	right: auto;
+	text-align: center;
 	text-decoration: none;
 }
 
@@ -53,11 +61,10 @@ body {
 			<form th:unless="${usuario == null}"
 				th:action="@{/usuario/userid/{id}(id=${usuario.idUsuario})}"
 				method="get">
-				<span class="boton">
-					<button type="submit"
-						class="btn btn-info btn-lg nav-link">Ir al perfil</button>
-				</span>
-				<br/>
+				<span class="botonperfil">
+					<button type="submit" class="btn btn-lg btn-success">Ir al
+						perfil de usuario</button>
+				</span> <br />
 			</form>
 
 			<!--Enlace al final de la página-->
@@ -68,16 +75,14 @@ body {
 				<div class="progress-bar bg-info" role="progressbar"
 					style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
 					aria-valuemax="100"></div>
-
 			</div>
-
-
-
 			<br />
 		</header>
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
-			<h1>Nuestro cat&aacute;logo</h1>
+			<h1 class="text-center" style="background-color: #ffdccc;">Nuestro
+				cat&aacute;logo</h1>
+			<br />
 			<div class="card text-white bg-danger mb-3" style="width: 80%;">
 				<div class="card-header">&iexcl;Productos con descuento!</div>
 				<div class="card-body">

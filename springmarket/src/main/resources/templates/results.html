@@ -42,7 +42,7 @@ border: 2px solid rgb(255, 153, 102);}
 			<nav>
 				<!--Enlace al final de la página-->
 				<a name="arriba" href=#abajo class="boton"><button type="button"
-						class="btn btn-warning boton btn-lg">Ir abajo</button></a> <br />
+						class="btn btn-warning boton btn-sm">Ir abajo</button></a> <br />
 				<div class="progress">
 					<div class="progress-bar bg-info" role="progressbar"
 						style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
@@ -53,7 +53,8 @@ border: 2px solid rgb(255, 153, 102);}
 		</header>
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
-			<h1>Resultados de búsqueda</h1>
+			<h1 class="text-center" style="background-color: #ffdccc;">Resultados de búsqueda</h1>
+			<br/>
 			<div class="card text-white bg-warning mb-3" style="width: 70%;">
 				<div class="card-header">Productos encontrados:</div>
 				<div class="card-body">
@@ -79,7 +80,7 @@ border: 2px solid rgb(255, 153, 102);}
 			</div>
 			<br />
 			<button class="btn btn-success boton btn-lg">
-				<a target="self" th:href="@{/product/product}">Buscar o crear
+				<a target="self" th:href="@{/product/product}" style="text-decoration: none;">Buscar o crear
 					productos</a>
 			</button>
 		</section>
@@ -92,7 +93,7 @@ border: 2px solid rgb(255, 153, 102);}
 					aria-valuemax="100"></div>
 			</div>
 			<br /> <a name="abajo" href=#arriba class="boton"><button
-					type="button" class="btn btn-warning boton btn-lg">Ir arriba</button></a>
+					type="button" class="btn btn-warning boton btn-sm">Ir arriba</button></a>
 		</footer>
 </div>		
 </body>
