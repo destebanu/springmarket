@@ -88,6 +88,23 @@ public class CompraControlador {
 
 			// Se obtiene el producto, se le agrega la cantidad y al carrito
 			Producto productoNuevo = productoServicio.obtenerProducto(idProducto);
+			
+			// Bucle para recorrer el carrito y comprobar si existe ya el producto
+			// Si ya existe, actualiza la cantidad
+			// Si no, lo añade
+			// Mejor con equals? Seguramente
+			
+//			Integer cantidadtotal = 0;
+//			for (int i=0; i<=carrito.size(); i++) {
+//				if (carrito.contains(productoNuevo)) {
+//					cantidadtotal += cantidadproducto;
+//					productoNuevo.setCantidadProducto(cantidadtotal);
+//				} else {
+//					productoNuevo.setCantidadProducto(cantidadtotal);
+//					carrito.add(productoNuevo);
+//				}
+//			}
+			
 			productoNuevo.setCantidadProducto(cantidadproducto);
 			carrito.add(productoNuevo);
 			request.getSession().setAttribute("carrito", carrito);
