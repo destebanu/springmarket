@@ -69,27 +69,27 @@ span, label {
 
 					<div th:if="${error == false}">
 						<div class="form-group">
-							<label>Usuario</label> <input type="email" class="form-control"
+							<label>Usuario</label> <input type="email" class="form-control form-control-lg"
 								placeholder="Tu email es tu usuario" name="emailusuario"
 								required>
 						</div>
 						<div class="form-group">
 							<label>Contraseña</label> <input type="password"
-								class="form-control" placeholder="Escribe aquí tu contraseña"
+								class="form-control form-control-lg" placeholder="Escribe aquí tu contraseña"
 								name="passwordusuario" required>
 						</div>
 					</div>
 					<div th:if="${error == true}">
 						<div class="form-group has-danger">
 							<label>Usuario</label> <input type="email"
-								class="form-control is-invalid"
+								class="form-control is-invalid form-control-lg"
 								placeholder="Tu email es tu usuario" name="emailusuario"
 								required>
 						</div>
 
 						<div class="form-group has-danger">
 							<label>Contraseña</label> <input type="password"
-								class="form-control is-invalid"
+								class="form-control is-invalid form-control-lg"
 								placeholder="Escribe aquí tu contraseña" name="passwordusuario"
 								required>
 						</div>

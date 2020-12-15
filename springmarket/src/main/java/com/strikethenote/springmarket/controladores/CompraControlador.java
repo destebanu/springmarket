@@ -88,23 +88,42 @@ public class CompraControlador {
 
 			// Se obtiene el producto, se le agrega la cantidad y al carrito
 			Producto productoNuevo = productoServicio.obtenerProducto(idProducto);
-			
+
 			// Bucle para recorrer el carrito y comprobar si existe ya el producto
 			// Si ya existe, actualiza la cantidad
 			// Si no, lo añade
 			// Mejor con equals? Seguramente
-			
-//			Integer cantidadtotal = 0;
-//			for (int i=0; i<=carrito.size(); i++) {
-//				if (carrito.contains(productoNuevo)) {
-//					cantidadtotal += cantidadproducto;
-//					productoNuevo.setCantidadProducto(cantidadtotal);
-//				} else {
-//					productoNuevo.setCantidadProducto(cantidadtotal);
-//					carrito.add(productoNuevo);
-//				}
-//			}
-			
+
+			for (Producto producto : carrito) {
+				if (producto.getIdProducto().equals(productoNuevo.getIdProducto()))
+					producto.setCantidadProducto(producto.getCantidadProducto() + cantidadproducto);
+
+				// TODO
+
+			}
+
+			/*
+			 * Iterator<Producto> it = carrito.iterator();
+			 * 
+			 * while (it.hasNext()) { Producto aux = it.next(); if (aux.getIdProducto() ==
+			 * productoNuevo.getIdProducto())
+			 * aux.setCantidadProducto(aux.getCantidadProducto() +
+			 * productoNuevo.getCantidadProducto()); }
+			 * 
+			 * // Volvemos a pasar los productos actualizados de it al set
+			 * 
+			 * Set<Producto> carritofinal = new HashSet<>();
+			 * 
+			 * while (it.hasNext()) { Producto aux = it.next(); carritofinal =
+			 * (Set<Producto>) it; } /*
+			 * 
+			 * /* Integer cantidadtotal = 0; for (int i = 0; i <= carrito.size(); i++) { if
+			 * (carrito.contains(productoNuevo)) { cantidadtotal += cantidadproducto;
+			 * productoNuevo.setCantidadProducto(cantidadtotal); } else {
+			 * productoNuevo.setCantidadProducto(cantidadtotal); carrito.add(productoNuevo);
+			 * } }
+			 */
+
 			productoNuevo.setCantidadProducto(cantidadproducto);
 			carrito.add(productoNuevo);
 			request.getSession().setAttribute("carrito", carrito);

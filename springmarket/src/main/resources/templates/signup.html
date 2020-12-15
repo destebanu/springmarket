@@ -79,13 +79,13 @@ span, label {
 							<span class="input-group-text">Nombre y apellidos</span>
 						</div>
 						<input name="nombreusuario" type="text" aria-label="Nombre"
-							class="form-control" placeholder="Nombre" required> <input
+							class="form-control form-control-lg" placeholder="Nombre" required> <input
 							name="apellidosusuario" type="text" aria-label="Apellidos"
-							class="form-control" placeholder="Tus apellidos" required>
+							class="form-control form-control-lg" placeholder="Tus apellidos" required>
 
 					</div>
 					<div class="form-group">
-						<label>Email</label> <input type="email" class="form-control"
+						<label>Email</label> <input type="email" class="form-control form-control-lg"
 							placeholder="Escribe aquí tu email (será tu usuario)"
 							name="emailusuario" required> <small id="emailHelp"
 							class="form-text text-success">¡Nunca compartiremos tu
@@ -93,7 +93,7 @@ span, label {
 					</div>
 					<div class="form-group">
 						<label>Contraseña</label> <input type="password"
-							class="form-control" placeholder="Escribe aquí tu contraseña"
+							class="form-control form-control-lg" placeholder="Escribe aquí tu contraseña"
 							name="passwordusuario" required> <small
 							class="form-text text-danger">¡Nunca compartas tus
 							contraseñas con nadie!</small>
@@ -101,7 +101,7 @@ span, label {
 					<div class="input-group-prepend">
 						<label class="input-group-text" for="inputGroupSelect01">Fecha
 							de nacimiento</label> <select name="dianacimientousuario"
-							class="custom-select" id="inputGroupSelect01">
+							class="custom-select " id="inputGroupSelect01">
 							<option selected disabled="disabled">d&iacute;a</option>
 							<option th:each="i : ${#numbers.sequence(1, 31)}" th:value="${i}"
 								th:text="${i}"></option>
@@ -138,27 +138,27 @@ span, label {
 							para tus pedidos</legend>
 						<div class="form-group">
 							<label>Número de tarjeta de crédito/débito</label> <input
-								type="text" class="form-control" name="numerotarjetausuario"
+								type="text" class="form-control form-control-lg" name="numerotarjetausuario"
 								placeholder="Introduce el número de tu tarjeta sin espacios ni guiones"
 								required> <small class="form-text text-danger">¡Nunca
 								compartas tus datos de pago con nadie!</small>
 						</div>
 						<div class="form-group">
 							<label>Titular de la tarjeta</label> <input
-								name="titulartarjetausuario" type="text" class="form-control"
+								name="titulartarjetausuario" type="text" class="form-control form-control-lg"
 								required>
 						</div>
 						<div class="form-group">
 							<label>Código de seguridad de la tarjeta</label> <input
 								name="codigoseguridadtarjetausuario" type="text"
-								class="form-control"
+								class="form-control form-control-lg"
 								placeholder="CVV (mira detrás de tu tarjeta)" required>
 							<small class="form-text text-danger">¡Nunca compartas tus
 								datos de pago con nadie!</small>
 						</div>
 						<div class="form-group">
 							<label>Dirección de facturación</label>
-							<textarea class="form-control" name="direccionfacturacionusuario"
+							<textarea class="form-control form-control-lg" name="direccionfacturacionusuario"
 								rows="3" placeholder="Escribe aquí tu dirección" required></textarea>
 						</div>
 					</fieldset>
