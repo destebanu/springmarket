@@ -14,6 +14,10 @@ body {
 	background-image: url("/imagenes/fondo.jpg");
 }
 
+a:hover {
+	background-color:#808080;
+}
+
 .logo {
 	display: block;
 	margin-left: auto;
@@ -78,12 +82,9 @@ body {
 
 							</tr>
 							<tr class="table-primary" th:each="producto: ${carrito}">
-								<td><button class="btn btn-info boton">
-										<a target="self"
-											th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-											style="text-decoration: none;"><span
-											th:text="${producto.nombreProducto}"></span></a>
-									</button></td>
+								<td><a target="self"
+									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"><span
+										th:text="${producto.nombreProducto}"></span></a></td>
 								<td th:text="${producto.cantidadProducto}" />
 								<td th:text="${producto.precioProducto}+' €'" />
 								<td th:text="${producto.descuentoProducto}+' %'" />
