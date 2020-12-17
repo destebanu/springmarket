@@ -92,15 +92,25 @@ public class CompraControlador {
 			// Bucle para recorrer el carrito y comprobar si existe ya el producto
 			// Si ya existe, actualiza la cantidad
 			// Si no, lo añade
-			// Mejor con equals? Seguramente
 
-			for (Producto producto : carrito) {
-				if (producto.getIdProducto().equals(productoNuevo.getIdProducto()))
-					producto.setCantidadProducto(producto.getCantidadProducto() + cantidadproducto);
+			Boolean anadido = false;
 
-				// TODO
+			if (!carrito.isEmpty()) {
+				for (Producto producto : carrito) {
+					if (producto.getIdProducto() == productoNuevo.getIdProducto()) {
+						producto.setCantidadProducto(producto.getCantidadProducto() + cantidadproducto);
+						anadido = true;
+						break;
+					}
+				}
 
 			}
+			if (carrito.isEmpty() || anadido == false) {
+				productoNuevo.setCantidadProducto(cantidadproducto);
+				carrito.add(productoNuevo);
+			}
+
+			// TODO
 
 			/*
 			 * Iterator<Producto> it = carrito.iterator();
@@ -124,11 +134,9 @@ public class CompraControlador {
 			 * } }
 			 */
 
-			productoNuevo.setCantidadProducto(cantidadproducto);
-			carrito.add(productoNuevo);
 			request.getSession().setAttribute("carrito", carrito);
-
 			return "redirect:/index";
+
 		} else
 			return "redirect:/usuario/login";
 

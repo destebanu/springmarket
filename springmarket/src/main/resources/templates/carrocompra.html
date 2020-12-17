@@ -57,12 +57,14 @@ body {
 		</header>
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
-			<h1 class="text-center" style="background-color: #ffdccc;">Productos en el carrito</h1>
+			<h1 class="text-center" style="background-color: #ffdccc;">Productos
+				en el carrito</h1>
 			<br />
 			<div class="card text-white bg-warning mb-3" style="width: 70%;">
 				<div class="card-header">Listado de productos:</div>
 				<div class="card-body">
-				<h4 th:if="${carrito.empty}" class="card-title">Todavía no tienes nada en el carrito</h4>
+					<h4 th:if="${carrito.empty}" class="card-title">Todavía no
+						tienes nada en el carrito</h4>
 					<p class="card-text">
 					<table th:if="${not carrito.empty}" class="table table-hover">
 						<tbody>
@@ -76,7 +78,12 @@ body {
 
 							</tr>
 							<tr class="table-primary" th:each="producto: ${carrito}">
-								<td th:text="${producto.nombreProducto}" />
+								<td><button class="btn btn-info boton">
+										<a target="self"
+											th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
+											style="text-decoration: none;"><span
+											th:text="${producto.nombreProducto}"></span></a>
+									</button></td>
 								<td th:text="${producto.cantidadProducto}" />
 								<td th:text="${producto.precioProducto}+' €'" />
 								<td th:text="${producto.descuentoProducto}+' %'" />
