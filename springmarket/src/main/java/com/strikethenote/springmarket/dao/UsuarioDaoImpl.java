@@ -14,14 +14,14 @@ import com.strikethenote.springmarket.entidades.Usuario;
 public class UsuarioDaoImpl extends DaoGenericoImpl<Usuario> implements UsuarioDao {
 
 	@Override
-	public List<Usuario> buscarPorNombre(String nombreUsuario) {
+	public Usuario buscarPorNombre(String nombreUsuario) {
 		Query query = this.em
-				.createQuery("select u FROM Usuario u where u.nombreUsuario LIKE CONCAT('%', :nombreUsuario, '%')");
+				.createQuery("select u FROM Usuario u where u.nombreUsuario= :nombreUsuario)");
 		query.setParameter("nombreUsuario", nombreUsuario);
-		List<Usuario> usuarios = query.getResultList();
+		Usuario usuario = (Usuario) query.getSingleResult();
 
-		if (usuarios != null) {
-			return usuarios;
+		if (usuario != null) {
+			return usuario;
 		}
 		return null;
 	}

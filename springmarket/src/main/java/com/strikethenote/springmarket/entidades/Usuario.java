@@ -61,6 +61,20 @@ public class Usuario implements Serializable {
 	@Column(name = "DIRECFACT_USUARIO")
 	private String direcfactUsuario;
 	
+	// Relación ManyToMany Rol
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_USUARIO"), inverseJoinColumns = @JoinColumn(name = "ID_ROL"))
+	private Set<Rol> roles = new HashSet<>();
+	
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
+	}
+	
 	// Relación OneToMany Compra
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)

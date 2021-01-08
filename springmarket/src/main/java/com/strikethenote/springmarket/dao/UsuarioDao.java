@@ -7,7 +7,7 @@ import com.strikethenote.springmarket.entidades.Usuario;
 
 public interface UsuarioDao extends DaoGenerico<Usuario> {
 	
-	public List<Usuario> buscarPorNombre (String nombreUsuario);
+	public Usuario buscarPorNombre (String nombreUsuario);
 	
 	public Usuario buscarPorEmail (String emailUsuario);
 

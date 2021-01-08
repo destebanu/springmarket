@@ -16,6 +16,25 @@ use springmarket;
         titular_usuario varchar(255),
         primary key (id_usuario)
     ) ;
+    
+	    create table rol (
+	   id_rol int auto_increment,
+	   nombre_rol varchar (40) not null,
+	   primary key (id_rol)
+	);
+	
+		create table usuario_rol (
+	   id_usuario bigint not null,
+	   id_rol int,
+	    primary key (
+	      id_usuario,
+	      id_rol
+	   ),
+		constraint fk_usuario_rol_1 foreign key (id_usuario) references usuario (id_usuario) on delete cascade,
+		constraint fk_usuario_rol_2 foreign key (id_rol) references rol (id_rol)
+	);
+
+
         create table producto (
        id_producto bigint not null auto_increment,
         cantidad_producto integer,
