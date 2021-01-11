@@ -23,6 +23,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public Usuario crearUsuario(Usuario usuario) {
+		
 		usuario.setPasswordUsuario(bCryptPasswordEncoder.encode(usuario.getPasswordUsuario()));
 		return usuarioDao.crear(usuario);
 	}

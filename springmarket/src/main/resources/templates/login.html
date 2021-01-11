@@ -62,7 +62,7 @@ span, label {
 			<br />
 		</header>
 		<div class="wrapper">
-			<form th:action="@{/usuario/login}" method="post">
+			<form th:action="@{/login}" method="post">
 				<fieldset>
 					<legend style="text-shadow: 4px 3px 2px rgba(99, 255, 145, 1);">Inicia
 						sesión</legend>
@@ -70,13 +70,13 @@ span, label {
 					<div th:if="${error == false}">
 						<div class="form-group">
 							<label>Usuario</label> <input type="email" class="form-control form-control-lg"
-								placeholder="Tu email es tu usuario" name="emailusuario"
+								placeholder="Tu email es tu usuario" name="username"
 								required>
 						</div>
 						<div class="form-group">
 							<label>Contraseña</label> <input type="password"
 								class="form-control form-control-lg" placeholder="Escribe aquí tu contraseña"
-								name="passwordusuario" required>
+								name="password" required>
 						</div>
 					</div>
 					<div th:if="${error == true}">

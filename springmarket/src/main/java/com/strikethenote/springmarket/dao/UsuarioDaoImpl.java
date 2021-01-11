@@ -16,7 +16,7 @@ public class UsuarioDaoImpl extends DaoGenericoImpl<Usuario> implements UsuarioD
 	@Override
 	public Usuario buscarPorNombre(String nombreUsuario) {
 		Query query = this.em
-				.createQuery("select u FROM Usuario u where u.nombreUsuario= :nombreUsuario)");
+				.createQuery("select u FROM Usuario u where u.nombreUsuario= :nombreUsuario");
 		query.setParameter("nombreUsuario", nombreUsuario);
 		Usuario usuario = (Usuario) query.getSingleResult();
 
