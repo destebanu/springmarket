@@ -2,11 +2,10 @@ insert into usuario (nombre_usuario, password_usuario, apellidos_usuario, email_
 values ('admin','$2a$10$yuwJlv1ZYIEYRwNROc6Gke5x.5bHzSZvfVzVupb.56IAeES47sBPm.', 'admin', 'admin@admin.es', '1/enero/2020', '666', 'administrator', '666', 'deepweb');
 
 
-insert into rol (id_rol, nombre_rol) values (1, 'rol_usuarioregistrado');
-insert into rol (id_rol, nombre_rol) values (2,'rol_admin');
+insert into rol (id_rol, nombre_rol) values (1,'admin');
+insert into rol (id_rol, nombre_rol) values (2, 'registrado');
 
 insert into usuario_rol (id_usuario, id_rol) values (1,1);
-insert into usuario_rol (id_usuario, id_rol) values (1,2);
 
 
 insert into producto (nombre_producto, descripcion_producto, precio_producto, descuento_producto) 
