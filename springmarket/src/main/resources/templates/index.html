@@ -58,14 +58,14 @@ body {
 
 			<!-- El botón de ir al perfil aparece al hacer login -->
 
-			<form th:unless="${usuario == null}"
+			<!-- <form th:unless="${usuario == null}"
 				th:action="@{/usuario/userid/{id}(id=${usuario.idUsuario})}"
 				method="get">
 				<span class="botonperfil">
 					<button type="submit" class="btn btn-lg btn-success">Ir al
 						perfil de usuario</button>
 				</span> <br />
-			</form>
+			</form> -->
 
 			<!--Enlace al final de la página-->
 
@@ -147,10 +147,13 @@ body {
 					aria-valuemax="100"></div>
 			</div>
 			<br />
-			<button class="btn btn-success boton btn-lg">
+			
+			<!-- Botón para crear productos -->
+			
+			<!-- <button class="btn btn-success boton btn-lg">
 				<a target="self" th:href="@{/product/product}"
 					style="text-decoration: none;">Crear productos</a>
-			</button>
+			</button> -->
 
 		</section>
 		<br />

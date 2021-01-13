@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang=es xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang=es xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Strike the Note</title>
 <meta charset="UTF-8">
@@ -19,9 +20,7 @@
 		<div class="navbar-collapse" id="navbarColor03">
 			<ul class="navbar-nav mr-auto">
 
-
 				<!-- Botón para ir a inicio -->
-
 
 				<li class="nav-item active">
 					<form th:action="@{/volver}" method="post">
@@ -29,10 +28,8 @@
 							class="btn btn-info btn-lg nav-link">Volver al inicio</button>
 					</form>
 				</li>
-				
-				
-				<!-- Botón para darse de alta -->
 
+				<!-- Botón para darse de alta -->
 
 				<li class="nav-item" style="margin: 10px;"><form
 						th:action="@{/usuario/signup}" method="get">
@@ -40,7 +37,6 @@
 							class="btn btn-outline-secondary btn-lg nav-link">Date
 							de alta</button>
 					</form></li>
-
 
 				<!-- Botón para iniciar sesión -->
 
@@ -61,6 +57,42 @@
 						<button type="submit"
 							class="btn btn-outline-danger btn-lg nav-link">Cierra
 							sesión</button>
+					</form>
+				</li>
+
+
+				<!-- Botón para acceder al perfil -->
+
+				<li class="nav-item" style="margin: 10px;">
+					<form th:action="@{/usuario/userid/{id}(id=${usuario.idUsuario})}"
+						method="get">
+						<button type="submit" class="btn btn-outline-info btn-lg nav-link">Ir
+							al perfil de usuario</button>
+					</form>
+				</li>
+
+
+				<!-- Botón para acceder al carrito -->
+
+
+				<li class="nav-item" style="margin: 10px;"><form
+						th:action="@{/compra/carrocompra}" method="get">
+						<button type="submit"
+							class="btn btn-outline-secondary btn-lg nav-link">
+							<img th:src="@{/imagenes/carrito-de-compras.png}" width="auto"
+								height="30" alt="Ver carrito" />
+						</button>
+					</form></li>
+
+
+				<!-- Botón para crear productos -->
+
+
+				<li class="nav-item" style="margin: 10px;">
+					<form th:action="@{/product/product}" method="get">
+						<button type="submit"
+							class="btn btn-outline-warning btn-lg nav-link">Crear
+							productos</button>
 					</form>
 				</li>
 			</ul>
