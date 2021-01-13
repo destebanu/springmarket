@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.strikethenote.springmarket.dao.UsuarioDao;
+import com.strikethenote.springmarket.dao.RolRepository;
+import com.strikethenote.springmarket.entidades.Rol;
 import com.strikethenote.springmarket.entidades.Usuario;
 
 @Transactional
@@ -17,6 +19,9 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
+	
+	@Autowired
+	private RolRepository rolRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -25,6 +30,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public Usuario crearUsuario(Usuario usuario) {
 		
 		usuario.setPasswordUsuario(bCryptPasswordEncoder.encode(usuario.getPasswordUsuario()));
+		Rol r = rolRepository.findById(2).orElse(null);
+		usuario.anadirRol(r);
 		return usuarioDao.crear(usuario);
 	}
 

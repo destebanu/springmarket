@@ -75,6 +75,16 @@ public class Usuario implements Serializable {
 		this.roles = roles;
 	}
 	
+	public boolean anadirRol(Rol rol) {
+	    rol.anadirUsuario(this);
+		return getRoles().add(rol);
+	}
+
+	public void eliminarRol(Rol rol) {
+		this.roles.remove(rol);
+		rol.getUsuarios().remove(this);
+	}
+	
 	// Relación OneToMany Compra
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)

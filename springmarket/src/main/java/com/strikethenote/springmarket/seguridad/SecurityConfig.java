@@ -29,12 +29,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                     .antMatchers(
                             "/",
+                            "/volver",
                             "/index",
                             "/js/**",
                             "/css/**",
                             "/imagenes/**",
-                            "/usuario/**").permitAll()
-                    .antMatchers("/admin/**").hasAuthority("admin")
+                            "/usuario/**",
+		                    "/product/productsearch",
+		                    "/product/results",
+		                    "/product/productid/{idProducto}").permitAll()
+		                    
+                    .antMatchers(/*
+                    "/",
+                    		"/volver",
+                            "/index",
+                            "/js/**",
+                            "/css/**",
+                            "/imagenes/**",
+                            "/usuario/**",
+                            */
+                            "/compra/**").hasAuthority("registrado")
+                    		
+                    .antMatchers("/**").hasAuthority("admin")
+                    
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()

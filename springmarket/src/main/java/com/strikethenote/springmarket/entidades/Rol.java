@@ -53,4 +53,14 @@ public class Rol {
 	public void setUsuarios(Set<Usuario> usuario) {
 		usuarios = usuario;
 	}
+	
+	public void anadirUsuario(Usuario usuario) {
+		this.usuarios.add(usuario);
+		usuario.getRoles().add(this);
+	}
+	
+	public void deleteUsuario(Usuario usuario) {
+		this.usuarios.remove(usuario) ;
+	}
+
 }
