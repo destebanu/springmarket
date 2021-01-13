@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=es xmlns:th="http://www.thymeleaf.org">
+<html lang=es xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Strike the Note</title>
 <meta charset="UTF-8">
@@ -41,7 +41,7 @@ body {
 </style>
 </head>
 <body>
-	<nav th:replace="navbar"></nav>
+	<nav th:replace="navbar_loader"></nav>
 	<div class="fondito">
 		<header>
 			<!-- Cabecera con logo en imágenes que presentan la página -->

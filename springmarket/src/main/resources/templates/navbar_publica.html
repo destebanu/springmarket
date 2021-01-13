@@ -27,7 +27,6 @@
 							class="btn btn-info btn-lg nav-link">Volver al inicio</button>
 					</form>
 				</li>
-
 				<!-- Botón para darse de alta -->
 
 				<li class="nav-item" style="margin: 10px;"><form
@@ -58,39 +57,17 @@
 							sesión</button>
 					</form>
 				</li>
-
-
-				<!-- Botón para acceder al perfil-->
-
-				<!-- 				<li th:if="${session.isEmpty()}" class="nav-item active"> -->
-				<!-- 					<form th:action="@{/usuario/login}" method="get"> -->
-				<!-- 						<button type="submit" style="float: right; margin: 10px;" -->
-				<!-- 							class="btn btn-outline-warning btn-lg nav-link">Ir al perfil</button> -->
-				<!-- 					</form> -->
-				<!-- 				</li> -->
-				<!-- 				<li th:if="${!session.isEmpty()}" class="nav-item active"> -->
-				<!-- 					<form th:action="@{/usuario/userid/{id}(id=${#session.getAttribute('usuario')})}" method="get"> -->
-				<!-- 						<button type="submit" style="float: right; margin: 10px;" -->
-				<!-- 							class="btn btn-outline-warning btn-lg nav-link">Ir al perfil</button> -->
-				<!-- 					</form> -->
-				<!-- 				</li> -->
-
-				<!-- Botón para acceder al carrito -->
-
-				<li class="nav-item" style="margin: 10px;"><form
-						th:action="@{/compra/carrocompra}" method="get">
-						<button type="submit"
-							class="btn btn-outline-secondary btn-lg nav-link">
-							<img th:src="@{/imagenes/carrito-de-compras.png}" width="auto"
-								height="30" alt="Ver carrito" />
-						</button>
-					</form></li>
 			</ul>
-			
+
+
 			<!-- Barra de búsqueda de productos -->
-			
-			<form th:action="@{/product/productsearch}" method="post" class="form-inline my-2 my-lg-0" style="float:right; margin-right: 1%;">
-				<input class="form-control form-control-lg mr-sm-2" name="nombreproducto" type="text" placeholder="Escribe el producto">
+
+
+			<form th:action="@{/product/productsearch}" method="post"
+				class="form-inline my-2 my-lg-0"
+				style="float: right; margin-right: 1%;">
+				<input class="form-control form-control-lg mr-sm-2"
+					name="nombreproducto" type="text" placeholder="Escribe el producto">
 				<button class="btn btn-warning btn-lg my-2 my-sm-0" type="submit">Buscar</button>
 			</form>
 		</div>
