@@ -69,12 +69,12 @@ body {
 				</table>
 			</div>
 			<br />
-			<form th:action="@{/product/borrar/{id}(id=${producto.idProducto})}"
+			<form sec:authorize="hasAuthority('admin')" th:action="@{/product/borrar/{id}(id=${producto.idProducto})}"
 				method="post">
 				<button style="float:left; margin-right: 40%;" type="submit" class="btn btn-danger">Borrar
 					producto</button>
 			</form>
-			<form th:action="@{/compra/add/{id}(id=${producto.idProducto})}" method="post">
+			<form sec:authorize="hasAuthority('registrado') || hasAuthority('admin')" th:action="@{/compra/add/{id}(id=${producto.idProducto})}" method="post">
 					<div style="float:left; width:10%;" class="form-group">
 						<select
 							class="form-control" id="exampleSelect1" name="cantidadproducto">
