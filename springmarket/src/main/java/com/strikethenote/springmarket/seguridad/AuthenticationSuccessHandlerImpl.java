@@ -35,28 +35,29 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		HttpSession session = request.getSession();
-//		Usuario authUser = usuarioServicio.buscarPorNombre(userDetails.getUsername());
-//		session.setAttribute("username", authUser.getUsername());
-//		session.setAttribute("nombre", authUser.getNombreProfesor());
-//		session.setAttribute("idUsuario", authUser.getIdProfesor());
+		Usuario authUser = usuarioServicio.buscarPorNombre(userDetails.getUsername());
+		//Esto de debajo no sé si lo necesitamos
+		//session.setAttribute("username", authUser.getUsername());
+		session.setAttribute("nombre", authUser.getNombreUsuario());
+		session.setAttribute("idUsuario", authUser.getIdUsuario());
 
-		boolean isProfesor = false;
-		boolean isAdmin = false;
+		boolean esRegistrado = false;
+		boolean esAdmin = false;
 		final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (final GrantedAuthority grantedAuthority : authorities) {
-			if (grantedAuthority.getAuthority().equals("ROL_PROFESOR")) {
-				isProfesor = true;
+			if (grantedAuthority.getAuthority().equals("registrado")) {
+				esRegistrado = true;
 				break;
-			} else if (grantedAuthority.getAuthority().equals("ROL_ADMIN")) {
-				isAdmin = true;
+			} else if (grantedAuthority.getAuthority().equals("admin")) {
+				esAdmin = true;
 				break;
 			}
 		}
 
 		String targetUrl;
-		if (isProfesor) {
-			targetUrl = "/profesor/myprofile";
-		} else if (isAdmin) {
+		if (esRegistrado) {
+			targetUrl = "/usuario/userid/" + authUser.getIdUsuario();
+		} else if (esAdmin) {
 			targetUrl = "/index";
 		} else {
 			throw new IllegalStateException();
