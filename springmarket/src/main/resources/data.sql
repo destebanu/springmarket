@@ -1,5 +1,5 @@
 insert into usuario (nombre_usuario, password_usuario, apellidos_usuario, email_usuario, fechanac_usuario, numtarjeta_usuario, titular_usuario, codseg_usuario, direcfact_usuario) 
-values ('admin','$2a$10$yuwJlv1ZYIEYRwNROc6Gke5x.5bHzSZvfVzVupb.56IAeES47sBPm.', 'admin', 'admin@admin.es', '1/enero/2020', '666', 'administrator', '666', 'deepweb');
+values ('admin','$2a$10$w3gWFIrpd9tBjWqSuBk5POL/0nbLbNgtUdrZqkU3e4./4uuGt7mZy', 'admin', 'admin@admin.es', '1/enero/2020', '666', 'administrator', '666', 'deepweb');
 
 
 insert into rol (id_rol, nombre_rol) values (1,'admin');

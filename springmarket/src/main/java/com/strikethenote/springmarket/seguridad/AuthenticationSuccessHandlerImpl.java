@@ -2,6 +2,8 @@ package com.strikethenote.springmarket.seguridad;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Usuario;
 import com.strikethenote.springmarket.servicios.UsuarioServicio;
 
@@ -35,11 +38,14 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		HttpSession session = request.getSession();
-		Usuario authUser = usuarioServicio.buscarPorNombre(userDetails.getUsername());
+		Usuario authUser = usuarioServicio.buscarPorEmail(userDetails.getUsername());
 		//Esto de debajo no sé si lo necesitamos
 		//session.setAttribute("username", authUser.getUsername());
 		session.setAttribute("nombre", authUser.getNombreUsuario());
 		session.setAttribute("idUsuario", authUser.getIdUsuario());
+		
+		Set<Producto> carrito = new HashSet<Producto>();
+		session.setAttribute("carrito", carrito);
 
 		boolean esRegistrado = false;
 		boolean esAdmin = false;

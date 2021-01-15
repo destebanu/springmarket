@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                             */
                             "/compra/**").hasAuthority("registrado")
                     		
-                    .antMatchers("/**").hasAuthority("admin")
+                    .antMatchers("/admin/**").hasAuthority("admin")
                     
                     .anyRequest().authenticated()
                 .and()
