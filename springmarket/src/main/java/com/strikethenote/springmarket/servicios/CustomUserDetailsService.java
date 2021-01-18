@@ -17,29 +17,24 @@ import com.strikethenote.springmarket.dao.UsuarioDao;
 import com.strikethenote.springmarket.entidades.Rol;
 import com.strikethenote.springmarket.entidades.Usuario;
 
-
-
 @Transactional
 @Service
-public class CustomUserDetailsService implements  UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioDao usuarioDao;
-	
-	
+
 	@Override
 	@Transactional()
-	public UserDetails loadUserByUsername(String nombre) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		Usuario usuario = usuarioDao.buscarPorEmail(nombre);
+		Usuario usuario = usuarioDao.buscarPorEmail(email);
+
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-		
 		for (Rol rol : usuario.getRoles()) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(rol.getNombreRol()));
 		}
-		
-		return new org.springframework.security.core.userdetails.User(usuario.getEmailUsuario(), usuario.getPasswordUsuario(),
-				grantedAuthorities);
+		return new org.springframework.security.core.userdetails.User(usuario.getEmailUsuario(),
+				usuario.getPasswordUsuario(), grantedAuthorities);
 	}
-
 }

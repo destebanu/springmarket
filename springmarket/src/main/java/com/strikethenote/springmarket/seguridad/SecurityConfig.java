@@ -38,10 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		                    "/product/productsearch",
 		                    "/product/results",
 		                    "/product/productid/{idProducto}").permitAll()
-		                    
-                    .antMatchers("/compra/**").hasAuthority("registrado")	
-                    .antMatchers("/compra/**", "/product/**").hasAuthority("admin")
-                    
+                    .antMatchers("/compra/**").hasAnyAuthority("registrado","admin")	
+                    .antMatchers("/product/**").hasAuthority("admin")
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -49,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .loginProcessingUrl("/login")
                     .successHandler(myAuthenticationSuccessHandler())
                     .permitAll()
+                    .failureUrl("/usuario/login_error")
                 .and()
                 .logout()
                     .invalidateHttpSession(true)

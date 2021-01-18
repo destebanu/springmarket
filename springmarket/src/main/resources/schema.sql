@@ -14,7 +14,8 @@ use springmarket;
         numtarjeta_usuario varchar(255),
         password_usuario varchar(255),
         titular_usuario varchar(255),
-        primary key (id_usuario)
+        primary key (id_usuario),
+        unique key unique_email (email_usuario)
     ) ;
     
 	    create table rol (

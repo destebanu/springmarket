@@ -77,11 +77,20 @@ public class UsuarioControlador {
 
 	@GetMapping("/login")
 	public String login(Model model, HttpSession session) {
-		Boolean error = false;
+		/*Boolean error = false;
 
-		model.addAttribute("error", error);
+		model.addAttribute("error", error);*/
 
 		return "login";
+	}
+	
+	@GetMapping("/login_error")
+	public String login_error(Model model, HttpSession session) {
+		/*Boolean error = false;
+
+		model.addAttribute("error", error);*/
+
+		return "login_error";
 	}
 
 	@PostMapping("/login")
@@ -103,9 +112,9 @@ public class UsuarioControlador {
 			}
 		} 
 	
-		Boolean error = true;
+		/*Boolean error = true;
 
-		model.addAttribute("error", error);
+		model.addAttribute("error", error);*/
 
 		return "login";
 
