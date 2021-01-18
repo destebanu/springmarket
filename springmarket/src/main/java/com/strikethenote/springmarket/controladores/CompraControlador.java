@@ -208,14 +208,15 @@ public class CompraControlador {
 		Compra c = new Compra();
 		c.setPrecioCompra(totaldescuento);
 		c.setProductos(carritofinal);
-		c.setUsuario(usuarioServicio.obtenerUsuario(usuario.getIdUsuario()));
+		long idUsuario = (long)(request.getSession().getAttribute("idUsuario"));
+		c.setUsuario(usuarioServicio.obtenerUsuario(idUsuario));
 		c.setDescuentoCompra(descuentoObtenido);
 
 		Set<Producto> carritonuevo = new HashSet<Producto>();
 		request.getSession().setAttribute("carrito", carritonuevo);
 		Compra compra = compraServicio.crearCompra(c);
-
-		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
+		
+		return "redirect:/usuario/userid/" + idUsuario;
 	}
 
 	@GetMapping("/compraid/{idCompra}")
@@ -237,10 +238,9 @@ public class CompraControlador {
 				}
 			}
 			request.getSession().setAttribute("compras", compras);
-
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-
-			return "redirect:/usuario/userid/" + usuario.getIdUsuario();
+			long idUsuario = (long)(request.getSession().getAttribute("idUsuario"));
+			return "redirect:/usuario/userid/" + idUsuario;
 		} catch (ConcurrentModificationException e) {
 			System.out.println("Fallo catastrófico");
 			return null;

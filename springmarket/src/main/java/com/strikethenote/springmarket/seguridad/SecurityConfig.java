@@ -39,18 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		                    "/product/results",
 		                    "/product/productid/{idProducto}").permitAll()
 		                    
-                    .antMatchers(/*
-                    "/",
-                    		"/volver",
-                            "/index",
-                            "/js/**",
-                            "/css/**",
-                            "/imagenes/**",
-                            "/usuario/**",
-                            */
-                            "/compra/**").hasAuthority("registrado")
-                    		
-                    .antMatchers("/admin/**").hasAuthority("admin")
+                    .antMatchers("/compra/**").hasAuthority("registrado")	
+                    .antMatchers("/compra/**", "/product/**").hasAuthority("admin")
                     
                     .anyRequest().authenticated()
                 .and()

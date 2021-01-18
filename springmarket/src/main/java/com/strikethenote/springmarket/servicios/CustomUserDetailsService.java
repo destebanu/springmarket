@@ -21,7 +21,6 @@ import com.strikethenote.springmarket.entidades.Usuario;
 
 @Transactional
 @Service
-
 public class CustomUserDetailsService implements  UserDetailsService {
 
 	@Autowired
@@ -34,11 +33,11 @@ public class CustomUserDetailsService implements  UserDetailsService {
 
 		Usuario usuario = usuarioDao.buscarPorEmail(nombre);
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+		
 		for (Rol rol : usuario.getRoles()) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(rol.getNombreRol()));
 		}
 		
-
 		return new org.springframework.security.core.userdetails.User(usuario.getEmailUsuario(), usuario.getPasswordUsuario(),
 				grantedAuthorities);
 	}

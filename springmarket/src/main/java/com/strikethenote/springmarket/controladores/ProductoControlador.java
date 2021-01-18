@@ -1,11 +1,14 @@
 package com.strikethenote.springmarket.controladores;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +28,55 @@ public class ProductoControlador {
 
 	// Métodos get y post
 
-	@GetMapping("/product")
-	public String product(Model model, HttpSession session) {
-		return "product";
+	@GetMapping("/productcreate")
+	public String product(Model model, HttpSession session, Authentication authentication) {
+		boolean esAdmin = false;
+		final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		for (final GrantedAuthority grantedAuthority : authorities) {
+			if (grantedAuthority.getAuthority().equals("admin")) {
+				esAdmin = true;
+				break;
+			}
+		}
+
+		if (esAdmin)
+			return "productcreate";
+		else
+			return "redirect:/index/";
+	}
+
+	@PostMapping("/productcreate")
+	public String crearProducto(HttpServletRequest request, Authentication authentication) {
+		boolean esAdmin = false;
+		final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		for (final GrantedAuthority grantedAuthority : authorities) {
+			if (grantedAuthority.getAuthority().equals("admin")) {
+				esAdmin = true;
+				break;
+			}
+		}
+
+		if (esAdmin) {
+			String nombreProducto = request.getParameter("nombreproducto");
+			String descripcionProducto = request.getParameter("descripcionproducto");
+			Double precioProducto = Double.parseDouble(request.getParameter("precioproducto"));
+			Double descuentoProducto = Double.parseDouble(request.getParameter("descuentoproducto"));
+
+			// Pone la primera letra en mayúscula
+			nombreProducto = nombreProducto.substring(0, 1).toUpperCase() + nombreProducto.substring(1);
+
+			Producto p = new Producto();
+			p.setNombreProducto(nombreProducto);
+			p.setDescripcionProducto(descripcionProducto);
+			p.setPrecioProducto(precioProducto);
+			p.setDescuentoProducto(descuentoProducto);
+			Producto producto = productoServicio.crearProducto(p);
+
+			return "redirect:/product/productid/" + producto.getIdProducto();
+
+		} else {
+			return "redirect:/index/";
+		}
 	}
 
 	@PostMapping("/productsearch")
@@ -38,26 +87,6 @@ public class ProductoControlador {
 
 		request.getSession().setAttribute("nombreproducto", nombreProducto);
 		return "redirect:/product/results";
-	}
-
-	@PostMapping("/productcreate")
-	public String crearProducto(HttpServletRequest request) {
-		String nombreProducto = request.getParameter("nombreproducto");
-		String descripcionProducto = request.getParameter("descripcionproducto");
-		Double precioProducto = Double.parseDouble(request.getParameter("precioproducto"));
-		Double descuentoProducto = Double.parseDouble(request.getParameter("descuentoproducto"));
-
-		// Pone la primera letra en mayúscula
-		nombreProducto = nombreProducto.substring(0, 1).toUpperCase() + nombreProducto.substring(1);
-
-		Producto p = new Producto();
-		p.setNombreProducto(nombreProducto);
-		p.setDescripcionProducto(descripcionProducto);
-		p.setPrecioProducto(precioProducto);
-		p.setDescuentoProducto(descuentoProducto);
-		Producto producto = productoServicio.crearProducto(p);
-
-		return "redirect:/product/productid/" + producto.getIdProducto();
 	}
 
 	@GetMapping("/results")
@@ -75,7 +104,7 @@ public class ProductoControlador {
 
 		return "results";
 	}
-	
+
 	// Métodos para mostrar producto con sus carácterísticas y borrarlo
 
 	@GetMapping("/productid/{idProducto}")
@@ -95,6 +124,5 @@ public class ProductoControlador {
 		productoServicio.eliminarProducto(idProducto);
 		return "redirect:/index";
 	}
-
 
 }

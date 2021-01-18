@@ -95,16 +95,14 @@ public class UsuarioControlador {
 
 		// Comprobamos si el email y el password son correctos buscando el usuario
 		if ((buscado != null)) {
-
 			if (buscado.getPasswordUsuario().equals(passwordUsuario)) {
 				Set<Producto> carrito = new HashSet<Producto>();
 				session.setAttribute("carrito", carrito);
 				session.setAttribute("usuario", buscado);
 				return "redirect:/index";
-
 			}
-		}
-
+		} 
+	
 		Boolean error = true;
 
 		model.addAttribute("error", error);

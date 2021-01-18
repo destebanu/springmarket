@@ -65,5 +65,6 @@ use springmarket;
 		on delete cascade,
         constraint fk_compra_producto_2
         foreign key (id_producto) references producto (id_producto) 
+        on delete cascade
 		
     ) ;
