@@ -36,10 +36,14 @@ body {
 }
 
 .tablas {
-	width: 50%;
+	/**width: 50%;*/
 	padding: 5px;
-	float: left;
+	/**float: left;*/
+	margin-left: auto; margin-right: auto;
 }
+
+div.tabla  {margin-left: auto; margin-right: auto;}
+
 </style>
 </head>
 <body>
@@ -112,7 +116,7 @@ body {
 				</fieldset>
 			</div>
 			<div style="clear: both;"></div>
-			<div class="card text-white bg-success mb-3" style="width: 80%;">
+			<div class="card text-white bg-success mb-3 tabla" style="width: 80%;">
 				<div class="card-header">&iexcl;Aquí están tus compras!</div>
 				<div class="card-body">
 					<h4 th:if="${compras.empty}" class="card-title">Todavía no hay pedidos realizados</h4>

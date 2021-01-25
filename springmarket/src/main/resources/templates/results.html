@@ -29,6 +29,9 @@ body {
 }
 #fondito{margin:2em; background-color: rgb(255, 238, 230,0.6);
 border: 2px solid rgb(255, 153, 102);}
+
+div.tabla  {margin-left: auto; margin-right: auto;}
+
 </style>
 </head>
 <body>
@@ -55,7 +58,7 @@ border: 2px solid rgb(255, 153, 102);}
 			<!--Contenedor de secciones y artículos de la página-->
 			<h1 class="text-center" style="background-color: #ffdccc;">Resultados de búsqueda</h1>
 			<br/>
-			<div class="card text-white bg-warning mb-3" style="width: 70%;">
+			<div class="card text-white bg-warning mb-3 tabla" style="width: 70%;">
 				<div class="card-header">Productos encontrados:</div>
 				<div class="card-body">
 				<h4 th:if="${productos.empty}" class="card-title">No hay ningún producto que coincida con la búsqueda</h4>
@@ -74,16 +77,6 @@ border: 2px solid rgb(255, 153, 102);}
 				</div>
 			</div>
 			<br />
-			<div class="progress">
-				<div class="progress-bar bg-info" role="progressbar"
-					style="width: 100%;" aria-valuenow="50" aria-valuemin="0"
-					aria-valuemax="100"></div>
-			</div>
-			<br />
-			<button class="btn btn-success boton btn-lg">
-				<a target="self" th:href="@{/product/product}" style="text-decoration: none;">Crear
-					productos</a>
-			</button>
 		</section>
 		<br />
 		<!--Pie de página que permite regresar al principio-->

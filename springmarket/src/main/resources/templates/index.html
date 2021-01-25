@@ -45,6 +45,9 @@ body {
 .celdas {
 	width: 10%
 }
+
+div.tabla  {margin-left: auto; margin-right: auto;}
+
 </style>
 </head>
 <body>
@@ -83,7 +86,7 @@ body {
 			<h1 class="text-center" style="background-color: #ffdccc;">Nuestro
 				cat&aacute;logo</h1>
 			<br />
-			<div class="card text-white bg-danger mb-3" style="width: 80%;">
+			<div class="card text-white bg-danger mb-3 tabla" style="width: 80%;">
 				<div class="card-header">&iexcl;Productos con descuento!</div>
 				<div class="card-body">
 					<h4 th:if="${productos.empty}" class="card-title">No hay
