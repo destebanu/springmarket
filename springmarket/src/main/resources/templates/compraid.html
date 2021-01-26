@@ -28,12 +28,15 @@ body {
 }
 
 .coloreado {
-	background-color: #ff80bf;
+	background-color: #99ffe6;
 }
 
 .coloreado2 {
 	background-color: #99ff99;
 }
+
+.tabla  {margin-left: auto; margin-right: auto;}
+
 </style>
 </head>
 <body>
@@ -48,7 +51,7 @@ body {
 		<div>
 			<h1 class="text-center" style="background-color: #ffdccc;">Pedido en detalle</h1>
 			<br/>
-			<table class="table table-bordered" style="width: 70%">
+			<table class="table table-bordered tabla" style="width: 70%">
 				<tr>
 					<td class="coloreado">ID:</td>
 					<td  colspan="3" th:text="${compra.idCompra}" />

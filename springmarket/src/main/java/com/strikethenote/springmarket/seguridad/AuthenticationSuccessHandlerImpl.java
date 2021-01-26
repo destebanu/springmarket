@@ -39,8 +39,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
 		HttpSession session = request.getSession();
 		Usuario authUser = usuarioServicio.buscarPorEmail(userDetails.getUsername());
-		//Esto de debajo no sé si lo necesitamos
-		//session.setAttribute("username", authUser.getUsername());
 		session.setAttribute("nombre", authUser.getNombreUsuario());
 		session.setAttribute("idUsuario", authUser.getIdUsuario());
 		

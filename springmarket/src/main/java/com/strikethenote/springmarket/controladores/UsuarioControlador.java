@@ -132,11 +132,13 @@ public class UsuarioControlador {
 	public String usuarioid(Model model, HttpSession session, @PathVariable("idUsuario") long idUsuario) {
 		// Se recoge el input de la búsqueda de la session y se usa el servicio para
 		// buscar en la tabla
-			Usuario resultado = usuarioServicio.obtenerUsuario(idUsuario);
-			model.addAttribute("usuario", resultado);
+			Usuario resultadoURL = usuarioServicio.obtenerUsuario(idUsuario);
+			model.addAttribute("usuario", resultadoURL);
+			long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+			model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
 
 			// Recogemos las compras del usuario
-			List<Compra> compras = compraServicio.buscarUsuario(resultado);
+			List<Compra> compras = compraServicio.buscarUsuario(resultadoURL);
 			session.setAttribute("compras", compras);
 			model.addAttribute("compras", compras);
 
