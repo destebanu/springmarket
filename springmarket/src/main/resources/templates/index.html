@@ -43,10 +43,16 @@ body {
 }
 
 .celdas {
-	width: 10%
+	font-size:1.6em;
+	text-align: center;
 }
 
 div.tabla  {margin-left: auto; margin-right: auto;}
+
+img {
+  width: 50px;
+  height: auto;
+}
 
 </style>
 </head>
@@ -94,53 +100,87 @@ div.tabla  {margin-left: auto; margin-right: auto;}
 					<p class="card-text">
 					<table class="table table-hover">
 						<tbody th:each="producto, iterStat: ${productos}">
+						
+						
+						
 							<tr class="table-primary">
+								<td th:if="${iterStat.index == 0}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 0}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 0}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+								
+								<td th:if="${iterStat.index == 1}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 1}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 1}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+									
+								<td th:if="${iterStat.index == 2}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 2}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
+							
 								<td th:if="${iterStat.index == 2}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+									
+								<td th:if="${iterStat.index == 3}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 3}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 3}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+									
 
+								<td th:if="${iterStat.index == 4}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 4}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 4}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+									
+								<td th:if="${iterStat.index == 5}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 5}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 5}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+									
+								<td th:if="${iterStat.index == 6}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 6}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 6}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
+									
+								<td th:if="${iterStat.index == 7}" class="celdas"><figure class="foto">
+								<img th:src="@{/imagenes/instrumento.png}"/>
+								</figure></td>
 								<td th:if="${iterStat.index == 7}" class="celdas"><span
 									th:text="${producto.nombreProducto}"></span></td>
 								<td th:if="${iterStat.index == 7}" class="celdas"><a
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
-									class="btn btn-info">Ir al producto</a></td>
+									class="btn btn-info btn-lg">Ir al producto</a></td>
 
 							</tr>
 						</tbody>
 					</table>
-					</p>
 				</div>
 			</div>
 			<br />
