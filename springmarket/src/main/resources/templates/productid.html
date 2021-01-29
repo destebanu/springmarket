@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang=es xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -10,6 +11,10 @@
 <meta name="copyright" content="Daniel Esteban & Amanda Segura" />
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/bootstrap.minSKETCHY.css}" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous" />
 <style th:inline="text">
 body {
 	background-image: url("/imagenes/fondo.jpg");
@@ -28,14 +33,33 @@ body {
 	border: 2px solid rgb(255, 153, 102);
 }
 
-#limpio {clear:both;}
+.grid-container {
+	display: grid;
+	grid-template-columns: 35% 65%;
+	padding: 10px;
+}
+
+#imagenproducto, #tablaproducto, #botonescarrito, #vaciogrid {
+	padding: 20px;
+	font-size: 20px;
+	text-align: center;
+}
+
+.grid-container1 {
+	display: grid;
+	grid-template-columns: auto auto;
+	text-align: center;
+}
 
 .coloreado {
 	background-color: #99ffff;
 }
 
-.foto { float:left; border:2px solid black; margin:2em; background-color: white;}
-
+.foto {
+	border: 2px solid black;
+	margin: 2em;
+	background-color: white;
+}
 </style>
 </head>
 <body>
@@ -48,66 +72,150 @@ body {
 			</figure>
 		</header>
 		<section>
-			
-			<div style=>
-				<h1 class="text-center" style="background-color: #ffdccc;">Producto
-					en detalle</h1>
-				<br />
-				<figure class="foto">
-				<img th:src="@{/imagenes/instrumento.png}"/>
-				</figure>
-				<table class="table table-bordered" style="width: 45%; float:left;margin:2em;">
-					<tr>
-						<td class="coloreado">ID:</td>
-						<td th:text="${producto.idProducto}" />
-					</tr>
-					<tr>
-						<td class="coloreado">Nombre:</td>
-						<td th:text="${producto.nombreProducto}" />
-					</tr>
-					<tr>
-						<td class="coloreado">Descripción:</td>
-						<td th:text="${producto.descripcionProducto}" />
-					</tr>
-					<tr>
-						<td class="coloreado">Precio:</td>
-						<td th:text="${producto.precioProducto}+' €'" />
-					</tr>
-					<tr>
-						<td class="coloreado">Descuento:</td>
-						<td th:text="${producto.descuentoProducto}+' %'" />
-					</tr>
-				</table>
-			</div>
-			<div id="limpio"></div>
+			<h1 class="text-center" style="background-color: #ffdccc;">Producto
+				en detalle</h1>
 			<br />
-			<form sec:authorize="hasAuthority('admin')"
-				th:action="@{/product/borrar/{id}(id=${producto.idProducto})}"
-				method="post">
-				<button style="float: left; margin-right: 40%;" type="submit"
-					class="btn btn-secondary">Actualizar Imagen</button>
-			</form>
-			<form sec:authorize="hasAuthority('admin')"
-				th:action="@{/product/borrar/{id}(id=${producto.idProducto})}"
-				method="post">
-				<button style="float: left; margin-right: 40%;" type="submit"
-					class="btn btn-danger">Borrar producto</button>
-			</form>
-			<form
-				sec:authorize="hasAuthority('registrado') || hasAuthority('admin')"
-				th:action="@{/compra/add/{id}(id=${producto.idProducto})}"
-				method="post">
-				<div style="float: left; width: 10%;" class="form-group">
-					<select class="form-control" id="exampleSelect1"
-						name="cantidadproducto">
-						<option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}"
-							th:text="${i}"></option>
-					</select>
+
+			<div class="grid-container">
+
+				<!-- Div con la imagen del producto y el botón de actualizar imagen -->
+
+				<div id="imagenproducto">
+					<figure class="foto">
+						<img th:src="@{/imagenes/instrumento.png}" />
+					</figure>
+					<form sec:authorize="hasAuthority('admin')"
+						th:action="@{/product/updateimg/{id}(id=${producto.idProducto})}"
+						method="post">
+						<button type="submit" class="btn btn-info">Actualizar
+							imagen</button>
+					</form>
 				</div>
-				<button type="submit" class="btn btn-success">Añadir
-					producto al carrito</button>
-			</form>
+
+				<!-- Div con la tabla de información del producto y el botón mostrar producto -->
+
+				<div id="tablaproducto">
+					<table class="table table-bordered">
+						<tr>
+							<td class="coloreado">ID:</td>
+							<td th:text="${producto.idProducto}" />
+						</tr>
+						<tr>
+							<td class="coloreado">Nombre:</td>
+							<td th:text="${producto.nombreProducto}" />
+						</tr>
+						<tr>
+							<td class="coloreado">Descripción:</td>
+							<td th:text="${producto.descripcionProducto}" />
+						</tr>
+						<tr>
+							<td class="coloreado">Precio:</td>
+							<td th:text="${producto.precioProducto}+' €'" />
+						</tr>
+						<tr>
+							<td class="coloreado">Descuento:</td>
+							<td th:text="${producto.descuentoProducto}+' %'" />
+						</tr>
+					</table>
+					<form sec:authorize="hasAuthority('admin')"
+						th:action="@{/product/borrar/{id}(id=${producto.idProducto})}"
+						method="post">
+						<button type="submit" class="btn btn-danger">Borrar
+							producto</button>
+					</form>
+				</div>
+
+				<!-- Div con los botones del carrito (cantidad y añadir producto) -->
+
+				<div id="botonescarrito">
+					<form
+						sec:authorize="hasAuthority('registrado') || hasAuthority('admin')"
+						th:action="@{/compra/add/{id}(id=${producto.idProducto})}"
+						method="post">
+
+						<!--                                 <div style="float: left; width: 10%;" class="form-group"> -->
+						<!--                                     <select class="form-control" id="exampleSelect1" -->
+						<!--                                         name="cantidadproducto"> -->
+						<!--                                         <option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}" -->
+						<!--                                             th:text="${i}"></option> -->
+						<!--                                     </select> -->
+						<!--                                 </div> -->
+
+<!-- 						<div class="col-lg-2"> -->
+<!-- 							<div class="input-group"> -->
+
+								<!-- Cantidad -->
+								
+								<input type="text" id="quantity" name="cantidadproducto"
+									class="form-control input-number" value="1" min="1" max="100" style="margin-bottom: 3px; text-align: center;">
+
+								<div class="grid-container1">
+
+									<!-- Botón menos -->
+
+									<span class="input-group-btn">
+										<button type="button"
+											class="quantity-left-minus btn btn-danger btn-number"
+											data-type="minus" data-field="">
+											<i class="fas fa-minus"></i>
+										</button>
+									</span>
+
+									<!-- Botón más -->
+
+									<span class="input-group-btn">
+										<button type="button"
+											class="quantity-right-plus btn btn-success btn-number"
+											data-type="plus" data-field="">
+											<i class="fas fa-plus"></i>
+										</button>
+									</span>
+								</div>
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+						<button type="submit" class="btn btn-success">Añadir
+							producto al carrito</button>
+					</form>
+				</div>
+				<div id="vaciogrid"></div>
+			</div>
 		</section>
 	</div>
+	<script>
+		$(document).ready(function() {
+
+			var quantitiy = 0;
+			$('.quantity-right-plus').click(function(e) {
+
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+				$('#quantity').val(quantity + 1);
+
+				// Increment
+
+			});
+
+			$('.quantity-left-minus').click(function(e) {
+				// Stop acting like a button
+				e.preventDefault();
+				// Get the field name
+				var quantity = parseInt($('#quantity').val());
+
+				// If is not undefined
+
+				// Increment
+				if (quantity > 0) {
+					$('#quantity').val(quantity - 1);
+				}
+			});
+
+		});
+	</script>
 </body>
 </html>
