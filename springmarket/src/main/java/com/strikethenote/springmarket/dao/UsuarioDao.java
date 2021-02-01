@@ -2,6 +2,8 @@ package com.strikethenote.springmarket.dao;
 
 import java.util.List;
 
+import org.springframework.data.repository.PagingAndSortingRepository;
+
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Usuario;
 

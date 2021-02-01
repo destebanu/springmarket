@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import des.springboot_ajax.entidades.Imagen;
-import des.springboot_ajax.entidades.Profesor;
-import des.springboot_ajax.servicios.ImagenServicio;
-import des.springboot_ajax.servicios.ProfesorServicio;
+import com.strikethenote.springmarket.entidades.Imagen;
+import com.strikethenote.springmarket.entidades.Producto;
+import com.strikethenote.springmarket.servicios.ImagenServicio;
+import com.strikethenote.springmarket.servicios.ProductoServicio;
 
 @Controller
 @RequestMapping(value = "/imagenes")
@@ -31,42 +31,42 @@ public class ImagenControlador {
 	private ImagenServicio imgServicio;
 
 	@Autowired
-	ProfesorServicio profesorService;
+	ProductoServicio productoServicio;
 
-	@GetMapping("/cargar/{idProfesor}")
-	public ModelAndView actualizarFotoPerfil(HttpServletRequest request, @PathVariable("idProfesor") long idProfesor) {
+	@GetMapping("/cargar/{idProducto}")
+	public ModelAndView actualizarFotoProducto(HttpServletRequest request, @PathVariable("idProfesor") long idProfesor) {
 
 		ModelAndView mav = new ModelAndView();
 
-		Profesor profesor = profesorService.obtenerProfesor(idProfesor);
+		ProductoServicio producto = productoServicio.obtenerProducto(idProdcuto);
 		Imagen img = null;
-		if (!profesor.getImagen().isEmpty()) {
-			for (Imagen i : profesor.getImagen()) {
+		if (!producto.getImagen().isEmpty()) {
+			for (Imagen i : producto.getImagen()) {
 				img = i;
 				break;
 			}
 		}
 		mav.addObject("imagen", img);
-		mav.addObject("profesor", profesor);
+		mav.addObject("producto", producto);
 		mav.setViewName("/imagen/imagen_subir");
 		return mav;
 	}
 
-	@PostMapping("/cargar/{idProfesor}")
+	@PostMapping("/cargar/{idProducto}")
 	public String fileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request,
-			@PathVariable("idProfesor") long idProfesor) {
+			@PathVariable("idProducto") long idProducto) {
 		try {
 			byte[] image = file.getBytes();
 			Imagen img = new Imagen("foto", image);
-			Boolean saveImage = imgServicio.actualizarImagen(idProfesor, file);
+			Boolean saveImage = imgServicio.actualizarImagen(idProducto, file);
 			if (saveImage) {
-				return "redirect:/profesor/perfil/" + idProfesor;
+				return "redirect:/profesor/perfil/" + idProducto;
 			} else {
-				return "redirect:/imagenes/cargar/" + idProfesor;
+				return "redirect:/imagenes/cargar/" + idProducto;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/imagenes/cargar/" + idProfesor;
+			return "redirect:/imagenes/cargar/" + idProducto;
 		}
 	}
 

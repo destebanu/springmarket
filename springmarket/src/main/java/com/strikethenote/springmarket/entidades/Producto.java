@@ -2,6 +2,7 @@ package com.strikethenote.springmarket.entidades;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -48,7 +49,14 @@ public class Producto implements Serializable {
 	// Relación ManyToMany Compra
 	@ManyToMany(mappedBy = "productos")
 	private Set<Compra> compras = new HashSet<>();
+	
+	// Relación OneToMany Imagen
 
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "producto", orphanRemoval = true)
+	private Set<Imagen> imagen = new HashSet<>();
+
+	// Constructores
+	
 	public Producto() {
 
 	}
@@ -137,6 +145,35 @@ public class Producto implements Serializable {
 		this.compras.add(c);
 
 	}
+	
+	// Métodos Imagen
+	
+		public void addImagen(Imagen img) {
+			this.imagen.add(img);
+			img.setProducto(this);
+		}
+
+		public void removeImagen(Imagen img) {
+			img.setProducto(null);
+			this.imagen.remove(img);
+		}
+
+		public void removeImagenes() {
+			Iterator<Imagen> iterator = this.imagen.iterator();
+			while (iterator.hasNext()) {
+				Imagen img = iterator.next();
+				img.setProducto(null);
+				iterator.remove();
+			}
+		}
+
+		public Set<Imagen> getImagen() {
+			return imagen;
+		}
+
+		public void setImagen(Set<Imagen> imagen) {
+			this.imagen = imagen;
+		}
 
 	@Override
 	public String toString() {

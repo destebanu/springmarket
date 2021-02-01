@@ -2,6 +2,7 @@ package com.strikethenote.springmarket.entidades;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,14 +10,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.*;
 
 @Entity
 @Table(name = "USUARIO")
@@ -60,36 +60,19 @@ public class Usuario implements Serializable {
 
 	@Column(name = "DIRECFACT_USUARIO")
 	private String direcfactUsuario;
-	
+
 	// Relación ManyToMany Rol
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
 	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_USUARIO"), inverseJoinColumns = @JoinColumn(name = "ID_ROL"))
 	private Set<Rol> roles = new HashSet<>();
-	
-	public Set<Rol> getRoles() {
-		return roles;
-	}
 
-	public void setRoles(Set<Rol> roles) {
-		this.roles = roles;
-	}
-	
-	public boolean anadirRol(Rol rol) {
-	    rol.anadirUsuario(this);
-		return getRoles().add(rol);
-	}
-
-	public void eliminarRol(Rol rol) {
-		this.roles.remove(rol);
-		rol.getUsuarios().remove(this);
-	}
-	
 	// Relación OneToMany Compra
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-
 	private Set<Compra> compras = new HashSet<>();
+
+	// Constructores
 
 	public Usuario() {
 
@@ -125,6 +108,8 @@ public class Usuario implements Serializable {
 		this.codsegUsuario = codsegUsuario;
 		this.direcfactUsuario = direcfactUsuario;
 	}
+
+	// Getters y setters
 
 	public Long getIdUsuario() {
 		return idUsuario;
@@ -209,8 +194,28 @@ public class Usuario implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	// Métodos entidad poseída
+
+	// Métodos Rol
+
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
+	}
+
+	public boolean anadirRol(Rol rol) {
+		rol.anadirUsuario(this);
+		return getRoles().add(rol);
+	}
+
+	public void eliminarRol(Rol rol) {
+		this.roles.remove(rol);
+		rol.getUsuarios().remove(this);
+	}
+
+	// Métodos Compra
 
 	public Set<Compra> getCompras() {
 		return compras;
@@ -228,6 +233,7 @@ public class Usuario implements Serializable {
 	public void eliminarCompras(Compra compra) {
 		getCompras().remove(compra);
 	}
+	
 
 	@Override
 	public String toString() {
