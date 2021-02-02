@@ -34,11 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                             "/js/**",
                             "/css/**",
                             "/favicon.ico",
-                            "/imagenes/**",
+                            "/pictures/**",
                             "/usuario/**",
 		                    "/product/productsearch",
 		                    "/product/results",
-		                    "/product/productid/{idProducto}").permitAll()
+		                    "/product/productid/{idProducto}",
+		                    "/imagenes/**").permitAll()
                     .antMatchers("/compra/**").hasAnyAuthority("registrado","admin")	
                     .antMatchers("/product/**").hasAuthority("admin")
                     .anyRequest().authenticated()
@@ -58,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/login?logout")
                     .permitAll();
-                http.csrf().ignoringAntMatchers("/imagenes/**");
+                http.csrf().ignoringAntMatchers("/pictures/**");
     }
     
     @Autowired

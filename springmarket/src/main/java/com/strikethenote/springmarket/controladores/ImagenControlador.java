@@ -34,11 +34,11 @@ public class ImagenControlador {
 	ProductoServicio productoServicio;
 
 	@GetMapping("/cargar/{idProducto}")
-	public ModelAndView actualizarFotoProducto(HttpServletRequest request, @PathVariable("idProfesor") long idProfesor) {
+	public ModelAndView actualizarFotoProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 
 		ModelAndView mav = new ModelAndView();
 
-		ProductoServicio producto = productoServicio.obtenerProducto(idProdcuto);
+		Producto producto = productoServicio.obtenerProducto(idProducto);
 		Imagen img = null;
 		if (!producto.getImagen().isEmpty()) {
 			for (Imagen i : producto.getImagen()) {
@@ -60,7 +60,7 @@ public class ImagenControlador {
 			Imagen img = new Imagen("foto", image);
 			Boolean saveImage = imgServicio.actualizarImagen(idProducto, file);
 			if (saveImage) {
-				return "redirect:/profesor/perfil/" + idProducto;
+				return "redirect:/product/productid/" + idProducto;
 			} else {
 				return "redirect:/imagenes/cargar/" + idProducto;
 			}

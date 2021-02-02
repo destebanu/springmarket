@@ -11,7 +11,7 @@
 	th:href="@{/css/bootstrap.minSKETCHY.css}" />
 <style th:inline="text">
 body {
-	background-image: url("/imagenes/fondo.jpg");
+	background-image: url("/pictures/fondo.jpg");
 }
 
 .logo {
@@ -27,10 +27,20 @@ body {
 	margin-right: auto;
 	text-decoration: none;
 }
-#fondito{margin:2em; background-color: rgb(255, 238, 230,0.6);
-border: 2px solid rgb(255, 153, 102);}
 
-div.tabla  {margin-left: auto; margin-right: auto;}
+#fondito {
+	margin:2em; background-color: rgb(255, 238, 230,0.6);
+	border: 2px solid rgb(255, 153, 102);
+}
+
+div.tabla {
+	margin-left: auto; margin-right: auto;
+}
+
+.foto {
+  width: 50px;
+  height: auto;
+}
 
 </style>
 </head>
@@ -40,7 +50,7 @@ div.tabla  {margin-left: auto; margin-right: auto;}
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
 			<figure>
-				<img class="logo" th:src="@{/imagenes/logo.png}" />
+				<img class="logo" th:src="@{/pictures/logo.png}" />
 			</figure>
 			<nav>
 				<!--Enlace al final de la página-->
@@ -66,6 +76,7 @@ div.tabla  {margin-left: auto; margin-right: auto;}
 					<table class="table table-hover">
 							<tbody>
 								<tr class="table-primary" th:each="producto: ${productos}">
+									<td><figure><img class="foto" th:src="@{/pictures/instrumento.png}"/></figure></td>
 									<td th:text="${producto.nombreProducto}"/>
 									<td th:text="${producto.descripcionProducto}"/>
 									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>								

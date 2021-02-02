@@ -17,7 +17,7 @@
 	crossorigin="anonymous" />
 <style th:inline="text">
 body {
-	background-image: url("/imagenes/fondo.jpg");
+	background-image: url("/pictures/fondo.jpg");
 }
 
 .logo {
@@ -39,7 +39,7 @@ body {
 	padding: 10px;
 }
 
-#imagenproducto, #tablaproducto, #botonescarrito, #vaciogrid {
+#imagen_producto, #tablaproducto, #botonescarrito, #vaciogrid {
 	padding: 20px;
 	font-size: 20px;
 	text-align: center;
@@ -68,7 +68,7 @@ body {
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
 			<figure>
-				<img class="logo" th:src="@{/imagenes/logo.png}" />
+				<img class="logo" th:src="@{/pictures/logo.png}" />
 			</figure>
 		</header>
 		<section>
@@ -78,18 +78,38 @@ body {
 
 			<div class="grid-container">
 
-				<!-- Div con la imagen del producto y el botón de actualizar imagen -->
+				<!-- Div con la imagen del producto y el botón de seleccionar archivo y actualizar imagen -->
 
-				<div id="imagenproducto">
-					<figure class="foto">
-						<img th:src="@{/imagenes/instrumento.png}" />
-					</figure>
-					<form sec:authorize="hasAuthority('admin')"
-						th:action="@{/product/updateimg/{id}(id=${producto.idProducto})}"
-						method="post">
-						<button type="submit" class="btn btn-info">Actualizar
-							imagen</button>
-					</form>
+				<div th:if="${imagen !=null}">
+					<div id="imagen_producto">
+						<figure class="foto">
+							<img th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
+						</figure>
+						<form sec:authorize="hasAuthority('admin')"
+							th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
+							method="post" enctype="multipart/form-data">
+							<input type="file" class="btn btn-secondary" id="imagen_producto"
+								name="imagen_producto"><br> <br>
+							<button type="submit" class="btn btn-info">Actualizar
+								imagen</button>
+						</form>
+					</div>
+				</div>
+
+				<div th:if ="${imagen==null}">
+					<div id="imagen_producto">
+						<figure class="foto">
+							<img th:src="@{/pictures/instrumento.png}" />
+						</figure>
+						<form sec:authorize="hasAuthority('admin')"
+							th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
+							method="post" enctype="multipart/form-data">
+							<input type="file" class="btn btn-secondary" id="imagen_producto"
+								name="imagen_producto"><br> <br>
+							<button type="submit" class="btn btn-info">Actualizar
+								imagen</button>
+						</form>
+					</div>
 				</div>
 
 				<!-- Div con la tabla de información del producto y el botón mostrar producto -->
@@ -132,47 +152,36 @@ body {
 						sec:authorize="hasAuthority('registrado') || hasAuthority('admin')"
 						th:action="@{/compra/add/{id}(id=${producto.idProducto})}"
 						method="post">
+						<!-- Cantidad -->
 
-						<!--                                 <div style="float: left; width: 10%;" class="form-group"> -->
-						<!--                                     <select class="form-control" id="exampleSelect1" -->
-						<!--                                         name="cantidadproducto"> -->
-						<!--                                         <option th:each="i : ${#numbers.sequence(1, 20)}" th:value="${i}" -->
-						<!--                                             th:text="${i}"></option> -->
-						<!--                                     </select> -->
-						<!--                                 </div> -->
+						<input type="text" id="quantity" name="cantidadproducto"
+							class="form-control input-number" value="1" min="1" max="100"
+							style="margin-bottom: 3px; text-align: center;">
 
-<!-- 						<div class="col-lg-2"> -->
-<!-- 							<div class="input-group"> -->
+						<div class="grid-container1">
 
-								<!-- Cantidad -->
-								
-								<input type="text" id="quantity" name="cantidadproducto"
-									class="form-control input-number" value="1" min="1" max="100" style="margin-bottom: 3px; text-align: center;">
+							<!-- Botón menos -->
 
-								<div class="grid-container1">
+							<span class="input-group-btn">
+								<button type="button"
+									class="quantity-left-minus btn btn-danger btn-number"
+									data-type="minus" data-field="">
+									<i class="fas fa-minus"></i>
+								</button>
+							</span>
 
-									<!-- Botón menos -->
+							<!-- Botón más -->
 
-									<span class="input-group-btn">
-										<button type="button"
-											class="quantity-left-minus btn btn-danger btn-number"
-											data-type="minus" data-field="">
-											<i class="fas fa-minus"></i>
-										</button>
-									</span>
-
-									<!-- Botón más -->
-
-									<span class="input-group-btn">
-										<button type="button"
-											class="quantity-right-plus btn btn-success btn-number"
-											data-type="plus" data-field="">
-											<i class="fas fa-plus"></i>
-										</button>
-									</span>
-								</div>
-<!-- 							</div> -->
-<!-- 						</div> -->
+							<span class="input-group-btn">
+								<button type="button"
+									class="quantity-right-plus btn btn-success btn-number"
+									data-type="plus" data-field="">
+									<i class="fas fa-plus"></i>
+								</button>
+							</span>
+						</div>
+						<!-- 							</div> -->
+						<!-- 						</div> -->
 
 						<button type="submit" class="btn btn-success">Añadir
 							producto al carrito</button>

@@ -47,7 +47,7 @@ public class ImagenServicioImpl implements ImagenServicio {
 
 	public Boolean actualizarImagen(long idProducto, MultipartFile file) {
 
-		Producto p= productoDaoImpl.findById(idProducto).orElse(null);
+		Producto p= productoDaoImpl.buscar(idProducto);
 
 		if (p == null)
 			return false;
@@ -66,7 +66,7 @@ public class ImagenServicioImpl implements ImagenServicio {
 			} else {
 				Imagen img = new Imagen("foto", image);
 				p.addImagen(img);
-				productoDaoImpl.save(p);
+				productoDaoImpl.actualizar(p);
 				return true;
 			}
 

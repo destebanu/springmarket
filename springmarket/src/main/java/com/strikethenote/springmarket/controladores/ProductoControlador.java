@@ -124,11 +124,5 @@ public class ProductoControlador {
 		productoServicio.eliminarProducto(idProducto);
 		return "redirect:/index";
 	}
-	
-	@PostMapping("/updateimg/{idProducto}")
-	public String actualizarImagen(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
-		// TODO
-		return "redirect:/index";
-	}
 
 }
