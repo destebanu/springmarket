@@ -80,7 +80,7 @@ body {
 
 				<!-- Div con la imagen del producto y el botón de seleccionar archivo y actualizar imagen -->
 
-				<div th:if="${imagen !=null}">
+				<div th:if="${imagen!=null}">
 					<div id="imagen_producto">
 						<figure class="foto">
 							<img th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -89,13 +89,12 @@ body {
 							th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
 							method="post" enctype="multipart/form-data">
 							<input type="file" class="btn btn-secondary" id="imagen_producto"
-								name="imagen_producto"><br> <br>
-							<button type="submit" class="btn btn-info">Actualizar
+								name="file"><br> <br>
+							<button type="submit" class="btn btn-info">Actualizar tu puta
 								imagen</button>
 						</form>
 					</div>
 				</div>
-
 				<div th:if ="${imagen==null}">
 					<div id="imagen_producto">
 						<figure class="foto">
@@ -105,8 +104,8 @@ body {
 							th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
 							method="post" enctype="multipart/form-data">
 							<input type="file" class="btn btn-secondary" id="imagen_producto"
-								name="imagen_producto"><br> <br>
-							<button type="submit" class="btn btn-info">Actualizar
+								name="file"><br><br>
+							<button type="submit" class="btn btn-info">Actualizar su puta
 								imagen</button>
 						</form>
 					</div>
