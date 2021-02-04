@@ -33,25 +33,6 @@ public class ImagenControlador {
 	@Autowired
 	ProductoServicio productoServicio;
 
-	@GetMapping("/cargar/{idProducto}")
-	public ModelAndView actualizarFotoProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
-
-		ModelAndView mav = new ModelAndView();
-
-		Producto producto = productoServicio.obtenerProducto(idProducto);
-		Imagen img = null;
-		if (!producto.getImagen().isEmpty()) {
-			for (Imagen i : producto.getImagen()) {
-				img = i;
-				break;
-			}
-		}
-		mav.addObject("imagen", img);
-		mav.addObject("producto", producto);
-		mav.setViewName("/imagen/imagen_subir");
-		return mav;
-	}
-
 	@PostMapping("/cargar/{idProducto}")
 	public String fileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request,
 			@PathVariable("idProducto") long idProducto) {
@@ -62,7 +43,7 @@ public class ImagenControlador {
 			if (saveImage) {
 				return "redirect:/product/productid/" + idProducto;
 			} else {
-				return "redirect:/imagenes/cargar/" + idProducto;
+				return "redirect:/index";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
