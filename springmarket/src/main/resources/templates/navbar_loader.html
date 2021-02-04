@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang=es xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang=es xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Strike the Note</title>
 <meta charset="UTF-8">
@@ -7,19 +8,22 @@
 <meta name="keywords" content="music, instrument, guitar, note" />
 <meta name="author" content="Daniel Esteban & Amanda Segura" />
 <meta name="copyright" content="Daniel Esteban & Amanda Segura" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- meta's AJAX -->
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<!-- script's AJAX -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<script type="text/javascript" th:href="@{/js/myfunctions.js}"></script>
+<script th:src="@{/js/jquery-3.5.0.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
 <script th:href="@{/js/bootstrap.min.js}"></script>
-<link rel="stylesheet" type="text/css"
-	th:href="@{/css/bootstrap.minSKETCHY.css}" />
-<!-- <script type="text/javascript" th:href="@{/js/myfunctions.js}"></script> -->
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.minSKETCHY.css}" />
 </head>
 <body>
-<nav sec:authorize="isAnonymous()" th:replace="navbar_publica"></nav>
+	<nav sec:authorize="isAnonymous()" th:replace="navbar_publica"></nav>
 	<nav
 		sec:authorize="hasAuthority('registrado') && !hasAuthority('admin')"
 		th:replace="navbar_registrado"></nav>
-	<nav sec:authorize="hasAuthority('admin')"
-		th:replace="navbar_admin"></nav>
+	<nav sec:authorize="hasAuthority('admin')" th:replace="navbar_admin"></nav>
 </body>
 </html>
