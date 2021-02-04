@@ -39,9 +39,18 @@ a:hover {
 	border: 2px solid rgb(255, 153, 102);
 }
 
+.celdas {
+	font-size: 1.2em;
+	text-align: center;
+}
+
 div.tabla {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.enlaceproducto {
+	color: purple;
 }
 </style>
 </head>
@@ -89,18 +98,18 @@ div.tabla {
 
 							</tr>
 							<tr class="table-primary" th:each="producto: ${carrito}">
-								<td><a target="self"
-									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"><span
+								<td class="celdas"><a target="self"
+									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"><span class="enlaceproducto"
 										th:text="${producto.nombreProducto}"></span></a></td>
-								<td th:text="${producto.cantidadProducto}" />
-								<td th:text="${producto.precioProducto}+' €'" />
-								<td th:text="${producto.descuentoProducto}+' %'" />
-								<td
+								<td class="celdas" th:text="${producto.cantidadProducto}" />
+								<td class="celdas" th:text="${producto.precioProducto}+' €'" />
+								<td  class="celdas" th:text="${producto.descuentoProducto}+' %'" />
+								<td class="celdas"
 									th:with="totalCarrito=${(producto.precioProducto * producto.cantidadProducto)-
 								((producto.precioProducto * producto.cantidadProducto))*(producto.descuentoProducto /100)}+' €'"
 									th:text="${totalCarrito}" />
 
-								<td><form
+								<td class="celdas"><form
 										th:action="@{/compra/eliminar/{id}(id=${producto.idProducto})}"
 										method="post">
 										<button style="float: left; margin-right: 40%;" type="submit"

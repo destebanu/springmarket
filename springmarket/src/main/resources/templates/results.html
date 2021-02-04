@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang=es xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang=es xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>Strike the Note</title>
 <meta charset="UTF-8">
@@ -29,24 +30,30 @@ body {
 }
 
 #fondito {
-	margin:2em; background-color: rgb(255, 238, 230,0.6);
+	margin: 2em;
+	background-color: rgb(255, 238, 230, 0.6);
 	border: 2px solid rgb(255, 153, 102);
 }
 
+.celdas {
+	font-size: 1.6em;
+	text-align: center;
+}
+
 div.tabla {
-	margin-left: auto; margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .foto {
-  width: 50px;
-  height: auto;
+	width: 50px;
+	height: auto;
 }
-
 </style>
 </head>
 <body>
-<nav th:replace="navbar_loader"></nav>
-<div id="fondito">
+	<nav th:replace="navbar_loader"></nav>
+	<div id="fondito">
 		<header>
 			<!--Cabecera con logo en imágenes que presentan la página-->
 			<figure>
@@ -66,22 +73,40 @@ div.tabla {
 		</header>
 		<section class="back">
 			<!--Contenedor de secciones y artículos de la página-->
-			<h1 class="text-center" style="background-color: #ffdccc;">Resultados de búsqueda</h1>
-			<br/>
-			<div class="card text-white bg-warning mb-3 tabla" style="width: 70%;">
+			<h1 class="text-center" style="background-color: #ffdccc;">Resultados
+				de búsqueda</h1>
+			<br />
+			<div class="card text-white bg-warning mb-3 tabla"
+				style="width: 70%;">
 				<div class="card-header">Productos encontrados:</div>
 				<div class="card-body">
-				<h4 th:if="${productos.empty}" class="card-title">No hay ningún producto que coincida con la búsqueda</h4>
+					<h4 th:if="${productos.empty}" class="card-title">No hay
+						ningún producto que coincida con la búsqueda</h4>
 					<p class="card-text">
 					<table class="table table-hover">
-							<tbody>
-								<tr class="table-primary" th:each="producto: ${productos}">
-									<td><figure><img class="foto" th:src="@{/pictures/instrumento.png}"/></figure></td>
-									<td th:text="${producto.nombreProducto}"/>
-									<td th:text="${producto.descripcionProducto}"/>
-									<td><a th:href="@{/product/productid/{id}(id=${producto.idProducto})}" class="btn btn-info">Ir al producto</a></td>								
-								</tr>								
-							</tbody>
+						<tbody>
+							<tr class="table-primary" th:each="producto: ${productos}">
+								<td class="celdas">
+									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+										<figure>
+											<img class="foto" th:src="@{/pictures/instrumento.png}" />
+										</figure>
+									</div>
+									<div id="imagen_producto"
+										th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+										<figure>
+											<img class="foto"
+												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
+										</figure>
+									</div>
+								</td>
+								<td th:text="${producto.nombreProducto}" class="celdas" />
+								<td th:text="${producto.descripcionProducto}" class="celdas" />
+								<td class="celdas"><a
+									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"
+									class="btn btn-info">Ir al producto</a></td>
+							</tr>
+						</tbody>
 						</th:block>
 					</table>
 					</p>
@@ -98,8 +123,9 @@ div.tabla {
 					aria-valuemax="100"></div>
 			</div>
 			<br /> <a name="abajo" href=#arriba class="boton"><button
-					type="button" class="btn btn-warning boton btn-sm">Ir arriba</button></a>
+					type="button" class="btn btn-warning boton btn-sm">Ir
+					arriba</button></a>
 		</footer>
-</div>		
+	</div>
 </body>
 </html>
