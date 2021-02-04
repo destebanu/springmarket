@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,16 +24,23 @@ public class Respuesta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_RESPUESTA")
 	private Long idRespuesta;
-	
+
 	@Column(name = "TEXTO_RESPUESTA")
 	private String textoRespuesta;
-	
+
 	@Column(name = "FECHA_PREGUNTA")
 	private LocalDate fechaPregunta;
-	
-	// OneToMany
-	
-	
+
+	// OneToMany Pregunta - Poseida
+	@ManyToOne
+	@JoinColumn(name = "ID_PREGUNTA")
+	private Pregunta pregunta;
+
+	// OneToMany Usuario - Poseida
+	@ManyToOne
+	@JoinColumn(name = "ID_USUARIO")
+	private Usuario usuario;
+
 	//
 
 	public Long getIdRespuesta() {
@@ -58,4 +67,4 @@ public class Respuesta implements Serializable {
 		this.fechaPregunta = fechaPregunta;
 	}
 
-	}
+}

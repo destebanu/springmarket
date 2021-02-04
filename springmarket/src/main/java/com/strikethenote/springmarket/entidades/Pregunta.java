@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,10 +36,15 @@ public class Pregunta implements Serializable {
 	@Column(name = "FECHA_PREGUNTA")
 	private LocalDate fechaPregunta;
 	
-	// OneToMany Respuestas
-	
+	// OneToMany Respuestas - Propietaria	
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
+	
+	
+	//OneToMany Usuario - Poseida
+	@ManyToOne
+	@JoinColumn(name = "ID_USUARIO")
+	private Usuario usuario;
 	
 	//
 

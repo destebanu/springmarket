@@ -72,6 +72,14 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Compra> compras = new HashSet<>();
 
+	// OneToMany Preguntas - Propietaria
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Pregunta> preguntas = new HashSet<>();
+
+	// OneToMany Respuestas - Propietaria
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Respuesta> respuestas = new HashSet<>();
+
 	// Constructores
 
 	public Usuario() {
@@ -233,7 +241,6 @@ public class Usuario implements Serializable {
 	public void eliminarCompras(Compra compra) {
 		getCompras().remove(compra);
 	}
-	
 
 	@Override
 	public String toString() {

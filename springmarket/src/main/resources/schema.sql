@@ -4,7 +4,7 @@ create database springmarket;
 use springmarket;
     
         create table usuario (
-       id_usuario bigint not null auto_increment,
+       	id_usuario bigint not null auto_increment,
         apellidos_usuario varchar(255),
         codseg_usuario varchar(255),
         direcfact_usuario varchar(255),
@@ -65,6 +65,32 @@ use springmarket;
         foreign key (id_usuario) references usuario (id_usuario) 
 		on update cascade
     ) ;
+    
+    create table pregunta (
+	  	id_pregunta bigint not null auto_increment,
+	    texto_pregunta varchar (500) not null,
+	    fecha_pregunta date not null,
+	    id_usuario bigint not null,
+	    primary key (id_pregunta),
+	    constraint fk_pregunta_usuario
+        foreign key (id_usuario) references usuario (id_usuario) 
+		on update cascade
+    );
+    
+    create table respuesta (
+    	id_respuesta bigint not null auto_increment,
+	    texto_respuesta varchar (500) not null,
+	    fecha_respuesta date not null,
+	    id_usuario bigint not null,
+	    id_pregunta bigint not null,
+	    primary key (id_respuesta),
+	    constraint fk_respuesta_usuario
+        foreign key (id_usuario) references usuario (id_usuario) 
+		on update cascade,
+		constraint fk_respuesta_pregunta
+        foreign key (id_pregunta) references pregunta (id_pregunta) 
+		on update cascade
+    );
     
     create table lineas_de_compra (
        id_compra bigint not null,
