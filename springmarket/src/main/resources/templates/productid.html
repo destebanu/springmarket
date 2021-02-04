@@ -61,7 +61,6 @@ body {
 	background-color: white;
 	width: 200px;
 	height: auto;
-
 }
 </style>
 </head>
@@ -83,33 +82,32 @@ body {
 
 				<!-- Div con la imagen del producto y el botón de seleccionar archivo y actualizar imagen -->
 
-				<div th:if="${producto.imagen!=null}">
-					<div id="imagen_producto">
-						<figure class="foto">
-							<img th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
-						</figure>
-						<form sec:authorize="hasAuthority('admin')"
-							th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
-							method="post" enctype="multipart/form-data">
-							<input type="file" class="btn btn-secondary" id="imagen_producto"
-								name="file"><br> <br>
-							<button type="submit" class="btn btn-info">Actualizar imagen</button>
-						</form>
-					</div>
+				<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+					<figure>
+						<img class="foto"
+							th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
+					</figure>
+					<form sec:authorize="hasAuthority('admin')"
+						th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
+						method="post" enctype="multipart/form-data">
+						<input type="file" class="btn btn-secondary" id="imagen_producto"
+							name="file"><br> <br>
+						<button type="submit" class="btn btn-info">Actualizar
+							imagen</button>
+					</form>
 				</div>
-				<div th:if ="${producto.imagen==null}">
-					<div id="imagen_producto">
-						<figure class="foto">
-							<img class="foto" th:src="@{/pictures/instrumento.png}" />
-						</figure>
-						<form sec:authorize="hasAuthority('admin')"
-							th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
-							method="post" enctype="multipart/form-data">
-							<input type="file" class="btn btn-secondary" id="imagen_producto"
-								name="file"><br><br>
-							<button type="submit" class="btn btn-info">Actualizar imagen</button>
-						</form>
-					</div>
+				<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+					<figure>
+						<img class="foto" th:src="@{/pictures/instrumento.png}" />
+					</figure>
+					<form sec:authorize="hasAuthority('admin')"
+						th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
+						method="post" enctype="multipart/form-data">
+						<input type="file" class="btn btn-secondary" id="imagen_producto"
+							name="file"><br> <br>
+						<button type="submit" class="btn btn-info">Actualizar
+							imagen</button>
+					</form>
 				</div>
 
 				<!-- Div con la tabla de información del producto y el botón mostrar producto -->
@@ -180,9 +178,6 @@ body {
 								</button>
 							</span>
 						</div>
-						<!-- 							</div> -->
-						<!-- 						</div> -->
-
 						<button type="submit" class="btn btn-success">Añadir
 							producto al carrito</button>
 					</form>
@@ -191,7 +186,7 @@ body {
 			</div>
 		</section>
 	</div>
-	
+
 	<!--  Script para botones de cantidad -->
 	<script>
 		$(document).ready(function() {
