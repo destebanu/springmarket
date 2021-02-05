@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -66,6 +67,10 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		} else {
 			throw new IllegalStateException();
 		}
+		
+		Cookie cookie = new Cookie ("idUsuario",authUser.getIdUsuario().toString());
+		response.addCookie(cookie);
+		
 
 		redirectStrategy.sendRedirect(request, response, targetUrl);
 	}

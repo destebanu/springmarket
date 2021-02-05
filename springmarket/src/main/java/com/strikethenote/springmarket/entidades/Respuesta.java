@@ -30,6 +30,29 @@ public class Respuesta implements Serializable {
 
 	@Column(name = "FECHA_PREGUNTA")
 	private LocalDate fechaPregunta;
+	
+	
+
+	public Respuesta(Long idRespuesta, String textoRespuesta, LocalDate fechaPregunta) {
+		super();
+		this.idRespuesta = idRespuesta;
+		this.textoRespuesta = textoRespuesta;
+		this.fechaPregunta = fechaPregunta;
+		this.pregunta = pregunta;
+		this.usuario = usuario;
+	}
+
+	public Respuesta(String textoRespuesta, LocalDate fechaPregunta) {
+		super();
+		this.textoRespuesta = textoRespuesta;
+		this.fechaPregunta = fechaPregunta;
+		this.pregunta = pregunta;
+		this.usuario = usuario;
+	}
+
+	public Respuesta() {
+		super();
+	}
 
 	// OneToMany Pregunta - Poseida
 	@ManyToOne

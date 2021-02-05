@@ -19,7 +19,8 @@
 		<java.version>11</java.version>
 		<spring.security.version>5.3.5.RELEASE</spring.security.version>
 		<thymeleaf.spring-security.version>3.0.4.RELEASE</thymeleaf.spring-security.version>
-
+		<jackson.version>2.5.2</jackson.version>
+<jaction.xml.version>2.11.0</jaction.xml.version>
 	</properties>
 
 	<dependencies>
@@ -88,6 +89,34 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>joda-time</groupId> -->
+		<!-- <artifactId>joda-time</artifactId> -->
+		<!-- <version>2.6</version> -->
+		<!-- </dependency> -->
+
+		<!-- <dependency> -->
+		<!-- <groupId>com.fasterxml.jackson.datatype</groupId> -->
+		<!-- <artifactId>jackson-datatype-joda</artifactId> -->
+		<!-- <version>2.4.4</version> -->
+		<!-- </dependency> -->
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jaction.xml.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jaction.xml.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.5</version>
 		</dependency>
 
 	</dependencies>

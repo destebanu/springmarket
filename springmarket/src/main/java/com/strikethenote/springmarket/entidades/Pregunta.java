@@ -36,6 +36,29 @@ public class Pregunta implements Serializable {
 	@Column(name = "FECHA_PREGUNTA")
 	private LocalDate fechaPregunta;
 	
+	
+	
+	public Pregunta(Long idPregunta, String textoPregunta, LocalDate fechaPregunta) {
+		super();
+		this.idPregunta = idPregunta;
+		this.textoPregunta = textoPregunta;
+		this.fechaPregunta = fechaPregunta;
+		this.respuestas = respuestas;
+		this.usuario = usuario;
+	}
+
+	public Pregunta(String textoPregunta, LocalDate fechaPregunta) {
+		super();
+		this.textoPregunta = textoPregunta;
+		this.fechaPregunta = fechaPregunta;
+		this.respuestas = respuestas;
+		this.usuario = usuario;
+	}
+
+	public Pregunta() {
+		super();
+	}
+
 	// OneToMany Respuestas - Propietaria	
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();

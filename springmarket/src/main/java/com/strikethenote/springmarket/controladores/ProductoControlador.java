@@ -1,5 +1,6 @@
 package com.strikethenote.springmarket.controladores;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -15,9 +17,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.strikethenote.springmarket.entidades.Pregunta;
 import com.strikethenote.springmarket.entidades.Producto;
+import com.strikethenote.springmarket.entidades.Respuesta;
+import com.strikethenote.springmarket.servicios.PreguntaServicio;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
+import com.strikethenote.springmarket.servicios.RespuestaServicio;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -25,6 +34,12 @@ public class ProductoControlador {
 
 	@Autowired
 	private ProductoServicio productoServicio;
+
+	@Autowired
+	private PreguntaServicio preguntaServicio;
+
+	@Autowired
+	private RespuestaServicio respuestaServicio;
 
 	// Métodos get y post
 
@@ -123,6 +138,43 @@ public class ProductoControlador {
 		// Se pasa por session el producto y se borra de la bbdd a partir de su id
 		productoServicio.eliminarProducto(idProducto);
 		return "redirect:/index";
+	}
+
+	// Métodos Q&A
+
+	// Este método persiste preguntas
+	@RequestMapping(value = "/pregunta/{idProducto}", method = RequestMethod.POST)
+	@ResponseBody
+	public String publicarPregunta(@RequestParam("pregunta") String pregunta) {
+//		String pregunta = request.getParameter("pregunta")
+//		String idUsuario = request.getParameter("idUsuario");
+
+		LocalDate fecha = LocalDate.now();
+		Pregunta p = new Pregunta("pregunta", fecha);
+
+		Boolean guardarPregunta = preguntaServicio.guardarPregunta(p);
+
+		if (guardarPregunta) {
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+
+	// Este método persiste respuestas
+	@RequestMapping(value = "/productid/{idProducto}", method = RequestMethod.POST)
+	@ResponseBody
+	public String publicarRespuesta(@PathVariable("respuesta") String respuesta) {
+		LocalDate fecha = LocalDate.now();
+		Respuesta r = new Respuesta(respuesta, fecha);
+
+		Boolean guardarRespuesta = respuestaServicio.guardarRespuesta(r);
+
+		if (guardarRespuesta) {
+			return "true";
+		} else {
+			return "false";
+		}
 	}
 
 }

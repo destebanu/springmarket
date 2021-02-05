@@ -2,6 +2,9 @@ $("body").on('click', '#botonpregunta', agregarPregunta);
 
 function agregarPregunta() {
 	var textoPregunta = $('#pregunta').val();
+	var idProducto = $('#idProducto').val();
+	var idUsuario = getCookie("idUsuario");
+
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -10,16 +13,18 @@ function agregarPregunta() {
 	});
 
 	$.ajax({
-		url: "/profesor/disponibleUsername/" + nombreUsuario,
-		contentType: "application/json; charset=utf-8",
-		data: { "username": nombreUsuario },
 		type: "POST",
+		url: "/product/pregunta/" + idProducto,
+		contentType: "application/json",
+		data: {
+			pregunta: textoPregunta
+		},
 		success: function(response) {
 			var alerta;
 			if (response == "false") {
 				alerta = "Código html en caso de usuario ya en uso";
 			} else {
-				alerta  = "Código html en caso de usuario ya en uso";
+				alerta = "Código html en caso de usuario ya en uso";
 			}
 			$('#nombreUsuarioError').html(alerta);
 		},
@@ -29,6 +34,24 @@ function agregarPregunta() {
 		}
 	});
 }
+
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 
 
 
