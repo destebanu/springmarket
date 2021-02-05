@@ -143,12 +143,14 @@ public class ProductoControlador {
 	// Métodos Q&A
 
 	// Este método persiste preguntas
-	@RequestMapping(value = "/pregunta/{idProducto}", method = RequestMethod.POST)
+	@PostMapping("/pregunta/{idProducto}")
 	@ResponseBody
-	public String publicarPregunta(@RequestParam("pregunta") String pregunta) {
-//		String pregunta = request.getParameter("pregunta")
+	public String publicarPregunta(@RequestParam("pregunta") String pregunta,
+			@PathVariable("idProducto") long idProducto, HttpServletRequest request) {
+//		String pregunta = request.getParameter("pregunta");
 //		String idUsuario = request.getParameter("idUsuario");
 
+		Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
 		LocalDate fecha = LocalDate.now();
 		Pregunta p = new Pregunta("pregunta", fecha);
 

@@ -184,10 +184,9 @@ body {
 					</form>
 				</div>
 				<div id="vaciogrid">
-				<form id="preguntaForm" action="#">
+				<form id="preguntaForm" th:action="@{/product/pregunta/{idProducto}(idProducto=${producto.idProducto})}">
 					<textarea rows="3" cols="150" name="pregunta" id="pregunta"></textarea>
-					<input type="submit" class="btn btn-success" id="botonpregunta" value="preguntar" style="display:block;">Haz
-						tu pregunta</button>
+					<input type="submit" class="btn btn-success" id="botonpregunta" value="Haz tu pregunta"/>
 				</form>
 					<div name="containerpreguntas" id="containerpreguntas"></div>
 				</div>

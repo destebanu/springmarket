@@ -1,7 +1,7 @@
 $("body").on('click', '#botonpregunta', agregarPregunta);
 
 function agregarPregunta() {
-	var textoPregunta = $('#pregunta').val();
+	var pregunta = $('#pregunta').val();
 	var idProducto = $('#idProducto').val();
 	var idUsuario = getCookie("idUsuario");
 
@@ -16,22 +16,22 @@ function agregarPregunta() {
 	$.ajax({
 	
 		type: "POST",
-		url: "/product/pregunta/" + idProducto + idUsuario + textoPregunta,
+		url: "/product/pregunta/" + idProducto,
 		contentType: "application/json",
 		data: {
 		},
 		success: function(response) {
 			var alerta;
 			if (response == "false") {
-				alerta = "Código html en caso de usuario ya en uso";
+				alerta = "Fallo catastrófico";
 			} else {
-				alerta = "Código html en caso de usuario ya en uso";
+				alerta = "No sé que está pasando. Está bien?";
 			}
-			$('#nombreUsuarioError').html(alerta);
+			$('#containerpreguntas').html(alerta);
 		},
 		error: function(xhr, status, error) {
-			alerta = "Código html en caso de error";
-			$('#nombreUsuarioError').html(alerta);
+			alerta = "Código html en caso de error. Fallo enorme";
+			$('#containerpreguntas').html(alerta);
 		}
 	});
 }
