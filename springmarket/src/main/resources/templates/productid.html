@@ -111,7 +111,8 @@ body {
 				</div>
 
 				<!-- Div con la tabla de información del producto y el botón mostrar producto -->
-				<input type ="hidden" id="idProducto" th:value="${producto.idProducto}" />
+				<input type="hidden" id="idProducto"
+					th:value="${producto.idProducto}" />
 				<div id="tablaproducto">
 					<table class="table table-bordered">
 						<tr>
@@ -183,12 +184,13 @@ body {
 					</form>
 				</div>
 				<div id="vaciogrid">
-				<!-- Con action="#" no da error 405, lo más probable es que el error esté en el envío del formulario (action) -->
-				<form id="preguntaForm" action="#">>
-<!-- 				<form id="preguntaForm" th:action="@{/product/pregunta/{idProducto}(idProducto=${producto.idProducto})}"> -->
-					<textarea rows="3" cols="100" name="pregunta" id="pregunta"></textarea>
-					<input type="submit" class="btn btn-success" id="botonpregunta" value="Haz tu pregunta"/>
-				</form>
+					<!-- Con action="#" no da error 405, lo más probable es que el error esté en el envío del formulario (action) -->
+					<!-- <form id="preguntaForm" action="#"> -->
+					<form id="preguntaForm" th:action="@{/product/pregunta/{id}(id=${producto.idProducto})}">
+						<textarea rows="3" cols="100" name="pregunta" id="pregunta"></textarea>
+						<input type="submit" class="btn btn-success" id="botonpregunta"
+							value="Haz tu pregunta"/>
+					</form>
 					<div name="containerpreguntas" id="containerpreguntas"></div>
 				</div>
 			</div>
@@ -231,6 +233,5 @@ body {
 
 		});
 	</script>
-
 </body>
 </html>

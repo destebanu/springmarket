@@ -26,11 +26,11 @@ function agregarPregunta() {
 			} else {
 				alerta = "No sé que está pasando. Está bien?";
 			}
-			$('containerpreguntas').html(alerta);
+			$('#containerpreguntas').html(alerta);
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
-			$('containerpreguntas').html(alerta);
+			$('#containerpreguntas').html(alerta);
 		}
 	});
 });*/

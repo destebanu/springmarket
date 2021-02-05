@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.strikethenote.springmarket.entidades.Pregunta;
 import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Respuesta;
+import com.strikethenote.springmarket.entidades.Usuario;
 import com.strikethenote.springmarket.servicios.PreguntaServicio;
 import com.strikethenote.springmarket.servicios.ProductoServicio;
 import com.strikethenote.springmarket.servicios.RespuestaServicio;
+import com.strikethenote.springmarket.servicios.UsuarioServicio;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -40,6 +42,9 @@ public class ProductoControlador {
 
 	@Autowired
 	private RespuestaServicio respuestaServicio;
+	
+	@Autowired
+	private UsuarioServicio usuarioServicio;
 
 	// Métodos get y post
 
@@ -143,22 +148,22 @@ public class ProductoControlador {
 	// Métodos Q&A
 
 	// Este método persiste preguntas
-	@PostMapping("/pregunta/{idProducto}")
+	@GetMapping("/pregunta/{idProducto}")
 	@ResponseBody
 	public String publicarPregunta(@RequestParam("pregunta") String pregunta,
 			@PathVariable("idProducto") long idProducto, HttpServletRequest request) {
 //		String pregunta = request.getParameter("pregunta");
 //		String idUsuario = request.getParameter("idUsuario");
 
-		// Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
+		Usuario usuario = usuarioServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
 		LocalDate fecha = LocalDate.now();
-		Pregunta p = new Pregunta("pregunta", fecha);
+		Pregunta p = new Pregunta(pregunta, fecha, usuario);
 
 		Boolean guardarPregunta = preguntaServicio.guardarPregunta(p);
 		if (guardarPregunta) {
-			return "redirect:/index";
+			return "SÍ se ha persistido la pregunta";
 		} else
-			return "redirect:/product/productid/" + idProducto;
+			return "NO se ha persistido la pregunta";
 		/*
 		 * if (guardarPregunta) { return "true"; } else { return "false"; }
 		 */

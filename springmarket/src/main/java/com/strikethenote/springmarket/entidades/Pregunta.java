@@ -16,15 +16,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "PREGUNTA")
 /* POJO */
 
 public class Pregunta implements Serializable {
-	
+
 	private static final long serialVersionUID = -6082164105502864129L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_PREGUNTA")
@@ -32,44 +31,39 @@ public class Pregunta implements Serializable {
 
 	@Column(name = "TEXTO_PREGUNTA")
 	private String textoPregunta;
-			
+
 	@Column(name = "FECHA_PREGUNTA")
 	private LocalDate fechaPregunta;
+
+	// OneToMany Usuario - Poseida
+	@ManyToOne
+	@JoinColumn(name = "ID_USUARIO")
+	private Usuario usuario;
 	
-	
-	
-	public Pregunta(Long idPregunta, String textoPregunta, LocalDate fechaPregunta) {
+	// OneToMany Respuestas - Propietaria
+	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Respuesta> respuestas = new HashSet<>();
+
+	public Pregunta(Long idPregunta, String textoPregunta, LocalDate fechaPregunta, Usuario usuario) {
 		super();
 		this.idPregunta = idPregunta;
 		this.textoPregunta = textoPregunta;
 		this.fechaPregunta = fechaPregunta;
-		this.respuestas = respuestas;
+		// this.respuestas = respuestas;
 		this.usuario = usuario;
 	}
 
-	public Pregunta(String textoPregunta, LocalDate fechaPregunta) {
+	public Pregunta(String textoPregunta, LocalDate fechaPregunta, Usuario usuario) {
 		super();
 		this.textoPregunta = textoPregunta;
 		this.fechaPregunta = fechaPregunta;
-		this.respuestas = respuestas;
+		// this.respuestas = respuestas;
 		this.usuario = usuario;
 	}
 
 	public Pregunta() {
 		super();
 	}
-
-	// OneToMany Respuestas - Propietaria	
-	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Respuesta> respuestas = new HashSet<>();
-	
-	
-	//OneToMany Usuario - Poseida
-	@ManyToOne
-	@JoinColumn(name = "ID_USUARIO")
-	private Usuario usuario;
-	
-	//
 
 	public Long getIdPregunta() {
 		return idPregunta;
