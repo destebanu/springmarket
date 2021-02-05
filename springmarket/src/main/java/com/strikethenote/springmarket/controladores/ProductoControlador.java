@@ -150,17 +150,18 @@ public class ProductoControlador {
 //		String pregunta = request.getParameter("pregunta");
 //		String idUsuario = request.getParameter("idUsuario");
 
-		Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
+		// Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
 		LocalDate fecha = LocalDate.now();
 		Pregunta p = new Pregunta("pregunta", fecha);
 
 		Boolean guardarPregunta = preguntaServicio.guardarPregunta(p);
-
 		if (guardarPregunta) {
-			return "true";
-		} else {
-			return "false";
-		}
+			return "redirect:/index";
+		} else
+			return "redirect:/product/productid/" + idProducto;
+		/*
+		 * if (guardarPregunta) { return "true"; } else { return "false"; }
+		 */
 	}
 
 	// Este método persiste respuestas
