@@ -11,13 +11,14 @@ function agregarPregunta() {
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
-
+	
+// $('#preguntaForm').submit(function(evento) {
 	$.ajax({
+	
 		type: "POST",
-		url: "/product/pregunta/" + idProducto,
+		url: "/product/pregunta/" + idProducto + idUsuario + textoPregunta,
 		contentType: "application/json",
 		data: {
-			pregunta: textoPregunta
 		},
 		success: function(response) {
 			var alerta;
