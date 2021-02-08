@@ -135,6 +135,7 @@ public class ProductoControlador {
 		// Añadimos el producto al objeto para mostrar su nombre en la página de
 		// resultados de búsqueda
 		model.addAttribute("producto", resultado);
+		
 		return "productid";
 	}
 
@@ -148,12 +149,12 @@ public class ProductoControlador {
 	// Métodos Q&A
 
 	// Este método persiste preguntas
-	@GetMapping("/pregunta/{idProducto}")
+	@GetMapping("/pregunta/{idProducto}/{pregunta}")
 	@ResponseBody
-	public String publicarPregunta(@RequestParam("pregunta") String pregunta,
-			@PathVariable("idProducto") long idProducto, HttpServletRequest request) {
-//		String pregunta = request.getParameter("pregunta");
-//		String idUsuario = request.getParameter("idUsuario");
+	public String publicarPregunta(
+			@PathVariable("idProducto") long idProducto,
+			@PathVariable("pregunta") String pregunta,
+			HttpServletRequest request) {
 
 		Usuario usuario = usuarioServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
 		LocalDate fecha = LocalDate.now();

@@ -11,14 +11,11 @@ function agregarPregunta() {
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
-	
-/*$('#preguntaForm').submit(function(evento) {
+
 	$.ajax({
-		type: "POST",
-		url: "/product/pregunta/" + idProducto,
+		type: "GET",
+		url: "/product/pregunta/" + idProducto+"/"+pregunta,
 		contentType: "application/json",
-		data: {
-		},
 		success: function(response) {
 			var alerta;
 			if (response == "false") {
@@ -33,6 +30,21 @@ function agregarPregunta() {
 			$('#containerpreguntas').html(alerta);
 		}
 	});
-});*/
+};
 
+/*function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
 }
+*/
