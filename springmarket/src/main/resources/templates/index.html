@@ -86,12 +86,12 @@ div.tabla {
 
 								<!-- Primer producto -->
 								<td th:if="${iterStat.index == 0}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -106,12 +106,12 @@ div.tabla {
 
 								<!-- Segundo producto -->
 								<td th:if="${iterStat.index == 1}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -126,12 +126,12 @@ div.tabla {
 
 								<!-- Tercer producto -->
 								<td th:if="${iterStat.index == 2}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -146,12 +146,12 @@ div.tabla {
 
 								<!-- Cuarto producto -->
 								<td th:if="${iterStat.index == 3}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -166,12 +166,12 @@ div.tabla {
 
 								<!-- Quinto producto -->
 								<td th:if="${iterStat.index == 4}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -186,12 +186,12 @@ div.tabla {
 
 								<!-- Sexto producto -->
 								<td th:if="${iterStat.index == 5}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -206,12 +206,12 @@ div.tabla {
 
 								<!-- Séptimo producto -->
 								<td th:if="${iterStat.index == 6}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
@@ -226,12 +226,12 @@ div.tabla {
 
 								<!-- Octavo producto -->
 								<td th:if="${iterStat.index == 7}" class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
-									<div id="imagen_producto" th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />

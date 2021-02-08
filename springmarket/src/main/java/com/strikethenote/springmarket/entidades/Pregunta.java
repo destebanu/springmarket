@@ -35,11 +35,16 @@ public class Pregunta implements Serializable {
 	@Column(name = "FECHA_PREGUNTA")
 	private LocalDate fechaPregunta;
 
-	// OneToMany Usuario - Poseida
+	// OneToMany Usuario - poseída
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
-	
+
+	// OneToMany Producto - poseída
+	@ManyToOne
+	@JoinColumn(name = "ID_PRODUCTO")
+	private Producto producto;
+
 	// OneToMany Respuestas - Propietaria
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();

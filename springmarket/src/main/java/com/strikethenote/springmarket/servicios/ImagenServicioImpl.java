@@ -36,7 +36,7 @@ public class ImagenServicioImpl implements ImagenServicio {
 
 	public Imagen obtenerImagen(Long id) {
 		Imagen findById = imagenRepository.findById(id).orElse(null);
-		
+
 		if (findById != null) {
 			Imagen getImageDetails = findById;
 			return findById;
@@ -47,21 +47,20 @@ public class ImagenServicioImpl implements ImagenServicio {
 
 	public Boolean actualizarImagen(long idProducto, MultipartFile file) {
 
-		Producto p= productoDaoImpl.buscar(idProducto);
+		Producto p = productoDaoImpl.buscar(idProducto);
 
 		if (p == null)
 			return false;
 		try {
 			byte[] image = file.getBytes();
-			if (!p.getImagen().isEmpty()) {
+			if (!(p.getImagen() == null)) {
 
-				Set<Imagen> linkedimg = p.getImagen();
-				for (Imagen a : linkedimg) {
-					a.setImagen(image);
-					imagenRepository.save(a);
-					return true;
-				}
-				return null;
+				Imagen linkedimg = p.getImagen();
+				linkedimg.setImagen(image);
+				Imagen a = linkedimg;
+				imagenRepository.save(a);
+				return true;
+				
 
 			} else {
 				Imagen img = new Imagen("foto", image);
@@ -76,5 +75,37 @@ public class ImagenServicioImpl implements ImagenServicio {
 		}
 
 	}
+	
+//	public Boolean actualizarImagen(long idProducto, MultipartFile file) {
+//
+//		Producto p= productoDaoImpl.buscar(idProducto);
+//
+//		if (p == null)
+//			return false;
+//		try {
+//			byte[] image = file.getBytes();
+//			if (!p.getImagen().isEmpty()) {
+//
+//				Set<Imagen> linkedimg = p.getImagen();
+//				for (Imagen a : linkedimg) {
+//					a.setImagen(image);
+//					imagenRepository.save(a);
+//					return true;
+//				}
+//				return null;
+//
+//			} else {
+//				Imagen img = new Imagen("foto", image);
+//				p.addImagen(img);
+//				productoDaoImpl.actualizar(p);
+//				return true;
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//
+//	}
 
 }

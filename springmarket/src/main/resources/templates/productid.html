@@ -82,7 +82,7 @@ body {
 				<!-- Div con la imagen del producto y el botón de seleccionar archivo y actualizar imagen -->
 
 				<div id="imagen_producto"
-					th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+					th:if="${producto.imagen!=null}">
 					
 					<figure>
 						<img class="foto"
@@ -97,7 +97,7 @@ body {
 							imagen</button>
 					</form>
 				</div>
-				<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+				<div id="imagen_producto" th:if="${producto.imagen == null}">
 					<figure>
 						<img class="foto" th:src="@{/pictures/instrumento.png}" />
 					</figure>

@@ -50,13 +50,15 @@ public class Producto implements Serializable {
 	@ManyToMany(mappedBy = "productos")
 	private Set<Compra> compras = new HashSet<>();
 
-	// Relación OneToMany Imagen
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "producto", orphanRemoval = true)
-	private Set<Imagen> imagen = new HashSet<>();
+	// Relación OneToOne Imagen
+	@OneToOne(mappedBy = "producto")
+	private Imagen imagen;
+	
+	// Relación OneToMany Pregunta
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Pregunta> preguntas = new HashSet<>();
 
 	// Constructores
-
 	public Producto() {
 
 	}
@@ -131,7 +133,6 @@ public class Producto implements Serializable {
 	}
 
 	// Métodos Compra
-
 	public Set<Compra> getCompras() {
 		return compras;
 	}
@@ -146,31 +147,28 @@ public class Producto implements Serializable {
 	}
 
 	// Métodos Imagen
-
 	public void addImagen(Imagen img) {
-		this.imagen.add(img);
 		img.setProducto(this);
 	}
 
 	public void removeImagen(Imagen img) {
 		img.setProducto(null);
-		this.imagen.remove(img);
 	}
 
-	public void removeImagenes() {
+	/*public void removeImagenes() {
 		Iterator<Imagen> iterator = this.imagen.iterator();
 		while (iterator.hasNext()) {
 			Imagen img = iterator.next();
 			img.setProducto(null);
 			iterator.remove();
 		}
-	}
+	}*/
 
-	public Set<Imagen> getImagen() {
+	public Imagen getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(Set<Imagen> imagen) {
+	public void setImagen(Imagen imagen) {
 		this.imagen = imagen;
 	}
 

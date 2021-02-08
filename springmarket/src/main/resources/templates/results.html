@@ -87,13 +87,13 @@ div.tabla {
 						<tbody>
 							<tr class="table-primary" th:each="producto: ${productos}">
 								<td class="celdas">
-									<div id="imagen_producto" th:if="${producto.imagen.isEmpty()}">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
 										<figure>
 											<img class="foto" th:src="@{/pictures/instrumento.png}" />
 										</figure>
 									</div>
 									<div id="imagen_producto"
-										th:if="${producto.imagen!=null and !producto.imagen.isEmpty()}">
+										th:if="${producto.imagen!=null}">
 										<figure>
 											<img class="foto"
 												th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
