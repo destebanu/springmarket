@@ -47,7 +47,7 @@ use springmarket;
     ) ;
     
     create table imagen (
-		id_imagen bigint not null,
+		id_imagen bigint,
 		nombre varchar (40) not null,
 		imagen longblob not null,
 		id_producto bigint not null,

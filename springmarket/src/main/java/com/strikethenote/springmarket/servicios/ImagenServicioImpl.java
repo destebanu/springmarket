@@ -53,9 +53,9 @@ public class ImagenServicioImpl implements ImagenServicio {
 			return false;
 		try {
 			byte[] image = file.getBytes();
-			if (!(p.getImagen() == null)) {
+			if (p.getImagen() != null) {
 
-				Imagen linkedimg = p.getImagen();
+				Imagen linkedimg = p.getImagen();				
 				linkedimg.setImagen(image);
 				Imagen a = linkedimg;
 				imagenRepository.save(a);

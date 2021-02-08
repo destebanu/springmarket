@@ -19,8 +19,7 @@ import javax.persistence.Table;
 public class Imagen {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_IMAGEN")
+	@Column(name = "ID_PRODUCTO")
 	private Long id;
 
 	@Column(name = "NOMBRE")
@@ -32,8 +31,8 @@ public class Imagen {
 
 	// Relación OneToOne Producto
 	@OneToOne
-	@JoinColumn(name = "ID_PRODUCTO")
 	@MapsId
+    @JoinColumn(name = "id_producto")
 	private Producto producto;
 
 	public Imagen() {

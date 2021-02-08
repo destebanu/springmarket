@@ -51,9 +51,10 @@ public class Producto implements Serializable {
 	private Set<Compra> compras = new HashSet<>();
 
 	// Relación OneToOne Imagen
-	@OneToOne(mappedBy = "producto")
+	@OneToOne (mappedBy = "producto", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Imagen imagen;
-	
+
 	// Relación OneToMany Pregunta
 	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Pregunta> preguntas = new HashSet<>();
@@ -148,21 +149,21 @@ public class Producto implements Serializable {
 
 	// Métodos Imagen
 	public void addImagen(Imagen img) {
+		this.imagen = img;
 		img.setProducto(this);
 	}
 
 	public void removeImagen(Imagen img) {
 		img.setProducto(null);
+		this.imagen = null;
+
 	}
 
-	/*public void removeImagenes() {
-		Iterator<Imagen> iterator = this.imagen.iterator();
-		while (iterator.hasNext()) {
-			Imagen img = iterator.next();
-			img.setProducto(null);
-			iterator.remove();
-		}
-	}*/
+	/*
+	 * public void removeImagenes() { Iterator<Imagen> iterator =
+	 * this.imagen.iterator(); while (iterator.hasNext()) { Imagen img =
+	 * iterator.next(); img.setProducto(null); iterator.remove(); } }
+	 */
 
 	public Imagen getImagen() {
 		return imagen;
