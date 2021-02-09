@@ -148,6 +148,7 @@ public class Producto implements Serializable {
 
 	// Métodos Imagen
 	public void addImagen(Imagen img) {
+		this.imagen = img;
 		img.setProducto(this);
 	}
 

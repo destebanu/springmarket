@@ -86,7 +86,7 @@ body {
 					
 					<figure>
 						<img class="foto"
-							th:src="@{/imagenes/{id}(id=${producto.idProducto})}" />
+							th:src="@{/imagenes/{id}(id=${producto.imagen.id})}" />
 					</figure>
 					<form sec:authorize="hasAuthority('admin')"
 						th:action="@{/imagenes/cargar/{id}(id=${producto.idProducto})}"
