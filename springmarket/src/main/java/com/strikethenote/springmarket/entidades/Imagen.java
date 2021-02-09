@@ -23,7 +23,7 @@ public class Imagen implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_IMAGEN")
-	private Long id;
+	private Long idImagen;
 
 	@Column(name = "NOMBRE")
 	private String nombre;
@@ -47,12 +47,12 @@ public class Imagen implements Serializable {
 		this.imagen = image;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdImagen() {
+		return idImagen;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdImagen(Long idImagen) {
+		this.idImagen = idImagen;
 	}
 
 	public String getNombre() {
