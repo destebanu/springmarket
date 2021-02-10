@@ -30,9 +30,6 @@ import com.strikethenote.springmarket.servicios.UsuarioServicio;
 public class QandAControlador {
 
 	@Autowired
-	private Producto producto;
-
-	@Autowired
 	private ProductoServicio productoServicio;
 
 	@Autowired
@@ -49,9 +46,8 @@ public class QandAControlador {
 	// Este método persiste preguntas
 
 	@RequestMapping(value = "/pregunta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public String publicarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
-		Boolean preguntaGuardada;
+	public @ResponseBody Pregunta publicarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+//		Boolean preguntaGuardada;
 		String pregunta = values.findValue("pregunta").asText();
 		
 		if (pregunta != "") {
@@ -59,16 +55,18 @@ public class QandAControlador {
 			LocalDate fecha = LocalDate.now();
 			Producto producto = productoServicio.obtenerProducto(values.findValue("idProducto").asLong());
 			Pregunta preguntaPersistida = new Pregunta(pregunta, fecha, usuario, producto);
-			preguntaGuardada = preguntaServicio.guardarPregunta(preguntaPersistida);
+//			preguntaGuardada = 
+			preguntaServicio.guardarPregunta(preguntaPersistida);
+			return preguntaPersistida;
 			
 		} else
-			return "false";
+			return null;
 		
-		// Validación de que la pregunta ha sido persistida
-		if (preguntaGuardada)
-			return "true";
-		else
-			return "false";
+//		// Validación de que la pregunta ha sido persistida
+//		if (preguntaGuardada)
+//			return "true";
+//		else
+//			return "false";
 	}
 
 	// Este método persiste respuestas

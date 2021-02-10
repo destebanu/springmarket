@@ -3,7 +3,7 @@ $("body").on('click', '#botonpregunta', agregarPregunta);
 function agregarPregunta() {
 	var pregunta = $('#pregunta').val();
 	var idProducto = $('#idProducto').val();
-	var idUsuario = getCookie("idUsuario");
+	//var idUsuario = getCookie("idUsuario");
 
 
 	var token = $("meta[name='_csrf']").attr("content");
@@ -11,9 +11,11 @@ function agregarPregunta() {
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
-	
-	var datos = { "pregunta": pregunta,
-				  "idProducto" : idProducto };
+
+	var datos = {
+		"pregunta": pregunta,
+		"idProducto": idProducto
+	};
 
 	$.ajax({
 		url: "/qanda/pregunta/",
@@ -22,13 +24,32 @@ function agregarPregunta() {
 		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
-			var alerta;
-			if (response == "false") {
-				alerta = "Fallo catastrófico";
-			} else {
-				alerta = "No sé que está pasando. Está bien?";
-			}
-			$('#tablaqanda').html(alerta);
+			
+			// Se recoge la pregunta del  controlador y se obtienen sus cosas
+			var pfecha = response.fechaPregunta;
+			var pusuario = response.usuario.nombreUsuario;
+			var ptexto = response.textoPregunta;
+			 
+			// Se crean los nodos para la tabla
+			var fila = document.createElement("tr");
+			var tdpfecha = document.createElement("td");
+			var tdpusuario = document.createElement("td");
+			var tdptexto = document.createElement("td");
+			
+			// Se asignan los datos a los nodos
+			tdpfecha.textContent = '${pfecha}';
+			tdpusuario.textContent = '${pusuario}';
+			tdptexto.textContent = `${ptexto}`;
+			
+			fila.appendChild(tdpfecha);
+			fila.appendChild(tdpusuario);
+			fila.appendChild(tdptexto);
+			
+			
+
+			$('#tablaqanda').appendChild(fila);
+
+
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
