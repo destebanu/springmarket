@@ -52,6 +52,10 @@ div.tabla {
 .enlaceproducto {
 	color: purple;
 }
+.foto {
+	width: 50px;
+	height: auto;
+}
 </style>
 </head>
 <body>
@@ -89,6 +93,7 @@ div.tabla {
 					<table th:if="${not carrito.empty}" class="table table-hover">
 						<tbody>
 							<tr>
+								<td class="coloreado">Imagen:</td>
 								<td class="coloreado">Nombre:</td>
 								<td class="coloreado">Cantidad:</td>
 								<td class="coloreado">Precio por unidad:</td>
@@ -98,6 +103,19 @@ div.tabla {
 
 							</tr>
 							<tr class="table-primary" th:each="producto: ${carrito}">
+								<td class="celdas">
+									<div id="imagen_producto" th:if="${producto.imagen == null}">
+										<figure>
+											<img class="foto" th:src="@{/pictures/instrumento.png}" />
+										</figure>
+									</div>
+									<div id="imagen_producto" th:if="${producto.imagen!=null}">
+										<figure>
+											<img class="foto"
+												th:src="@{/imagenes/{id}(id=${producto.imagen.idImagen})}" />
+										</figure>
+									</div>
+								</td>
 								<td class="celdas"><a target="self"
 									th:href="@{/product/productid/{id}(id=${producto.idProducto})}"><span class="enlaceproducto"
 										th:text="${producto.nombreProducto}"></span></a></td>

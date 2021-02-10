@@ -47,12 +47,12 @@ use springmarket;
     ) ;
     
     create table imagen (
-		id_imagen bigint,
+		id_imagen bigint not null auto_increment,
 		nombre varchar (40) not null,
 		imagen longblob not null,
 		id_producto bigint not null,
 		primary key (id_imagen),
-		constraint fk_imagen_producto foreign key (id_imagen) references producto (id_producto) on update cascade
+		constraint fk_imagen_producto foreign key (id_producto) references producto (id_producto) on update cascade
 	);    
     
     create table compra (

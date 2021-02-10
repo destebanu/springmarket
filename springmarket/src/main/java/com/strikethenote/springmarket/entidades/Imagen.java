@@ -1,5 +1,7 @@
 package com.strikethenote.springmarket.entidades;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +18,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "IMAGEN")
 /* POJO */
-public class Imagen {
+public class Imagen implements Serializable {
 
 	@Id
-	@Column(name = "ID_PRODUCTO")
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID_IMAGEN")
+	private Long idImagen;
 
 	@Column(name = "NOMBRE")
 	private String nombre;
@@ -31,8 +34,7 @@ public class Imagen {
 
 	// Relación OneToOne Producto
 	@OneToOne
-	@MapsId
-    @JoinColumn(name = "id_producto")
+	@JoinColumn(name = "id_producto")
 	private Producto producto;
 
 	public Imagen() {
@@ -45,12 +47,12 @@ public class Imagen {
 		this.imagen = image;
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdImagen() {
+		return idImagen;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdImagen(Long idImagen) {
+		this.idImagen = idImagen;
 	}
 
 	public String getNombre() {
@@ -92,7 +94,7 @@ public class Imagen {
 			return false;
         
 		
-		return id != null && id.equals(((Imagen) obj).id);
+		return producto.getIdProducto() != null && producto.getIdProducto().equals(((Imagen) obj).producto.getIdProducto());
 
 	}
 

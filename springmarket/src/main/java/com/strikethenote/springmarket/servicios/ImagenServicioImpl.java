@@ -49,7 +49,7 @@ public class ImagenServicioImpl implements ImagenServicio {
 
 		Producto p = productoDaoImpl.buscar(idProducto);
 
-		if (p == null)
+		if (p == null || file.isEmpty())
 			return false;
 		try {
 			byte[] image = file.getBytes();
@@ -57,15 +57,16 @@ public class ImagenServicioImpl implements ImagenServicio {
 
 				Imagen linkedimg = p.getImagen();				
 				linkedimg.setImagen(image);
-				Imagen a = linkedimg;
-				imagenRepository.save(a);
+				p.setImagen(linkedimg);
+				productoDaoImpl.actualizar(p);
 				return true;
 				
 
 			} else {
 				Imagen img = new Imagen("foto", image);
 				p.addImagen(img);
-				productoDaoImpl.actualizar(p);
+				imagenRepository.save(img);
+//				productoDaoImpl.actualizar(p);
 				return true;
 			}
 
