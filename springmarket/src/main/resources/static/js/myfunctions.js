@@ -11,11 +11,16 @@ function agregarPregunta() {
 	$(document).ajaxSend(function(e, xhr, options) {
 		xhr.setRequestHeader(header, token);
 	});
+	
+	var datos = { "pregunta": pregunta,
+				  "idProducto" : idProducto };
 
 	$.ajax({
-		type: "GET",
-		url: "/product/pregunta/" + idProducto+"/"+pregunta,
-		contentType: "application/json",
+		url: "/qanda/pregunta/",
+		contentType: "application/json;charset=UTF-8",
+		dataType: "json",
+		data: JSON.stringify(datos),
+		type: "POST",
 		success: function(response) {
 			var alerta;
 			if (response == "false") {
@@ -23,11 +28,11 @@ function agregarPregunta() {
 			} else {
 				alerta = "No sé que está pasando. Está bien?";
 			}
-			$('#containerpreguntas').html(alerta);
+			$('#tablaqanda').html(alerta);
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
-			$('#containerpreguntas').html(alerta);
+			$('#tablaqanda').html(alerta);
 		}
 	});
 };

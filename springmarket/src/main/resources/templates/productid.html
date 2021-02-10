@@ -38,7 +38,7 @@ body {
 	padding: 10px;
 }
 
-#imagen_producto, #tablaproducto, #botonescarrito, #vaciogrid {
+#imagenproductogrid, #tablaproducto, #botonescarrito, #preguntagrid {
 	padding: 20px;
 	font-size: 20px;
 	text-align: center;
@@ -61,6 +61,11 @@ body {
 	width: 200px;
 	height: auto;
 }
+
+.celdas {
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -81,8 +86,7 @@ body {
 
 				<!-- Div con la imagen del producto y el botón de seleccionar archivo y actualizar imagen -->
 
-				<div id="imagen_producto"
-					th:if="${producto.imagen!=null}">
+				<div id="imagenproductogrid" th:if="${producto.imagen!=null}">
 					<figure>
 						<img class="foto"
 							th:src="@{/imagenes/{id}(id=${producto.imagen.idImagen})}" />
@@ -183,16 +187,33 @@ body {
 							producto al carrito</button>
 					</form>
 				</div>
-				<div id="vaciogrid">
+
+				<!-- Div parte del primer grid con el text area para hacer la pregunta -->
+				<div id="preguntagrid">
 					<!-- Con action="#" no da error 405, lo más probable es que el error esté en el envío del formulario (action) -->
 					<!-- <form id="preguntaForm" action="#"> -->
-					<form id="preguntaForm" th:action="@{/product/pregunta/{id}(id=${producto.idProducto})}">
+					<form id="preguntaForm" th:action="@{/qanda/pregunta}">
 						<textarea rows="3" cols="100" name="pregunta" id="pregunta"></textarea>
 						<input type="button" class="btn btn-success" id="botonpregunta"
-							value="Haz tu pregunta"/>
+							value="Haz tu pregunta" />
 					</form>
-					<div name="containerpreguntas" id="containerpreguntas"></div>
 				</div>
+				<table name="tablaqanda" id="tablaqanda" class="table table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Fecha</th>
+							<th scope="col">Usuario</th>
+							<th scope="col">Pregunta</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="table-active">
+							<td class="celdas" th:text="${pregunta.fechaPregunta}"></td>
+							<td class="celdas" th:text="${pregunta.usuario.getNombre()}"></td>
+							<td class="celdas" th:text="${pregunta.textoPregunta}"></td>
+						</tr>
+				</table>
+
 			</div>
 		</section>
 	</div>

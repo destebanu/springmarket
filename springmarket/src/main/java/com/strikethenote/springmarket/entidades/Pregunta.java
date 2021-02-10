@@ -49,26 +49,43 @@ public class Pregunta implements Serializable {
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Pregunta(Long idPregunta, String textoPregunta, LocalDate fechaPregunta, Usuario usuario) {
+	public Pregunta() {
+		super();
+	}
+	
+
+	public Pregunta(Long idPregunta, String textoPregunta, LocalDate fechaPregunta, Usuario usuario, Producto producto,
+			Set<Respuesta> respuestas) {
 		super();
 		this.idPregunta = idPregunta;
 		this.textoPregunta = textoPregunta;
 		this.fechaPregunta = fechaPregunta;
-		// this.respuestas = respuestas;
 		this.usuario = usuario;
+		this.producto = producto;
+		this.respuestas = respuestas;
 	}
 
-	public Pregunta(String textoPregunta, LocalDate fechaPregunta, Usuario usuario) {
+
+	public Pregunta(String textoPregunta, LocalDate fechaPregunta, Usuario usuario, Producto producto,
+			Set<Respuesta> respuestas) {
 		super();
 		this.textoPregunta = textoPregunta;
 		this.fechaPregunta = fechaPregunta;
-		// this.respuestas = respuestas;
 		this.usuario = usuario;
+		this.producto = producto;
+		this.respuestas = respuestas;
 	}
 
-	public Pregunta() {
+
+	public Pregunta(String textoPregunta, LocalDate fechaPregunta, Usuario usuario,
+			Producto producto) {
 		super();
+		this.textoPregunta = textoPregunta;
+		this.fechaPregunta = fechaPregunta;
+		this.usuario = usuario;
+		this.producto = producto;
 	}
+
 
 	public Long getIdPregunta() {
 		return idPregunta;
@@ -93,4 +110,35 @@ public class Pregunta implements Serializable {
 	public void setFechaPregunta(LocalDate fechaPregunta) {
 		this.fechaPregunta = fechaPregunta;
 	}
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public Producto getProducto() {
+		return producto;
+	}
+
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+
+	public Set<Respuesta> getRespuestas() {
+		return respuestas;
+	}
+
+
+	public void setRespuestas(Set<Respuesta> respuestas) {
+		this.respuestas = respuestas;
+	}
+	
 }
