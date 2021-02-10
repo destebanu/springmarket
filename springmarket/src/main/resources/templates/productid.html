@@ -198,6 +198,8 @@ body {
 							value="Haz tu pregunta" />
 					</form>
 				</div>
+				
+				<!-- Tabla para mostrar las preguntas y respuestas -->
 				<table name="tablaqanda" id="tablaqanda" class="table table-hover">
 					<thead>
 						<tr>
@@ -213,12 +215,11 @@ body {
 							<td class="celdas" th:text="${pregunta.textoPregunta}"></td>
 						</tr>
 				</table>
-
 			</div>
 		</section>
 	</div>
 
-	<!--  Script para botones de cantidad -->
+	<!--  Script para botones de cantidad del carrito -->
 	<script>
 		$(document).ready(function() {
 
