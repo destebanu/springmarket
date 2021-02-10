@@ -146,44 +146,4 @@ public class ProductoControlador {
 		return "redirect:/index";
 	}
 
-	// Métodos Q&A
-
-	// Este método persiste preguntas
-	@GetMapping("/pregunta/{idProducto}/{pregunta}")
-	@ResponseBody
-	public String publicarPregunta(
-			@PathVariable("idProducto") long idProducto,
-			@PathVariable("pregunta") String pregunta,
-			HttpServletRequest request) {
-
-		Usuario usuario = usuarioServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
-		LocalDate fecha = LocalDate.now();
-		Pregunta p = new Pregunta(pregunta, fecha, usuario);
-
-		Boolean guardarPregunta = preguntaServicio.guardarPregunta(p);
-		if (guardarPregunta) {
-			return "SÍ se ha persistido la pregunta";
-		} else
-			return "NO se ha persistido la pregunta";
-		/*
-		 * if (guardarPregunta) { return "true"; } else { return "false"; }
-		 */
-	}
-
-	// Este método persiste respuestas
-	@RequestMapping(value = "/productid/{idProducto}", method = RequestMethod.POST)
-	@ResponseBody
-	public String publicarRespuesta(@PathVariable("respuesta") String respuesta) {
-		LocalDate fecha = LocalDate.now();
-		Respuesta r = new Respuesta(respuesta, fecha);
-
-		Boolean guardarRespuesta = respuestaServicio.guardarRespuesta(r);
-
-		if (guardarRespuesta) {
-			return "true";
-		} else {
-			return "false";
-		}
-	}
-
 }
