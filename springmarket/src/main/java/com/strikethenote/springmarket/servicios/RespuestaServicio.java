@@ -1,10 +1,11 @@
 package com.strikethenote.springmarket.servicios;
 
 import com.strikethenote.springmarket.entidades.Respuesta;
+import com.strikethenote.springmarket.entidades.RespuestaDTO;
 
 public interface RespuestaServicio {
 
-	public boolean guardarRespuesta(Respuesta resp);
+	public RespuestaDTO crearGuardarRespuesta(String respuesta, long idUsuario, long idPregunta);
 
 	public Respuesta obtenerRespuesta(Long id);
 

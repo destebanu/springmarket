@@ -28,31 +28,8 @@ public class Respuesta implements Serializable {
 	@Column(name = "TEXTO_RESPUESTA")
 	private String textoRespuesta;
 
-	@Column(name = "FECHA_PREGUNTA")
+	@Column(name = "FECHA_RESPUESTA")
 	private LocalDate fechaRespuesta;
-	
-	
-
-	public Respuesta(Long idRespuesta, String textoRespuesta, LocalDate fechaPregunta) {
-		super();
-		this.idRespuesta = idRespuesta;
-		this.textoRespuesta = textoRespuesta;
-		this.fechaRespuesta = fechaPregunta;
-		this.pregunta = pregunta;
-		this.usuario = usuario;
-	}
-
-	public Respuesta(String textoRespuesta, LocalDate fechaPregunta) {
-		super();
-		this.textoRespuesta = textoRespuesta;
-		this.fechaRespuesta = fechaPregunta;
-		this.pregunta = pregunta;
-		this.usuario = usuario;
-	}
-
-	public Respuesta() {
-		super();
-	}
 
 	// OneToMany Pregunta - Poseida
 	@ManyToOne
@@ -66,6 +43,38 @@ public class Respuesta implements Serializable {
 
 	//
 
+	public Respuesta() {
+		super();
+	}
+
+	public Respuesta(String textoRespuesta, LocalDate fechaRespuesta, Usuario usuario, Pregunta pregunta) {
+		super();
+		this.textoRespuesta = textoRespuesta;
+		this.fechaRespuesta = fechaRespuesta;
+		this.usuario = usuario;
+		this.pregunta = pregunta;
+
+	}
+
+	public Respuesta(String textoRespuesta, LocalDate fechaRespuesta, Pregunta pregunta, Usuario usuario) {
+		super();
+		this.textoRespuesta = textoRespuesta;
+		this.fechaRespuesta = fechaRespuesta;
+		this.pregunta = pregunta;
+		this.usuario = usuario;
+	}
+
+	public Respuesta(Long idRespuesta, String textoRespuesta, LocalDate fechaRespuesta, Pregunta pregunta,
+			Usuario usuario) {
+		super();
+		this.idRespuesta = idRespuesta;
+		this.textoRespuesta = textoRespuesta;
+		this.fechaRespuesta = fechaRespuesta;
+		this.pregunta = pregunta;
+		this.usuario = usuario;
+	}
+
+	//
 	public Long getIdRespuesta() {
 		return idRespuesta;
 	}

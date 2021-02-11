@@ -1,12 +1,19 @@
 package com.strikethenote.springmarket.servicios;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.strikethenote.springmarket.dao.PreguntaRepository;
 import com.strikethenote.springmarket.dao.RespuestaRepository;
 import com.strikethenote.springmarket.entidades.Pregunta;
+import com.strikethenote.springmarket.entidades.PreguntaDTO;
+import com.strikethenote.springmarket.entidades.Producto;
 import com.strikethenote.springmarket.entidades.Respuesta;
+import com.strikethenote.springmarket.entidades.RespuestaDTO;
+import com.strikethenote.springmarket.entidades.Usuario;
 
 @Transactional
 @Service
@@ -15,14 +22,36 @@ public class RespuestaServicioImpl implements RespuestaServicio {
 	@Autowired
 	private RespuestaRepository respuestaRepository;
 
+	@Autowired
+	private PreguntaRepository preguntaRepository;
+
+	@Autowired
+	private ProductoServicio productoServicio;
+
+	@Autowired
+	private UsuarioServicio usuarioServicio;
+
 	@Override
-	public boolean guardarRespuesta(Respuesta resp) {
-		try {
-			respuestaRepository.save(resp);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+	public RespuestaDTO crearGuardarRespuesta(String respuesta, long idUsuario, long idPregunta) {
+
+		Usuario usuario = usuarioServicio.obtenerUsuario(idUsuario);
+		Pregunta pregunta = preguntaRepository.findById(idPregunta).orElse(null);
+		LocalDate fechActual = LocalDate.now();
+		Respuesta respuestaPersistida = new Respuesta(respuesta, fechActual, usuario, pregunta);
+
+		// Aquí persiste el objeto respuesta en bbdd
+		Respuesta nueva = respuestaRepository.save(respuestaPersistida);
+
+		// Se crea y devuelve el objeto DTO para usarlo en AJAX
+		RespuestaDTO r = new RespuestaDTO();
+		r.setTextoRespuesta(respuesta);
+		r.setIdRespuesta(nueva.getIdRespuesta());
+		r.setFechaRespuesta(fechActual);
+		r.setNombreUsuario(usuario.getNombreUsuario());
+		r.setIdUsuario(usuario.getIdUsuario());
+		r.setIdPregunta(pregunta.getIdPregunta());
+
+		return r;
 	}
 
 	@Override
