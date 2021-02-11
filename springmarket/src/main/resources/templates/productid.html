@@ -66,8 +66,10 @@ body {
 	text-align: center;
 }
 
-#tablaquanda { width:90%;}
-
+#tablaquanda { 
+	width:90%; 
+	text-align: center;
+}
 </style>
 </head>
 <body>
@@ -210,16 +212,10 @@ body {
 						<tr>
 							<th scope="col">Fecha</th>
 							<th scope="col">Usuario</th>
-							<th scope="col">Pregunta</th>
+							<th scope="col">Preguntas/Respuestas</th>
+							<th scope="col">Opciones</th>
 						</tr>
 					</thead>
-<!-- 					<tbody> -->
-<!-- 						<tr class="table-active"> -->
-<!-- 							<td class="celdas" th:text="${pregunta.fechaPregunta}"></td> -->
-<!-- 							<td class="celdas" th:text="${pregunta.usuario.getNombre()}"></td> -->
-<!-- 							<td class="celdas" th:text="${pregunta.textoPregunta}"></td> -->
-<!-- 						</tr> -->
-<!-- 					</tbody> -->
 				</table>
 		</section>
 	</div>
@@ -257,7 +253,6 @@ body {
 					$('#quantity').val(quantity - 1);
 				}
 			});
-
 		});
 	</script>
 </body>
