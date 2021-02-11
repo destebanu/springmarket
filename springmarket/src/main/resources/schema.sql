@@ -71,10 +71,12 @@ use springmarket;
 	    texto_pregunta varchar (500) not null,
 	    fecha_pregunta date not null,
 	    id_usuario bigint not null,
+	    id_producto bigint not null,
 	    primary key (id_pregunta),
 	    constraint fk_pregunta_usuario
         foreign key (id_usuario) references usuario (id_usuario) 
-		on update cascade
+		on update cascade,
+		constraint fk_pregunta_prodcuto foreign key (id_producto) references producto (id_producto)
     );
     
     create table respuesta (

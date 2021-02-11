@@ -1,11 +1,16 @@
 package com.strikethenote.springmarket.servicios;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.strikethenote.springmarket.dao.PreguntaRepository;
 import com.strikethenote.springmarket.entidades.Pregunta;
+import com.strikethenote.springmarket.entidades.PreguntaDTO;
+import com.strikethenote.springmarket.entidades.Producto;
+import com.strikethenote.springmarket.entidades.Usuario;
 
 @Transactional
 @Service
@@ -14,14 +19,34 @@ public class PreguntaServicioImpl implements PreguntaServicio {
 	@Autowired
 	private PreguntaRepository preguntaRepository;
 
+	@Autowired
+	private ProductoServicio productoServicio;
+
+	@Autowired
+	private UsuarioServicio usuarioServicio;
+
 	@Override
-	public boolean guardarPregunta(Pregunta preg) {
-		try {
-			preguntaRepository.save(preg);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+	public PreguntaDTO crearGuardarPregunta(String pregunta, long idUsuario, long idProducto) {
+
+		Usuario usuario = usuarioServicio.obtenerUsuario(idUsuario);
+		Producto producto = productoServicio.obtenerProducto(idProducto);
+		LocalDate fechActual = LocalDate.now();
+		Pregunta preguntaPersistida = new Pregunta(pregunta, fechActual, usuario, producto);
+
+		// Aquí persiste el objeto pregunta en bbdd
+		Pregunta nueva = preguntaRepository.save(preguntaPersistida);
+		
+		// Se crea y devuelve el objeto DTO para usarlo en AJAX
+		PreguntaDTO p = new PreguntaDTO();
+		p.setTextoPregunta(pregunta);
+		p.setIdPregunta(nueva.getIdPregunta());
+		p.setFechaPregunta(fechActual);
+		p.setIdProducto(producto.getIdProducto());
+		p.setNombreUsuario(usuario.getNombreUsuario());
+		p.setIdUsuario(usuario.getIdUsuario());
+		p.setRespuestas(null);
+		
+		return p;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ function agregarPregunta() {
 			
 			// Se recoge la pregunta del  controlador y se obtienen sus cosas
 			var pfecha = response.fechaPregunta;
-			var pusuario = response.usuario.nombreUsuario;
+			var pusuario = response.nombreUsuario;
 			var ptexto = response.textoPregunta;
 			 
 			// Se crean los nodos para la tabla
@@ -37,8 +37,8 @@ function agregarPregunta() {
 			var tdptexto = document.createElement("td");
 			
 			// Se asignan los datos a los nodos
-			tdpfecha.textContent = '${pfecha}';
-			tdpusuario.textContent = '${pusuario}';
+			tdpfecha.textContent = `${pfecha}`;
+			tdpusuario.textContent = `${pusuario}`;
 			tdptexto.textContent = `${ptexto}`;
 			
 			fila.appendChild(tdpfecha);
@@ -46,8 +46,9 @@ function agregarPregunta() {
 			fila.appendChild(tdptexto);
 			
 			
-
-			$('#tablaqanda').appendChild(fila);
+			//${fila}.addClass("table-info");
+			
+			$('#tablaqanda').append(fila);
 
 
 		},
