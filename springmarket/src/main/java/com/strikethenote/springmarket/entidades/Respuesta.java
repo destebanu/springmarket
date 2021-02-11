@@ -29,7 +29,7 @@ public class Respuesta implements Serializable {
 	private String textoRespuesta;
 
 	@Column(name = "FECHA_PREGUNTA")
-	private LocalDate fechaPregunta;
+	private LocalDate fechaRespuesta;
 	
 	
 
@@ -37,7 +37,7 @@ public class Respuesta implements Serializable {
 		super();
 		this.idRespuesta = idRespuesta;
 		this.textoRespuesta = textoRespuesta;
-		this.fechaPregunta = fechaPregunta;
+		this.fechaRespuesta = fechaPregunta;
 		this.pregunta = pregunta;
 		this.usuario = usuario;
 	}
@@ -45,7 +45,7 @@ public class Respuesta implements Serializable {
 	public Respuesta(String textoRespuesta, LocalDate fechaPregunta) {
 		super();
 		this.textoRespuesta = textoRespuesta;
-		this.fechaPregunta = fechaPregunta;
+		this.fechaRespuesta = fechaPregunta;
 		this.pregunta = pregunta;
 		this.usuario = usuario;
 	}
@@ -83,11 +83,11 @@ public class Respuesta implements Serializable {
 	}
 
 	public LocalDate getFechaPregunta() {
-		return fechaPregunta;
+		return fechaRespuesta;
 	}
 
 	public void setFechaPregunta(LocalDate fechaPregunta) {
-		this.fechaPregunta = fechaPregunta;
+		this.fechaRespuesta = fechaPregunta;
 	}
 
 }

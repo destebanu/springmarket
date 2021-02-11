@@ -3,20 +3,22 @@ $("body").on('click', '#botonpregunta', agregarPregunta);
 
 // Creamos el botón para responder
 var botonresponder = document.createElement("button");
-botonresponder.setAttribute("id","botonresponder");
+botonresponder.setAttribute("id", "botonresponder");
 botonresponder.innerHTML = "Responde a esta pregunta";
-botonresponder.classList.add("btn btn-outline-primary")
-botonresponder.css("display","none")
+botonresponder.classList.add("btn");
+botonresponder.classList.add("btn-outline-primary");
+$("#botonresponder").css("display", "none");
 
 //Creamos el botón para borrar la pregunta
-var botonrborrar = document.createElement("button");
-botonresponder.setAttribute("id","botonborrar");
+var botonborrar = document.createElement("button");
+botonborrar.setAttribute("id", "botonborrar");
 botonborrar.innerHTML = "Borra esta pregunta";
-botonborrar.classList.add("btn btn-outline-danger")
-botonborrar.css("display","none")
+botonborrar.classList.add("btn");
+botonborrar.classList.add("btn-outline-danger");
+$("#botonborrar").css("display", "none");
 
 // Llamamos a la función para responder
-$("body").on('click', '#botonresponder', agregarRespuesta);
+//$("body").on('click', '#botonresponder', agregarRespuesta);
 
 function agregarPregunta() {
 	var pregunta = $('#pregunta').val();
@@ -42,37 +44,61 @@ function agregarPregunta() {
 		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
-			
+
 			// Se recoge la pregunta del  controlador y se obtienen sus cosas
 			var pfecha = response.fechaPregunta;
 			var pusuario = response.nombreUsuario;
 			var ptexto = response.textoPregunta;
-			 
+
 			// Se crean los nodos para la tabla
-			var fila = document.createElement("tr");
+			var filaPregunta = document.createElement("tr");
 			var tdpfecha = document.createElement("td");
 			var tdpusuario = document.createElement("td");
-			var tdptexto = document.createElement("td");
-			var tdpopciones = document.createElement("td");
-			
+			var tdptexto = document.createElement("td")
+			var tdpopciones1 = document.createElement("td");
+
+
 			// Se asignan los datos a los nodos
 			tdpfecha.textContent = `${pfecha}`;
 			tdpusuario.textContent = `${pusuario}`;
 			tdptexto.textContent = `${ptexto}`;
-			tdpopciones.appendChild = botonborrar;
-			
-			botonresponder.css("display","inline");
-			botonborrar.css("display","inline");
-			
-			fila.appendChild(tdpfecha);
-			fila.appendChild(tdpusuario);
-			fila.appendChild(tdptexto);
-			fila.appendChild(tdprespuesta);
-			
-			fila.classList.add("table-info");
-			
-			$('#tablaqanda').append(fila);
+			$("#botonborrar").css("display", "inline");
 
+
+
+			tdpopciones1.appendChild(botonborrar);
+
+
+			filaPregunta.appendChild(tdpfecha);
+			filaPregunta.appendChild(tdpusuario);
+			filaPregunta.appendChild(tdptexto);
+			filaPregunta.appendChild(tdpopciones1);
+
+			filaPregunta.classList.add("table-info");
+
+			$('#tablaqanda').append(filaPregunta);
+
+			// Fila para responder
+
+			var filaRespuesta = document.createElement("tr");
+			filaRespuesta.setAttribute("id", "filarespuesta");
+			var tdtextoRespuesta = document.createElement("td");
+			tdtextoRespuesta.setAttribute("colspan", "3");
+			var tdpopciones2 = document.createElement("td");
+			var areaRespuesta = document.createElement("textarea");
+			areaRespuesta.setAttribute("cols", "170");
+			areaRespuesta.setAttribute("rows", "3");
+
+			$("#botonresponder").css("display", "inline");
+
+
+			//Anidamos
+			tdtextoRespuesta.appendChild(areaRespuesta);
+			tdpopciones2.appendChild(botonresponder);
+			filaRespuesta.appendChild(tdtextoRespuesta);
+			filaRespuesta.appendChild(tdpopciones2);
+
+			$('#tablaqanda').append(filaRespuesta);
 
 		},
 		error: function(xhr, status, error) {
@@ -108,33 +134,33 @@ function responderPregunta() {
 		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
-			
+
 			// Se recoge la pregunta del  controlador y se obtienen sus cosas
 			var pfecha = response.fechaPregunta;
 			var pusuario = response.nombreUsuario;
 			var ptexto = response.textoPregunta;
-			 
+
 			// Se crean los nodos para la tabla
 			var fila = document.createElement("tr");
 			var tdpfecha = document.createElement("td");
 			var tdpusuario = document.createElement("td");
 			var tdptexto = document.createElement("td");
-			
+
 			// Se asignan los datos a los nodos
 			tdpfecha.textContent = `${pfecha}`;
 			tdpusuario.textContent = `${pusuario}`;
 			tdptexto.textContent = `${ptexto}`;
-			
-			botonresponder.css("display","inline");
-			
+
+			botonresponder.css("display", "inline");
+
 			fila.appendChild(tdpfecha);
 			fila.appendChild(tdpusuario);
 			fila.appendChild(tdptexto);
 			fila.appendChild(botonresponder);
-			
-			
+
+
 			fila.classList.add("table-info");
-			
+
 			$('#tablaqanda').append(fila);
 
 
