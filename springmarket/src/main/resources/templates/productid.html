@@ -38,7 +38,8 @@ body {
 	padding: 10px;
 }
 
-#imagenproductogrid1, #imagenproductogrid2, #tablaproducto, #botonescarrito, #preguntagrid {
+#imagenproductogrid1, #imagenproductogrid2, #tablaproducto,
+	#botonescarrito, #preguntagrid {
 	padding: 20px;
 	font-size: 20px;
 	text-align: center;
@@ -62,10 +63,12 @@ body {
 	height: auto;
 }
 
-td,th {text-align: center;}
+td, th {
+	text-align: center;
+}
 
-#tablaquanda { 
-	width:90%; 
+#tablaquanda {
+	width: 90%;
 }
 </style>
 </head>
@@ -116,8 +119,11 @@ td,th {text-align: center;}
 				</div>
 
 				<!-- Div con la tabla de información del producto y el botón mostrar producto -->
+
+				<!-- AQUI -->
 				<input type="hidden" id="idProducto"
 					th:value="${producto.idProducto}" />
+
 				<div id="tablaproducto">
 					<table class="table table-bordered">
 						<tr>
@@ -191,29 +197,36 @@ td,th {text-align: center;}
 
 				<!-- Div parte del primer grid con el text area para hacer la pregunta -->
 				<div id="preguntagrid">
-					<!-- Con action="#" no da error 405, lo más probable es que el error esté en el envío del formulario (action) -->
-					<!-- <form id="preguntaForm" action="#"> -->
-					<form id="preguntaForm" th:action="@{/qanda/pregunta}">
-						<textarea rows="3" cols="100" name="pregunta" id="pregunta"></textarea>
-						<input type="button" class="btn btn-success" id="botonpregunta"
-							value="Haz tu pregunta" />
-					</form>
+					<textarea rows="3" cols="100" name="pregunta" id="pregunta"></textarea>
+					<input type="button" class="btn btn-success" id="botonpregunta"
+						value="Haz tu pregunta" />
 				</div>
-				
-				
 			</div>
-			
+
 			<!-- Tabla para mostrar las preguntas y respuestas -->
-				<table name="tablaqanda" id="tablaqanda" class="table table-hover">
-					<thead>
-						<tr>
-							<th style="text-align:center;" scope="col">Fecha</th>
-							<th style="text-align:center;" scope="col">Usuario</th>
-							<th style="text-align:center;" scope="col">Preguntas/Respuestas</th>
-							<th style="text-align:center;" scope="col">Opciones</th>
+			<table name="tablaqanda" id="tablaqanda" class="table table-hover">
+				<thead>
+					<tr>
+						<th style="text-align: center;" scope="col">Fecha</th>
+						<th style="text-align: center;" scope="col">Usuario</th>
+						<th style="text-align: center;" scope="col">Preguntas/Respuestas</th>
+						<th style="text-align: center;" scope="col">Opciones</th>
+					</tr>
+					<tr th:each="pregunta: ${producto.preguntas}">
+						<td th:text="${pregunta.fechaPregunta}" />
+						<td th:text="${pregunta.nombrePregunta.nombreUsuario}" />
+						<td th:text="${pregunta.textoPregunta}"/>
+						<td class="celdas">
+							<button id="botonBorrarPregunta" class="btn btn-outline-danger">Borra esta pregunta</button>
+						</td>
+						
+						<tr th:each="respuesta: ${pregunta.respuestas}">
 						</tr>
-					</thead>
-				</table>
+<!--  ERROR AQUI TR NO CIERRA BIEN -->
+					</tr>
+
+				</thead>
+			</table>
 		</section>
 	</div>
 

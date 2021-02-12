@@ -61,7 +61,7 @@ public class QandAControlador {
 		
 		String respuesta = values.findValue("respuesta").asText();
 		long idUsuario = ((long) request.getSession().getAttribute("idUsuario"));
-		long idPregunta = values.findValue("idProducto").asLong();
+		long idPregunta = values.findValue("idPregunta").asLong();
 
 		if (respuesta != "") {
 

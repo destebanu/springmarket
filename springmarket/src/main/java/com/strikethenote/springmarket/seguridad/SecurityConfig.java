@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		                    "/product/results",
 		                    "/product/productid/{idProducto}",
 		                    "/imagenes/**").permitAll()
-                    .antMatchers("/compra/**").hasAnyAuthority("registrado","admin")	
+                    .antMatchers("/compra/**", "/qanda/**").hasAnyAuthority("registrado","admin")	
                     .antMatchers("/product/**").hasAuthority("admin")
                     .anyRequest().authenticated()
                 .and()
