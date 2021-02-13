@@ -74,7 +74,6 @@ public class Respuesta implements Serializable {
 		this.usuario = usuario;
 	}
 
-	//
 	public Long getIdRespuesta() {
 		return idRespuesta;
 	}
@@ -91,12 +90,30 @@ public class Respuesta implements Serializable {
 		this.textoRespuesta = textoRespuesta;
 	}
 
-	public LocalDate getFechaPregunta() {
+	public LocalDate getFechaRespuesta() {
 		return fechaRespuesta;
 	}
 
-	public void setFechaPregunta(LocalDate fechaPregunta) {
-		this.fechaRespuesta = fechaPregunta;
+	public void setFechaRespuesta(LocalDate fechaRespuesta) {
+		this.fechaRespuesta = fechaRespuesta;
 	}
 
+	public Pregunta getPregunta() {
+		return pregunta;
+	}
+
+	public void setPregunta(Pregunta pregunta) {
+		this.pregunta = pregunta;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	//
+	
 }

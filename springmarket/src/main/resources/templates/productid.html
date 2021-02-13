@@ -90,7 +90,7 @@ td, th {
 
 				<!-- Div con la imagen del producto y el botón de seleccionar archivo y actualizar imagen -->
 
-				<div id="imagenproductogrid" th:if="${producto.imagen!=null}">
+				<div id="imagenproductogrid1" th:if="${producto.imagen!=null}">
 					<figure>
 						<img class="foto"
 							th:src="@{/imagenes/{id}(id=${producto.imagen.idImagen})}" />
@@ -212,20 +212,43 @@ td, th {
 						<th style="text-align: center;" scope="col">Preguntas/Respuestas</th>
 						<th style="text-align: center;" scope="col">Opciones</th>
 					</tr>
-					<tr th:each="pregunta: ${producto.preguntas}">
+				</thead>
+				<tbody th:each="pregunta: ${producto.getPreguntas()}">
+					<!-- FILA CON PREGUNTAS -->
+					<tr class="table-info">
 						<td th:text="${pregunta.fechaPregunta}" />
-						<td th:text="${pregunta.nombrePregunta.nombreUsuario}" />
-						<td th:text="${pregunta.textoPregunta}"/>
-						<td class="celdas">
-							<button id="botonBorrarPregunta" class="btn btn-outline-danger">Borra esta pregunta</button>
+						<td th:text="${pregunta.usuario.nombreUsuario}" />
+						<td th:text="${pregunta.textoPregunta}" />
+						<td>
+							<button id="botonBorrarPregunta" class="btn btn-outline-danger">Borra
+								esta pregunta</button>
 						</td>
-						
-						<tr th:each="respuesta: ${pregunta.respuestas}">
-						</tr>
-<!--  ERROR AQUI TR NO CIERRA BIEN -->
 					</tr>
 
-				</thead>
+					<!-- FILA CON RESPUESTAS -->
+					<tr th:each="respuesta: ${pregunta.respuestas}" class="table-success">
+						<td th:text="${respuesta.fechaRespuesta}" />
+						<td th:text="${respuesta.usuario.nombreUsuario}" />
+						<td th:text="${respuesta.textoRespuesta}" />
+						<td>
+							<button id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra
+								esta respuesta</button>
+							<button id="botonEditarRespuesta" class="btn btn-outline-secondary">Edita
+								esta respuesta</button>
+
+						</td>
+					</tr>
+					
+					<!--  FILA PA RESPONDER -->
+					<tr id="filaParaResponder">
+						<td colspan="3"><textarea id="respuesta" cols="170" rows="3"></textarea></td>
+						<td><button id="botonParaResponder"
+								class="btn btn-outline-primary">Responde a esta
+								pregunta</button></td>
+					</tr>
+				</tbody>
+
+				<!--  ERROR AQUI TR NO CIERRA BIEN -->
 			</table>
 		</section>
 	</div>

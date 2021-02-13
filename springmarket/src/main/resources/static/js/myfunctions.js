@@ -173,7 +173,7 @@ function agregarRespuesta() {
 			botonEditarRespuesta.setAttribute("id", "botonEditarRespuesta");
 			botonEditarRespuesta.innerHTML = "Edita esta respuesta";
 			botonEditarRespuesta.classList.add("btn");
-			botonEditarRespuesta.classList.add("btn-outline-warning");
+			botonEditarRespuesta.classList.add("btn-outline-secondary");
 
 			tdropciones.appendChild(botonBorrarRespuesta);
 			tdropciones.appendChild(botonEditarRespuesta);

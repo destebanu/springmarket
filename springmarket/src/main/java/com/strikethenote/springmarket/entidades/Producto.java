@@ -165,6 +165,18 @@ public class Producto implements Serializable {
 	 * iterator.next(); img.setProducto(null); iterator.remove(); } }
 	 */
 
+	// Métodos de preguntas
+	
+	public Set<Pregunta> getPreguntas() {
+		return preguntas;
+	}
+
+	public void setPreguntas(Set<Pregunta> preguntas) {
+		this.preguntas = preguntas;
+	}
+
+	//Métodos imagen
+	
 	public Imagen getImagen() {
 		return imagen;
 	}
