@@ -11,6 +11,9 @@ $("body").on('click', '#botonBorrarPregunta', borrarPregunta);
 // Llamamos a la función para borrar la respuesta
 $("body").on('click', '#botonBorrarRespuesta', borrarRespuesta);
 
+// Llamamos a la función para editar la respuesta
+$("body").on('click', '#botonEditarRespuesta', editarRespuesta);
+
 // Función que agrega la pregunta
 function agregarPregunta() {
 	var pregunta = $('#pregunta').val();
@@ -197,6 +200,7 @@ function agregarRespuesta() {
 			var tdrfecha = document.createElement("td");
 			var tdrusuario = document.createElement("td");
 			var tdrtexto = document.createElement("td");
+			tdrtexto.setAttribute("id", "textoRespuesta");
 			var tdropciones = document.createElement("td");
 			
 			// Aquí recogerá el ID de la respuesta
@@ -239,9 +243,6 @@ function agregarRespuesta() {
 			// Agregamos la fila de la respuesta antes de la fila para responder
 			var  lafile= $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
 			lafile.before(filaRespuesta);
-			
-			//$('#filaParaResponder').before(filaRespuesta);
-
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
@@ -277,6 +278,68 @@ function borrarRespuesta() {
 		success: function(response) {
 			var filaRespuestaABorrar = $(obj).closest("tr");
 			filaRespuestaABorrar.remove();
+		},
+		error: function(xhr, status, error) {
+			alerta = "Código html en caso de error. Fallo enorme";
+			$('#tablaqanda').html(alerta);
+		}
+	});
+};
+
+// Función que edita la respuesta
+function editarRespuesta() {
+	var idRespuesta = $(this).closest("tr") // Finds the closest row <tr>
+		.find("#idRespuesta") // Gets a descendent with class="nr"
+		.val();
+	var obj = $(this);
+
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+
+	var datos = {
+		"idRespuesta": idRespuesta	
+		};
+
+	$.ajax({
+		url: "/qanda/editarrespuesta/",
+		contentType: "application/json;charset=UTF-8",
+		dataType: "json",
+		data: JSON.stringify(datos),
+		type: "POST",
+		success: function(response) {
+			// Fila para editar
+			var filaParaEditar = document.createElement("tr");
+			filaParaEditar.setAttribute("id", "filaParaEditar");
+			var tdtextoRespuestaEditada = document.createElement("td");
+			tdtextoRespuestaEditada.setAttribute("colspan", "3");
+			var tdropcionesEdicion = document.createElement("td");
+			var areaRespuestaEditada = document.createElement("textarea");
+			areaRespuestaEditada.setAttribute("cols", "170");
+			areaRespuestaEditada.setAttribute("rows", "3");
+			areaRespuestaEditada.setAttribute("id", "respuestaEditada");
+			areaRespuestaEditada.value = document.getElementById("textoRespuesta").innerText;
+
+			// Creamos el botón para actualizar la respuesta
+			var botonParaActualizar = document.createElement("button");
+			botonParaActualizar.setAttribute("id", "botonParaActualizar");
+			botonParaActualizar.innerHTML = "Envía tu respuesta";
+			botonParaActualizar.classList.add("btn");
+			botonParaActualizar.classList.add("btn-outline-success");
+
+			//Anidamos
+			tdtextoRespuestaEditada.appendChild(areaRespuestaEditada);
+			tdropcionesEdicion.appendChild(botonParaActualizar);
+			filaParaEditar.appendChild(tdtextoRespuestaEditada);
+			filaParaEditar.appendChild(tdropcionesEdicion);
+			
+			filaParaEditar.classList.add("table-warning");
+
+			var  lafile= $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
+			lafile.after(filaParaEditar);
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";

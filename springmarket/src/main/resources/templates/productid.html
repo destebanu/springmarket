@@ -230,7 +230,7 @@ td, th {
 					<tr th:each="respuesta: ${pregunta.respuestas}" class="table-success" id="filaRespuesta">
 						<td th:text="${respuesta.fechaRespuesta}" />
 						<td th:text="${respuesta.usuario.nombreUsuario}" />
-						<td th:text="${respuesta.textoRespuesta}" />
+						<td th:text="${respuesta.textoRespuesta}" id="textoRespuesta" />
 						<td>
 							<button id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra
 								esta respuesta</button>
