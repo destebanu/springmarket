@@ -65,7 +65,6 @@ public class PreguntaServicioImpl implements PreguntaServicio {
 	public void borrarPregunta(long idPregunta) {
 		Pregunta p = preguntaRepository.findById(idPregunta).orElse(null);
 		if (p != null) {
-
 			preguntaRepository.deleteById(idPregunta);
 		}
 

@@ -37,40 +37,59 @@ public class QandAControlador {
 	// Métodos Q&A
 
 	// Este método persiste preguntas
-
 	@RequestMapping(value = "/pregunta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody PreguntaDTO publicarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
-		
+
 		String pregunta = values.findValue("pregunta").asText();
 		long idUsuario = ((long) request.getSession().getAttribute("idUsuario"));
 		long idProducto = values.findValue("idProducto").asLong();
 
 		if (pregunta != "") {
 
-			PreguntaDTO p =preguntaServicio.crearGuardarPregunta(pregunta, idUsuario, idProducto);
-			
+			PreguntaDTO p = preguntaServicio.crearGuardarPregunta(pregunta, idUsuario, idProducto);
+
 			return p;
 
 		} else
 			return null;
 	}
 
+	// Este método borra preguntas
+	@RequestMapping(value = "/borrarpregunta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean borrarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		long idPregunta = values.findValue("idPregunta").asLong();
+		preguntaServicio.borrarPregunta(idPregunta);
+		return true;
+
+	}
+
 	// Este método persiste respuestas
 	@RequestMapping(value = "/respuesta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RespuestaDTO publicarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
-		
+
 		String respuesta = values.findValue("respuesta").asText();
 		long idUsuario = ((long) request.getSession().getAttribute("idUsuario"));
 		long idPregunta = values.findValue("idPregunta").asLong();
 
 		if (respuesta != "") {
 
-			RespuestaDTO r =respuestaServicio.crearGuardarRespuesta(respuesta, idUsuario, idPregunta);
-			
+			RespuestaDTO r = respuestaServicio.crearGuardarRespuesta(respuesta, idUsuario, idPregunta);
+
 			return r;
 
 		} else
 			return null;
+	}
+
+	// Este método borra respuestas
+	@RequestMapping(value = "/borrarrespuesta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean borrarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		long idRespuesta = values.findValue("idRespuesta").asLong();
+		respuestaServicio.borrarRespuesta(idRespuesta);
+		return true;
+
 	}
 
 }

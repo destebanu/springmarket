@@ -5,6 +5,13 @@ $("body").on('click', '#botonpregunta', agregarPregunta);
 // Llamamos a la función para responder
 $("body").on('click', '#botonParaResponder', agregarRespuesta);
 
+// Llamamos a la función para borrar la pregunta
+$("body").on('click', '#botonBorrarPregunta', borrarPregunta);
+
+// Llamamos a la función para borrar la respuesta
+$("body").on('click', '#botonBorrarRespuesta', borrarRespuesta);
+
+// Función que agrega la pregunta
 function agregarPregunta() {
 	var pregunta = $('#pregunta').val();
 	var idProducto = $('#idProducto').val();
@@ -39,6 +46,7 @@ function agregarPregunta() {
 
 			// Se crean los nodos para la tabla
 			var filaPregunta = document.createElement("tr");
+			filaPregunta.setAttribute("id", "filaPregunta");
 			var tdpfecha = document.createElement("td");
 			var tdpusuario = document.createElement("td");
 			var tdptexto = document.createElement("td")
@@ -110,9 +118,43 @@ function agregarPregunta() {
 	});
 };
 
+// Función para borrar la pregunta
+function borrarPregunta() {
+	var idPregunta = $(this).closest("tr") // Finds the closest row <tr>
+		.find("#idPregunta") // Gets a descendent with class="nr"
+		.val();
+	var obj = $(this);
+
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+
+	var datos = {
+		"idPregunta": idPregunta	
+		};
+
+	$.ajax({
+		url: "/qanda/borrarpregunta/",
+		contentType: "application/json;charset=UTF-8",
+		dataType: "json",
+		data: JSON.stringify(datos),
+		type: "POST",
+		success: function(response) {
+			var filaPreguntaABorrar = $(obj).closest("tr");
+			filaPreguntaABorrar.remove();
+		},
+		error: function(xhr, status, error) {
+			alerta = "Código html en caso de error. Fallo enorme";
+			$('#tablaqanda').html(alerta);
+		}
+	});
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Función que agrega la respuesta
-
 function agregarRespuesta() {
 	var respuesta = $(this).closest("tr") // Finds the closest row <tr>
 		.find("#respuesta") // Gets a descendent with class="nr"
@@ -151,10 +193,18 @@ function agregarRespuesta() {
 
 			// Se crean los nodos para la tabla
 			var filaRespuesta = document.createElement("tr");
+			filaRespuesta.setAttribute("id", "filaRespuesta");
 			var tdrfecha = document.createElement("td");
 			var tdrusuario = document.createElement("td");
 			var tdrtexto = document.createElement("td");
 			var tdropciones = document.createElement("td");
+			
+			// Aquí recogerá el ID de la respuesta
+			var rID = response.idRespuesta;
+			var inputHIDDENrID = document.createElement("input");
+			inputHIDDENrID.setAttribute("type", "hidden");
+			inputHIDDENrID.setAttribute("id", "idRespuesta");
+			inputHIDDENrID.setAttribute("value", rID);
 
 			// Se asignan los datos a los nodos
 			tdrfecha.textContent = `${rfecha}`;
@@ -182,6 +232,7 @@ function agregarRespuesta() {
 			filaRespuesta.appendChild(tdrusuario);
 			filaRespuesta.appendChild(tdrtexto);
 			filaRespuesta.appendChild(tdropciones);
+			filaRespuesta.appendChild(inputHIDDENrID);
 
 			filaRespuesta.classList.add("table-success");
 
@@ -191,6 +242,41 @@ function agregarRespuesta() {
 			
 			//$('#filaParaResponder').before(filaRespuesta);
 
+		},
+		error: function(xhr, status, error) {
+			alerta = "Código html en caso de error. Fallo enorme";
+			$('#tablaqanda').html(alerta);
+		}
+	});
+};
+
+// Función que elimina la respuesta
+function borrarRespuesta() {
+	var idRespuesta = $(this).closest("tr") // Finds the closest row <tr>
+		.find("#idRespuesta") // Gets a descendent with class="nr"
+		.val();
+	var obj = $(this);
+
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+		xhr.setRequestHeader(header, token);
+	});
+
+	var datos = {
+		"idRespuesta": idRespuesta	
+		};
+
+	$.ajax({
+		url: "/qanda/borrarrespuesta/",
+		contentType: "application/json;charset=UTF-8",
+		dataType: "json",
+		data: JSON.stringify(datos),
+		type: "POST",
+		success: function(response) {
+			var filaRespuestaABorrar = $(obj).closest("tr");
+			filaRespuestaABorrar.remove();
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";

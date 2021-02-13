@@ -215,7 +215,7 @@ td, th {
 				</thead>
 				<tbody th:each="pregunta: ${producto.getPreguntas()}">
 					<!-- FILA CON PREGUNTAS -->
-					<tr class="table-info">
+					<tr class="table-info" id="filaPregunta">
 						<td th:text="${pregunta.fechaPregunta}" />
 						<td th:text="${pregunta.usuario.nombreUsuario}" />
 						<td th:text="${pregunta.textoPregunta}" />
@@ -223,10 +223,11 @@ td, th {
 							<button id="botonBorrarPregunta" class="btn btn-outline-danger">Borra
 								esta pregunta</button>
 						</td>
+						<input type="hidden" id="idPregunta" th:value="${pregunta.idPregunta}"/>
 					</tr>
 
 					<!-- FILA CON RESPUESTAS -->
-					<tr th:each="respuesta: ${pregunta.respuestas}" class="table-success">
+					<tr th:each="respuesta: ${pregunta.respuestas}" class="table-success" id="filaRespuesta">
 						<td th:text="${respuesta.fechaRespuesta}" />
 						<td th:text="${respuesta.usuario.nombreUsuario}" />
 						<td th:text="${respuesta.textoRespuesta}" />
@@ -235,8 +236,8 @@ td, th {
 								esta respuesta</button>
 							<button id="botonEditarRespuesta" class="btn btn-outline-secondary">Edita
 								esta respuesta</button>
-
 						</td>
+						<input type="hidden" id="idRespuesta" th:value="${respuesta.idRespuesta}"/>
 					</tr>
 					
 					<!--  FILA PA RESPONDER -->
@@ -245,6 +246,7 @@ td, th {
 						<td><button id="botonParaResponder"
 								class="btn btn-outline-primary">Responde a esta
 								pregunta</button></td>
+						<input type="hidden" id="idPregunta" th:value="${pregunta.idPregunta}"/>
 					</tr>
 				</tbody>
 
