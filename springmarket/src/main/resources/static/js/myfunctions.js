@@ -14,6 +14,10 @@ $("body").on('click', '#botonBorrarRespuesta', borrarRespuesta);
 // Llamamos a la función para editar la respuesta
 $("body").on('click', '#botonEditarRespuesta', editarRespuesta);
 
+// Llamamos a la función para enviar la respuesta editada
+$("body").on('click', '#botonParaActualizar', enviarRespuesta);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Función que agrega la pregunta
 function agregarPregunta() {
 	var pregunta = $('#pregunta').val();
@@ -121,6 +125,7 @@ function agregarPregunta() {
 	});
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Función para borrar la pregunta
 function borrarPregunta() {
 	var idPregunta = $(this).closest("tr") // Finds the closest row <tr>
@@ -136,8 +141,8 @@ function borrarPregunta() {
 	});
 
 	var datos = {
-		"idPregunta": idPregunta	
-		};
+		"idPregunta": idPregunta
+	};
 
 	$.ajax({
 		url: "/qanda/borrarpregunta/",
@@ -202,7 +207,7 @@ function agregarRespuesta() {
 			var tdrtexto = document.createElement("td");
 			tdrtexto.setAttribute("id", "textoRespuesta");
 			var tdropciones = document.createElement("td");
-			
+
 			// Aquí recogerá el ID de la respuesta
 			var rID = response.idRespuesta;
 			var inputHIDDENrID = document.createElement("input");
@@ -241,7 +246,7 @@ function agregarRespuesta() {
 			filaRespuesta.classList.add("table-success");
 
 			// Agregamos la fila de la respuesta antes de la fila para responder
-			var  lafile= $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
+			var lafile = $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
 			lafile.before(filaRespuesta);
 		},
 		error: function(xhr, status, error) {
@@ -251,6 +256,7 @@ function agregarRespuesta() {
 	});
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Función que elimina la respuesta
 function borrarRespuesta() {
 	var idRespuesta = $(this).closest("tr") // Finds the closest row <tr>
@@ -266,8 +272,8 @@ function borrarRespuesta() {
 	});
 
 	var datos = {
-		"idRespuesta": idRespuesta	
-		};
+		"idRespuesta": idRespuesta
+	};
 
 	$.ajax({
 		url: "/qanda/borrarrespuesta/",
@@ -286,13 +292,71 @@ function borrarRespuesta() {
 	});
 };
 
-// Función que edita la respuesta
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Función que habilita la edición de la respuesta
 function editarRespuesta() {
+
+	var obj = $(this);
+
+
+	// Fila para editar
+	var filaParaEditar = document.createElement("tr");
+	filaParaEditar.setAttribute("id", "filaParaEditar");
+	var tdtextoRespuestaEditada = document.createElement("td");
+	tdtextoRespuestaEditada.setAttribute("colspan", "3");
+	var tdropcionesEdicion = document.createElement("td");
+
+
+	var areaRespuestaEditada = document.createElement("textarea");
+	areaRespuestaEditada.setAttribute("cols", "170");
+	areaRespuestaEditada.setAttribute("rows", "3");
+	areaRespuestaEditada.setAttribute("id", "respuestaEditada");
+	areaRespuestaEditada.value = this.parentNode.parentNode.querySelector("#textoRespuesta").innerText;
+	//$(this).closest("tr").find("#textoRespuesta").val();
+	//document.getElementById("textoRespuesta").innerText;
+
+	// Creamos el botón para actualizar la respuesta
+	var botonParaActualizar = document.createElement("button");
+	botonParaActualizar.setAttribute("id", "botonParaActualizar");
+	botonParaActualizar.innerHTML = "Envía tu respuesta";
+	botonParaActualizar.classList.add("btn");
+	botonParaActualizar.classList.add("btn-outline-success");
+
+	// Aquí recogerá el ID de la respuesta
+	var rID = $(this).closest("tr") // Finds the closest row <tr>
+		.find("#idRespuesta") // Gets a descendent with class="nr"
+		.val();
+
+	var inputHIDDENrID = document.createElement("input");
+	inputHIDDENrID.setAttribute("type", "hidden");
+	inputHIDDENrID.setAttribute("id", "idRespuesta");
+	inputHIDDENrID.setAttribute("value", rID);
+
+	//Anidamos
+	tdtextoRespuestaEditada.appendChild(areaRespuestaEditada);
+	tdropcionesEdicion.appendChild(botonParaActualizar);
+	filaParaEditar.appendChild(tdtextoRespuestaEditada);
+	filaParaEditar.appendChild(tdropcionesEdicion);
+	filaParaEditar.appendChild(inputHIDDENrID);
+
+
+	filaParaEditar.classList.add("table-warning");
+
+	var lafile = $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
+	lafile.after(filaParaEditar);
+
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Este método envía la respuesta modificada y la modifica por AJAX
+function enviarRespuesta() {
 	var idRespuesta = $(this).closest("tr") // Finds the closest row <tr>
 		.find("#idRespuesta") // Gets a descendent with class="nr"
 		.val();
-	var obj = $(this);
 
+	var textoEditado = $('#respuestaEditada').val();
+
+	var obj2 = $(this).closest("tr").prev().find("#textoRespuesta").prev();
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -301,8 +365,9 @@ function editarRespuesta() {
 	});
 
 	var datos = {
-		"idRespuesta": idRespuesta	
-		};
+		"idRespuesta": idRespuesta,
+		"textoEditado": textoEditado
+	};
 
 	$.ajax({
 		url: "/qanda/editarrespuesta/",
@@ -311,35 +376,18 @@ function editarRespuesta() {
 		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
-			// Fila para editar
-			var filaParaEditar = document.createElement("tr");
-			filaParaEditar.setAttribute("id", "filaParaEditar");
-			var tdtextoRespuestaEditada = document.createElement("td");
-			tdtextoRespuestaEditada.setAttribute("colspan", "3");
-			var tdropcionesEdicion = document.createElement("td");
-			var areaRespuestaEditada = document.createElement("textarea");
-			areaRespuestaEditada.setAttribute("cols", "170");
-			areaRespuestaEditada.setAttribute("rows", "3");
-			areaRespuestaEditada.setAttribute("id", "respuestaEditada");
-			areaRespuestaEditada.value = document.getElementById("textoRespuesta").innerText;
 
-			// Creamos el botón para actualizar la respuesta
-			var botonParaActualizar = document.createElement("button");
-			botonParaActualizar.setAttribute("id", "botonParaActualizar");
-			botonParaActualizar.innerHTML = "Envía tu respuesta";
-			botonParaActualizar.classList.add("btn");
-			botonParaActualizar.classList.add("btn-outline-success");
+			var textotd = $(obj2);
+			textotd.remove();
 
-			//Anidamos
-			tdtextoRespuestaEditada.appendChild(areaRespuestaEditada);
-			tdropcionesEdicion.appendChild(botonParaActualizar);
-			filaParaEditar.appendChild(tdtextoRespuestaEditada);
-			filaParaEditar.appendChild(tdropcionesEdicion);
-			
-			filaParaEditar.classList.add("table-warning");
+			var nuevotexto = document.createElement("td");
+			nuevotexto.setAttribute("id", "textoRespuesta");
+			nuevotexto.textContent = `${textoEditado}`;
 
-			var  lafile= $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
-			lafile.after(filaParaEditar);
+			textotd.append(nuevotexto);
+			//			var textotd = $(obj2); // Finds the closest row <tr>; // Gets a descendent with class="nr"
+			//			textotd.innerHTML = textoEditado;
+
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";

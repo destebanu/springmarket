@@ -92,4 +92,14 @@ public class QandAControlador {
 
 	}
 
+	// Este método edita respuestas
+	@RequestMapping(value = "/editarrespuesta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean editarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		long idRespuesta = values.findValue("idRespuesta").asLong();
+		respuestaServicio.modificarRespuesta(idRespuesta);
+		return true;
+
+	}
+
 }

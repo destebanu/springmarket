@@ -9,7 +9,7 @@ public interface RespuestaServicio {
 
 	public Respuesta obtenerRespuesta(Long id);
 
-	public Respuesta modificarRespuesta(Respuesta respuesta);
+	public RespuestaDTO modificarRespuesta(Long id);
 
 	public void borrarRespuesta(long idRespuesta);
 

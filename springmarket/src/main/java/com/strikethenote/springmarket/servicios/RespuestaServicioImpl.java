@@ -67,9 +67,23 @@ public class RespuestaServicioImpl implements RespuestaServicio {
 	}
 
 	@Override
-	public Respuesta modificarRespuesta(Respuesta respuesta) {
+	public RespuestaDTO modificarRespuesta(Long id) {
 
-		return respuestaRepository.save(respuesta);
+		Respuesta res = obtenerRespuesta(id);
+
+		// Aquí persiste el objeto respuesta en bbdd
+		respuestaRepository.save(res);
+
+		// Se crea y devuelve el objeto DTO para usarlo en AJAX
+		RespuestaDTO r = new RespuestaDTO();
+		r.setTextoRespuesta(res.getTextoRespuesta());
+		r.setIdRespuesta(res.getIdRespuesta());
+		r.setFechaRespuesta(res.getFechaRespuesta());
+		r.setNombreUsuario(res.getUsuario().getNombreUsuario());
+		r.setIdUsuario(res.getUsuario().getIdUsuario());
+		r.setIdPregunta(res.getPregunta().getIdPregunta());
+
+		return r;
 	}
 
 	@Override
