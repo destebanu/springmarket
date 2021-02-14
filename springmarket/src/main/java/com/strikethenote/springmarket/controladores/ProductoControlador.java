@@ -136,6 +136,10 @@ public class ProductoControlador {
 		// resultados de búsqueda
 		model.addAttribute("producto", resultado);
 		
+		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o el admin puedan borrar/editar la pregunta
+		/*long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+		model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);*/
+		
 		return "productid";
 	}
 

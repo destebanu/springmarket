@@ -1,10 +1,12 @@
 package com.strikethenote.springmarket.controladores;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,10 +58,18 @@ public class QandAControlador {
 
 	// Este método borra preguntas
 	@RequestMapping(value = "/borrarpregunta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody boolean borrarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+	public @ResponseBody boolean borrarPregunta(@RequestBody JsonNode values, HttpServletRequest request, Model model,
+			HttpSession session) {
 
 		long idPregunta = values.findValue("idPregunta").asLong();
 		preguntaServicio.borrarPregunta(idPregunta);
+
+		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
+		// el admin puedan borrar/editar la pregunta
+		/*
+		 * long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+		 * model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+		 */
 		return true;
 
 	}
@@ -84,20 +94,34 @@ public class QandAControlador {
 
 	// Este método borra respuestas
 	@RequestMapping(value = "/borrarrespuesta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody boolean borrarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
+	public @ResponseBody boolean borrarRespuesta(@RequestBody JsonNode values, HttpServletRequest request, Model model,
+			HttpSession session) {
 
 		long idRespuesta = values.findValue("idRespuesta").asLong();
 		respuestaServicio.borrarRespuesta(idRespuesta);
+		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
+		// el admin puedan borrar/editar la pregunta
+		/*
+		 * long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+		 * model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+		 */
 		return true;
 
 	}
 
 	// Este método edita respuestas
 	@RequestMapping(value = "/editarrespuesta", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody boolean editarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
+	public @ResponseBody boolean editarRespuesta(@RequestBody JsonNode values, HttpServletRequest request, Model model,
+			HttpSession session) {
 
 		long idRespuesta = values.findValue("idRespuesta").asLong();
 		respuestaServicio.modificarRespuesta(idRespuesta);
+		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
+		// el admin puedan borrar/editar la pregunta
+		/*
+		 * long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+		 * model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+		 */
 		return true;
 
 	}

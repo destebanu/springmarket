@@ -80,7 +80,7 @@ body {
 							<td class="coloreado1">Apellidos:</td>
 							<td th:text="${usuario.apellidosUsuario}" />
 						</tr>
-						<tr th:if="${ (idUsuarioSESSION == usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')')} " >>
+						<tr th:if="${ (idUsuarioSESSION == usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')')} " >
 							<td class="coloreado1">Contraseña:</td>
 							<td th:text="${usuario.passwordUsuario}" />
 						</tr>
