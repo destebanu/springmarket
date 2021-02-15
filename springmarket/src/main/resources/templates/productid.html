@@ -197,7 +197,7 @@ td, th {
 
 				<!-- Div parte del primer grid con el text area para hacer la pregunta -->
 				<div id="preguntagrid">
-					<textarea rows="3" cols="100" name="pregunta" id="pregunta"></textarea>
+					<textarea rows="3" cols="100" name="pregunta" id="pregunta" required></textarea>
 					<input type="button" class="btn btn-success" id="botonpregunta"
 						value="Haz tu pregunta" />
 				</div>
@@ -236,18 +236,18 @@ td, th {
 						<button id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra esta respuesta</button>
 						
 						<!-- Este botón con th:if puede servir para verlo o no según si se es el usuario registrado en sesión o admin -->
-<!-- 							<button th:if="${ (idUsuarioSESSION == usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')')} "  -->
-<!-- 							id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra -->
-<!-- 								esta respuesta</button> -->
-							<button id="botonEditarRespuesta" class="btn btn-outline-secondary">Edita
+							<button th:if="${ (idUsuarioSESSION == respuesta.usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')')} " 
+							id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra
 								esta respuesta</button>
+<!-- 							<button id="botonEditarRespuesta" class="btn btn-outline-secondary">Edita -->
+<!-- 								esta respuesta</button> -->
 						</td>
 						<input type="hidden" id="idRespuesta" th:value="${respuesta.idRespuesta}"/>
 					</tr>
 					
 					<!--  FILA PA RESPONDER -->
 					<tr id="filaParaResponder">
-						<td colspan="3"><textarea id="respuesta" cols="170" rows="3"></textarea></td>
+						<td colspan="3"><textarea id="respuesta" cols="170" rows="3" required></textarea></td>
 						<td><button id="botonParaResponder"
 								class="btn btn-outline-primary">Responde a esta
 								pregunta</button></td>

@@ -22,6 +22,11 @@ $("body").on('click', '#botonParaActualizar', enviarRespuesta);
 function agregarPregunta() {
 	var pregunta = $('#pregunta').val();
 	var idProducto = $('#idProducto').val();
+
+	if (pregunta == "") {
+		return document.location.reload(true);
+	}
+
 	$('#pregunta').val('');
 	//var idUsuario = getCookie("idUsuario");
 
@@ -101,6 +106,7 @@ function agregarPregunta() {
 			areaRespuesta.setAttribute("rows", "3");
 			areaRespuesta.setAttribute("id", "respuesta");
 
+
 			// Creamos el botón para responder
 			var botonParaResponder = document.createElement("button");
 			botonParaResponder.setAttribute("id", "botonParaResponder");
@@ -153,6 +159,7 @@ function borrarPregunta() {
 		success: function(response) {
 			var filaPreguntaABorrar = $(obj).closest("tr");
 			filaPreguntaABorrar.remove();
+			document.location.reload(true);
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
@@ -167,13 +174,18 @@ function agregarRespuesta() {
 	var respuesta = $(this).closest("tr") // Finds the closest row <tr>
 		.find("#respuesta") // Gets a descendent with class="nr"
 		.val();
+
+	if (respuesta == "") {
+		return document.location.reload(true);
+	}
+
 	var idPregunta = $(this).closest("tr") // Finds the closest row <tr>
 		.find("#idPregunta") // Gets a descendent with class="nr"
 		.val();
 	var obj = $(this);
 
 	// Vaciamos la respuesta al enviarla
-	$('#respuesta').val('');
+	$(respuesta).val('');
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -356,7 +368,8 @@ function enviarRespuesta() {
 
 	var textoEditado = $('#respuestaEditada').val();
 
-	var obj2 = $(this).closest("tr").prev().find("#textoRespuesta").prev();
+
+	var obj2 = $(this).closest("tr").prev().find("#textoRespuesta");
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -378,13 +391,15 @@ function enviarRespuesta() {
 		success: function(response) {
 
 			var textotd = $(obj2);
-			textotd.remove();
-
+			//			textotd.remove();
+			//
 			var nuevotexto = document.createElement("td");
 			nuevotexto.setAttribute("id", "textoRespuesta");
 			nuevotexto.textContent = `${textoEditado}`;
+			//
+			//			textotd.append(nuevotexto);
+			textotd.replaceWith(nuevotexto);
 
-			textotd.append(nuevotexto);
 			//			var textotd = $(obj2); // Finds the closest row <tr>; // Gets a descendent with class="nr"
 			//			textotd.innerHTML = textoEditado;
 

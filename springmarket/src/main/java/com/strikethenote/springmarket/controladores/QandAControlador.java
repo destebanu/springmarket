@@ -115,7 +115,9 @@ public class QandAControlador {
 			HttpSession session) {
 
 		long idRespuesta = values.findValue("idRespuesta").asLong();
-		respuestaServicio.modificarRespuesta(idRespuesta);
+		String respuesta = values.findValue("textoEditado").asText();
+
+		respuestaServicio.modificarRespuesta(idRespuesta, respuesta);
 		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
 		// el admin puedan borrar/editar la pregunta
 		/*

@@ -67,9 +67,10 @@ public class RespuestaServicioImpl implements RespuestaServicio {
 	}
 
 	@Override
-	public RespuestaDTO modificarRespuesta(Long id) {
+	public RespuestaDTO modificarRespuesta(Long id, String respuesta) {
 
 		Respuesta res = obtenerRespuesta(id);
+		res.setTextoRespuesta(respuesta);
 
 		// Aquí persiste el objeto respuesta en bbdd
 		respuestaRepository.save(res);
