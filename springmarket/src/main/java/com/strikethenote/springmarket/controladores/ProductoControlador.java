@@ -42,7 +42,7 @@ public class ProductoControlador {
 
 	@Autowired
 	private RespuestaServicio respuestaServicio;
-	
+
 	@Autowired
 	private UsuarioServicio usuarioServicio;
 
@@ -129,17 +129,31 @@ public class ProductoControlador {
 
 	@GetMapping("/productid/{idProducto}")
 	public String productid(Model model, HttpSession session, @PathVariable("idProducto") long idProducto) {
+
+		if (session.getAttribute("idUsuario") != null) {
+
+			// Se recoge el input de la búsqueda de la session y se usa el servicio para
+			// buscar en la tabla
+			Producto resultado = productoServicio.obtenerProducto(idProducto);
+			// Añadimos el producto al objeto para mostrar su nombre en la página de
+			// resultados de búsqueda
+			model.addAttribute("producto", resultado);
+
+			// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
+			// el admin puedan borrar/editar la pregunta
+
+			long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+			model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+
+			return "productid";
+		}
+		
 		// Se recoge el input de la búsqueda de la session y se usa el servicio para
 		// buscar en la tabla
 		Producto resultado = productoServicio.obtenerProducto(idProducto);
 		// Añadimos el producto al objeto para mostrar su nombre en la página de
 		// resultados de búsqueda
 		model.addAttribute("producto", resultado);
-		
-		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o el admin puedan borrar/editar la pregunta
-		
-		long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
-		model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
 		
 		return "productid";
 	}

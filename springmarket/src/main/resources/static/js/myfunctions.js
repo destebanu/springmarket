@@ -323,7 +323,7 @@ function editarRespuesta() {
 	areaRespuestaEditada.setAttribute("cols", "170");
 	areaRespuestaEditada.setAttribute("rows", "3");
 	areaRespuestaEditada.setAttribute("id", "respuestaEditada");
-	areaRespuestaEditada.value = this.parentNode.parentNode.querySelector("#textoRespuesta").innerText;
+	areaRespuestaEditada.value = this.parentNode.parentNode.parentNode.querySelector("#textoRespuesta").innerText;
 	//$(this).closest("tr").find("#textoRespuesta").val();
 	//document.getElementById("textoRespuesta").innerText;
 
@@ -333,6 +333,7 @@ function editarRespuesta() {
 	botonParaActualizar.innerHTML = "Envía tu respuesta";
 	botonParaActualizar.classList.add("btn");
 	botonParaActualizar.classList.add("btn-outline-success");
+
 
 	// Aquí recogerá el ID de la respuesta
 	var rID = $(this).closest("tr") // Finds the closest row <tr>
@@ -347,6 +348,7 @@ function editarRespuesta() {
 	//Anidamos
 	tdtextoRespuestaEditada.appendChild(areaRespuestaEditada);
 	tdropcionesEdicion.appendChild(botonParaActualizar);
+
 	filaParaEditar.appendChild(tdtextoRespuestaEditada);
 	filaParaEditar.appendChild(tdropcionesEdicion);
 	filaParaEditar.appendChild(inputHIDDENrID);

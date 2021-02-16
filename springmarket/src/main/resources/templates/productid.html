@@ -196,10 +196,13 @@ td, th {
 				</div>
 
 				<!-- Div parte del primer grid con el text area para hacer la pregunta -->
-				<div id="preguntagrid">
-					<textarea rows="3" cols="100" name="pregunta" id="pregunta" required></textarea>
-					<input type="button" class="btn btn-success" id="botonpregunta"
-						value="Haz tu pregunta" />
+				<div th:if="${session.idUsuario != null}">
+					<div id="preguntagrid">
+						<textarea rows="3" cols="100" name="pregunta" id="pregunta"
+							required></textarea>
+						<input type="button" class="btn btn-success" id="botonpregunta"
+							value="Haz tu pregunta" />
+					</div>
 				</div>
 			</div>
 
@@ -220,42 +223,54 @@ td, th {
 						<td th:text="${pregunta.usuario.nombreUsuario}" />
 						<td th:text="${pregunta.textoPregunta}" />
 						<td>
-							<button id="botonBorrarPregunta" class="btn btn-outline-danger">Borra
-								esta pregunta</button>
+							<div th:if="${session.idUsuario != null}">
+								<button id="botonBorrarPregunta" class="btn btn-outline-danger"
+									th:if="${ (idUsuarioSESSION == pregunta.usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')')} ">Borra
+									esta pregunta</button>
+							</div>
 						</td>
-						<input type="hidden" id="idPregunta" th:value="${pregunta.idPregunta}"/>
+						<input type="hidden" id="idPregunta"
+							th:value="${pregunta.idPregunta}" />
 					</tr>
 
 					<!-- FILA CON RESPUESTAS -->
-					<tr th:each="respuesta: ${pregunta.respuestas}" class="table-success" id="filaRespuesta">
+					<tr th:each="respuesta: ${pregunta.respuestas}"
+						class="table-success" id="filaRespuesta">
 						<td th:text="${respuesta.fechaRespuesta}" />
 						<td th:text="${respuesta.usuario.nombreUsuario}" />
 						<td th:text="${respuesta.textoRespuesta}" id="textoRespuesta" />
 						<td>
-						
-						<button id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra esta respuesta</button>
-						
-						<!-- Este botón con th:if puede servir para verlo o no según si se es el usuario registrado en sesión o admin -->
-							<button th:if="${ (idUsuarioSESSION == respuesta.usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')')} " 
-							id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra
-								esta respuesta</button>
-<!-- 							<button id="botonEditarRespuesta" class="btn btn-outline-secondary">Edita -->
-<!-- 								esta respuesta</button> -->
+							<!-- Este botón con th:if puede servir para verlo o no según si se es el usuario registrado en sesión o admin -->
+							<div th:if="${session.idUsuario != null}">
+								<button
+									th:if="${(idUsuarioSESSION == respuesta.usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')'))} "
+									id="botonBorrarRespuesta" class="btn btn-outline-danger">Borra
+									esta respuesta</button>
+							</div>
+							
+							<div th:if="${session.idUsuario != null}">
+								<button th:if="${(idUsuarioSESSION == respuesta.usuario.idUsuario) or #authorization.expression('hasAuthority(''admin'')'))} "
+									id="botonEditarRespuesta" class="btn btn-outline-secondary">Edita
+									esta respuesta</button>
+							</div>
 						</td>
-						<input type="hidden" id="idRespuesta" th:value="${respuesta.idRespuesta}"/>
+						<input type="hidden" id="idRespuesta"
+							th:value="${respuesta.idRespuesta}" />
 					</tr>
-					
+
 					<!--  FILA PA RESPONDER -->
+					<div th:if="${session.idUsuario != null}">
 					<tr id="filaParaResponder">
-						<td colspan="3"><textarea id="respuesta" cols="170" rows="3" required></textarea></td>
+						<td colspan="3"><textarea id="respuesta" cols="170" rows="3"
+								required></textarea></td>
 						<td><button id="botonParaResponder"
 								class="btn btn-outline-primary">Responde a esta
 								pregunta</button></td>
-						<input type="hidden" id="idPregunta" th:value="${pregunta.idPregunta}"/>
+						<input type="hidden" id="idPregunta"
+							th:value="${pregunta.idPregunta}" />
 					</tr>
+					</div>
 				</tbody>
-
-				<!--  ERROR AQUI TR NO CIERRA BIEN -->
 			</table>
 		</section>
 	</div>
