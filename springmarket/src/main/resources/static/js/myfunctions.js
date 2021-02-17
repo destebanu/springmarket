@@ -322,7 +322,8 @@ function editarRespuesta() {
 	areaRespuestaEditada.setAttribute("cols", "170");
 	areaRespuestaEditada.setAttribute("rows", "3");
 	areaRespuestaEditada.setAttribute("id", "respuestaEditada");
-	areaRespuestaEditada.value = this.parentNode.parentNode.parentNode.querySelector("#textoRespuesta").innerText;
+	areaRespuestaEditada.value = $(this).parent().closest("tr").find("#textoRespuesta").val();
+	//this.parentNode.parentNode.parentNode.querySelector("#textoRespuesta").innerText;
 	//$(this).closest("tr").find("#textoRespuesta").val();
 	//document.getElementById("textoRespuesta").innerText;
 
@@ -381,7 +382,7 @@ function enviarRespuesta() {
 	});
 
 	var datos = {
-		"idRespuesta": idRespuesta,
+		"idRespuesta": idRespuesta,	
 		"textoEditado": textoEditado
 	};
 
