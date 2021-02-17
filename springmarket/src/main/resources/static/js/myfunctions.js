@@ -1,7 +1,6 @@
 // Llamamos a la función cuando damos al botón de hacer la pregunta
 $("body").on('click', '#botonpregunta', agregarPregunta);
 
-
 // Llamamos a la función para responder
 $("body").on('click', '#botonParaResponder', agregarRespuesta);
 
@@ -353,7 +352,6 @@ function editarRespuesta() {
 	filaParaEditar.appendChild(tdropcionesEdicion);
 	filaParaEditar.appendChild(inputHIDDENrID);
 
-
 	filaParaEditar.classList.add("table-warning");
 
 	var lafile = $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
@@ -367,12 +365,15 @@ function enviarRespuesta() {
 	var idRespuesta = $(this).closest("tr") // Finds the closest row <tr>
 		.find("#idRespuesta") // Gets a descendent with class="nr"
 		.val();
+	/*var filaParaEditar = $(this).closest("tr")
+		.find("#filaParaEditar")*/
 
 	var textoEditado = $('#respuestaEditada').val();
 
-
 	var obj2 = $(this).closest("tr").prev().find("#textoRespuesta");
-
+	
+	var obj3 = $(this)
+	
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 	$(document).ajaxSend(function(e, xhr, options) {
@@ -391,7 +392,7 @@ function enviarRespuesta() {
 		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
-
+			
 			var textotd = $(obj2);
 			//			textotd.remove();
 			//
@@ -404,7 +405,16 @@ function enviarRespuesta() {
 
 			//			var textotd = $(obj2); // Finds the closest row <tr>; // Gets a descendent with class="nr"
 			//			textotd.innerHTML = textoEditado;
-
+			
+			// Aquí estamos probando las distintas posibilidades para que la fila para editar desaparezca al actualizar la respuesta
+			//$(this).parentNode.css("display","none");
+			//$(obj3).parentNode.parentNode.css("display","none");
+			//$(filaParaEditar).css("display","none");//$(obj3).closest("tr").find("#filaParaEditar").css("display","none");
+			
+			//Esta fila siguiente SÍ funciona si se crea la respuesta en ajax y se edita sin recargar
+			$("#filaParaEditar").css("display","none");
+			
+			
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
