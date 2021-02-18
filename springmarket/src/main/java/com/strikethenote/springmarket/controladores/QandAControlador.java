@@ -64,12 +64,6 @@ public class QandAControlador {
 		long idPregunta = values.findValue("idPregunta").asLong();
 		preguntaServicio.borrarPregunta(idPregunta);
 
-		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
-		// el admin puedan borrar/editar la pregunta
-		/*
-		 * long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
-		 * model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
-		 */
 		return true;
 
 	}
@@ -99,12 +93,7 @@ public class QandAControlador {
 
 		long idRespuesta = values.findValue("idRespuesta").asLong();
 		respuestaServicio.borrarRespuesta(idRespuesta);
-		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
-		// el admin puedan borrar/editar la pregunta
-		/*
-		 * long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
-		 * model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
-		 */
+		
 		return true;
 
 	}
@@ -118,12 +107,7 @@ public class QandAControlador {
 		String respuesta = values.findValue("textoEditado").asText();
 
 		respuestaServicio.modificarRespuesta(idRespuesta, respuesta);
-		// Tal vez esto lo necesitamos para que solo el usuario con la sesión iniciada o
-		// el admin puedan borrar/editar la pregunta
-		/*
-		 * long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
-		 * model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
-		 */
+		
 		return true;
 
 	}
