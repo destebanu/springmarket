@@ -181,10 +181,13 @@ function agregarRespuesta() {
 	var idPregunta = $(this).closest("tr") // Finds the closest row <tr>
 		.find("#idPregunta") // Gets a descendent with class="nr"
 		.val();
+
 	var obj = $(this);
 
 	// Vaciamos la respuesta al enviarla
-	$(respuesta).val('');
+	//respuesta.value = "";
+	// $(respuesta).$(this).closest("tr").find("#respuesta").val() = "";
+
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -259,6 +262,9 @@ function agregarRespuesta() {
 			// Agregamos la fila de la respuesta antes de la fila para responder
 			var lafile = $(obj).closest("tr"); // Finds the closest row <tr>; // Gets a descendent with class="nr"
 			lafile.before(filaRespuesta);
+
+			$(obj).closest("tr").find("#respuesta").val('');
+
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
@@ -372,9 +378,9 @@ function enviarRespuesta() {
 	var textoEditado = $('#respuestaEditada').val();
 
 	var obj2 = $(this).closest("tr").prev().find("#textoRespuesta");
-	
+
 	var obj3 = $(this)
-	
+
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 	$(document).ajaxSend(function(e, xhr, options) {
@@ -382,7 +388,7 @@ function enviarRespuesta() {
 	});
 
 	var datos = {
-		"idRespuesta": idRespuesta,	
+		"idRespuesta": idRespuesta,
 		"textoEditado": textoEditado
 	};
 
@@ -393,7 +399,7 @@ function enviarRespuesta() {
 		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
-			
+
 			var textotd = $(obj2);
 			//			textotd.remove();
 			//
@@ -406,16 +412,16 @@ function enviarRespuesta() {
 
 			//			var textotd = $(obj2); // Finds the closest row <tr>; // Gets a descendent with class="nr"
 			//			textotd.innerHTML = textoEditado;
-			
+
 			// Aquí estamos probando las distintas posibilidades para que la fila para editar desaparezca al actualizar la respuesta
 			//$(this).parentNode.css("display","none");
 			//$(obj3).parentNode.parentNode.css("display","none");
 			//$(filaParaEditar).css("display","none");//$(obj3).closest("tr").find("#filaParaEditar").css("display","none");
-			
+
 			//Esta fila siguiente SÍ funciona si se crea la respuesta en ajax y se edita sin recargar
-			$("#filaParaEditar").css("display","none");
-			
-			
+			$("#filaParaEditar").remove();
+
+
 		},
 		error: function(xhr, status, error) {
 			alerta = "Código html en caso de error. Fallo enorme";
