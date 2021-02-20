@@ -72,23 +72,28 @@ public class UsuarioControlador {
 		u.setDirecfactUsuario(direcfactUsuario);
 		Usuario usuario = usuarioServicio.crearUsuario(u);
 
-		return "redirect:/usuario/userid/" + usuario.getIdUsuario();
+		return "redirect:/index";
+		//return "redirect:/usuario/userid/" + usuario.getIdUsuario();
 	}
 
 	@GetMapping("/login")
 	public String login(Model model, HttpSession session) {
-		/*Boolean error = false;
-
-		model.addAttribute("error", error);*/
+		/*
+		 * Boolean error = false;
+		 * 
+		 * model.addAttribute("error", error);
+		 */
 
 		return "login";
 	}
-	
+
 	@GetMapping("/login_error")
 	public String login_error(Model model, HttpSession session) {
-		/*Boolean error = false;
-
-		model.addAttribute("error", error);*/
+		/*
+		 * Boolean error = false;
+		 * 
+		 * model.addAttribute("error", error);
+		 */
 
 		return "login_error";
 	}
@@ -110,11 +115,13 @@ public class UsuarioControlador {
 				session.setAttribute("usuario", buscado);
 				return "redirect:/index";
 			}
-		} 
-	
-		/*Boolean error = true;
+		}
 
-		model.addAttribute("error", error);*/
+		/*
+		 * Boolean error = true;
+		 * 
+		 * model.addAttribute("error", error);
+		 */
 
 		return "login";
 
@@ -132,17 +139,23 @@ public class UsuarioControlador {
 	public String usuarioid(Model model, HttpSession session, @PathVariable("idUsuario") long idUsuario) {
 		// Se recoge el input de la búsqueda de la session y se usa el servicio para
 		// buscar en la tabla
-			Usuario resultadoURL = usuarioServicio.obtenerUsuario(idUsuario);
-			model.addAttribute("usuario", resultadoURL);
-			long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
-			model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+		Usuario resultadoURL = usuarioServicio.obtenerUsuario(idUsuario);
+		model.addAttribute("usuario", resultadoURL);
+		
+		long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+		model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+		
+//		if (session != null) {
+//			long idUsuarioSESSION = (long) session.getAttribute("idUsuario");
+//			model.addAttribute("idUsuarioSESSION", idUsuarioSESSION);
+//		}
 
-			// Recogemos las compras del usuario
-			List<Compra> compras = compraServicio.buscarUsuario(resultadoURL);
-			session.setAttribute("compras", compras);
-			model.addAttribute("compras", compras);
+		// Recogemos las compras del usuario
+		List<Compra> compras = compraServicio.buscarUsuario(resultadoURL);
+		session.setAttribute("compras", compras);
+		model.addAttribute("compras", compras);
 
-			return "userid";
+		return "userid";
 	}
 
 }
