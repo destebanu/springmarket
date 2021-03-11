@@ -8,14 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.strikethenote.springmarket.dao.UsuarioDao;
 import com.strikethenote.springmarket.dao.RolRepository;
+import com.strikethenote.springmarket.dao.UsuarioDao;
 import com.strikethenote.springmarket.entidades.Rol;
 import com.strikethenote.springmarket.entidades.Usuario;
 
 @Transactional
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
+
+	
+	
+	public UsuarioServicioImpl() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public UsuarioServicioImpl(UsuarioDao usuarioDao, RolRepository rolRepository,
+			BCryptPasswordEncoder bCryptPasswordEncoder) {
+		super();
+		this.usuarioDao = usuarioDao;
+		this.rolRepository = rolRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
+
+
 
 	@Autowired
 	private UsuarioDao usuarioDao;
