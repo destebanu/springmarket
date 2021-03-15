@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.strikethenote.springmarket.servicios","c":"PreguntaServicioImplTest","l":"PreguntaServicioImplTest()","url":"%3Cinit%3E()"}]

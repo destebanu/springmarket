@@ -24,6 +24,27 @@ public class PreguntaServicioImpl implements PreguntaServicio {
 
 	@Autowired
 	private UsuarioServicio usuarioServicio;
+	
+
+	public PreguntaServicioImpl() {
+		super();
+	}
+	
+
+	public PreguntaServicioImpl(PreguntaRepository preguntaRepository) {
+		super();
+		this.preguntaRepository = preguntaRepository;
+	}
+
+
+	public PreguntaServicioImpl(PreguntaRepository preguntaRepository, ProductoServicio productoServicio,
+			UsuarioServicio usuarioServicio) {
+		super();
+		this.preguntaRepository = preguntaRepository;
+		this.productoServicio = productoServicio;
+		this.usuarioServicio = usuarioServicio;
+	}
+
 
 	@Override
 	public PreguntaDTO crearGuardarPregunta(String pregunta, long idUsuario, long idProducto) {

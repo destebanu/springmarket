@@ -1,7 +1,10 @@
-package com.strikethenote.springmarket.controladores;
+package com.strikethenote.springmarket.servicios;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +25,7 @@ public class UsuarioServicioImplTest {
 	UsuarioDao usuariodao = Mockito.mock(UsuarioDao.class);
 	RolRepository rolrepository = Mockito.mock(RolRepository.class);
 	BCryptPasswordEncoder bCryptPasswordEncoder = Mockito.mock(BCryptPasswordEncoder.class);
-
+	
 	@Autowired
 	UsuarioServicio usuarioServicio = new UsuarioServicioImpl(usuariodao, rolrepository, bCryptPasswordEncoder);
 
@@ -32,7 +35,8 @@ public class UsuarioServicioImplTest {
 		Rol r1 = new Rol();
 		r1.setIdRol(2);
 		r1.setNombreRol("Mariliendres");
-		r1.setUsuarios(null);
+		Set<Usuario> usuarios = new HashSet<Usuario>();
+		r1.setUsuarios(usuarios);
 
 		Usuario u1 = new Usuario();
 		u1.setIdUsuario(1L);
@@ -46,15 +50,20 @@ public class UsuarioServicioImplTest {
 		u1.setTitularUsuario("La Lola");
 		u1.setNumtarjetaUsuario("XXXXXX");
 		u1.setCompras(null);
-		u1.setRoles(null);
+		Set<Rol> roles = new HashSet<Rol>();		
+		u1.setRoles(roles);
 		u1.anadirRol(r1);
 
 		List<Usuario> usuariosTesters = new ArrayList<Usuario>();
 
 		usuariosTesters.add(u1);
 
+		Mockito.when(usuarioServicio.obtenerUsuario(1L)).thenReturn(u1);
+		Mockito.when(usuarioServicio.listarUsuarios()).thenReturn(usuariosTesters);
+		
 	}
 
+	// ¡Este funciona!
 	@Test
 	void obtenerUsuarioTest() {
 		Usuario t1 = usuarioServicio.obtenerUsuario(1L);
@@ -64,6 +73,7 @@ public class UsuarioServicioImplTest {
 
 	}
 
+	// ¡Este funciona!
 	@Test
 	void listarUsuariosTest() {
 		Iterable<Usuario> iterResultado = usuarioServicio.listarUsuarios();
