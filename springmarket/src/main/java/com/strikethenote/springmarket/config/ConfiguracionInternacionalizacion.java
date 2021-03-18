@@ -11,30 +11,34 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-public class ConfiguracionInternacionalizacion implements WebMvcConfigurer {
+// Esta configuración está recogida en la clase de configuración SpringMarketApplication
+public class ConfiguracionInternacionalizacion{
+//	implements WebMvcConfigurer {
+//}
 
 	// Nuestra aplicación está preparada para que cambie el idioma siempre que venga en una petición
 	// el parámetro idioma o el nombre que le hayamos dado en el interceptor.
-	
-	@Bean
-	public LocaleResolver localeResolver() {
-		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-		// El idioma por defecto es el español
-		localeResolver.setDefaultLocale(Locale.getDefault());
-		return localeResolver;
-	}
-	
-	@Bean
-	  public LocaleChangeInterceptor localeChangeInterceptor() {
-	    LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor();
-	    localeInterceptor.setIgnoreInvalidLocale(true);
-	    localeInterceptor.setParamName("lang");
-	    return localeInterceptor;
-	  }
-
-	  @Override
-	  public void addInterceptors(InterceptorRegistry registry) {
-	    registry.addInterceptor(localeChangeInterceptor());
-	  }
+//	
+//	@Bean
+//	public LocaleResolver localeResolver() {
+//		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+//		// El idioma por defecto es el español
+//		Locale espanol = new Locale("es", "ES");
+//		localeResolver.setDefaultLocale(espanol);
+//		return localeResolver;
+//	}
+//	
+//	@Bean
+//	  public LocaleChangeInterceptor localeChangeInterceptor() {
+//	    LocaleChangeInterceptor localeInterceptor = new LocaleChangeInterceptor();
+//	    localeInterceptor.setIgnoreInvalidLocale(true);
+//	    localeInterceptor.setParamName("lang");
+//	    return localeInterceptor;
+//	  }
+//
+//	  @Override
+//	  public void addInterceptors(InterceptorRegistry registry) {
+//	    registry.addInterceptor(localeChangeInterceptor());
+//	  }
 
 }

@@ -6,12 +6,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-@Configuration
+//@Configuration
 public class ConfiguracionValidador {
-//
-//	@Autowired
-//	MessageSource messageSource;
-//
+
+	@Autowired
+	MessageSource messageSource;
+
 //	@Bean
 //	public LocalValidatorFactoryBean getValidator() {
 //		LocalValidatorFactoryBean validatorFactory = new LocalValidatorFactoryBean();
