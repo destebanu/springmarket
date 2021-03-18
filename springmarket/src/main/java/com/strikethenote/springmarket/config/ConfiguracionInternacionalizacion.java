@@ -19,6 +19,7 @@ public class ConfiguracionInternacionalizacion implements WebMvcConfigurer {
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+		// El idioma por defecto es el español
 		localeResolver.setDefaultLocale(Locale.getDefault());
 		return localeResolver;
 	}
